@@ -56,78 +56,118 @@ Flow-line, Buffer allocation, Markov model, Genetic algorithms, Local optima.
 
 \section{Introduction}
 
-When designing production systems such as automatic lines, flexible
- production systems or automated
- assembly lines in which parts are moved from one machine to another
- another with the help of some transport mechanism, the following problem arises.
+Buffer  capacity  allocation  problems  arise  in  a  wide  range  of  manufacturing  systems, 
+such  as  transfer  lines,  flexible  manufacturing  or  robotic  assembly  systems  which  are 
+flow lines. Buffers separate any two consecutive machines. The parts are accumulated in
+a buffer when the machines downstream are less productive than machines upstream. 
+Assume that machines can breakdown. When a breakdown occurs, the corresponding 
+machine is not used in production for a random repair time which is independent on the 
+number of failed machines. It is assumed that there is a sufficient number of raw parts at 
+the input of the system and these parts are always available. The completed parts depart 
+from the system immediately. The performance of the flow-line is measured in terms of 
+the average production rate, i.e., the steady state average number of parts produced per 
+unit of time.
 
-Software Defined Networks attempt to centralize communication network intelligence in one network node (Control Center) by separating the forwarding process of data packets from the routing process, which is performed in the Control Center.
-In this paper, we aim at packets routing in prospective Software Defined Satellite Networks~(SDSN) (see e.g.~\cite{SXM18,TZYFW14}) that
-provide world-wide telecommunication services. Such
-network consists of satellites and ground stations (or base stations) which provide the gates to Internet and communication with satellites. One of the ground stations is the Network Operations
-Control Center~(NOCC). The packet routes for each
-source-destination pair~$(s_i,t_i),$ are computed at NOCC in
-real time and each node (satellite or ground station) regularly
-receives the updated routs for all packets that originate in this
-node. Each packet sent from $s_i$ to $t_i$ contains some content
-data and a path of the packet route from $s_i$ to $t_i.$ An upper
-bound~$L$ on the number of edges in packet paths is imposed due to
-a technical limitation on the number of bits reserved for
-encoding a packet route. Short packet paths also tend to have low
-delay. For simplicity we assume that each problem
-instance describes the system in a single time-frame and all
-demands for the time-frame are known in advance.
-%and there is enough time to distribute the
-%packet routing data computed at NOCC to all source nodes by the
-%beginning of the time-frame.
+In the literature, there are two types of publications. The first concerns only evaluation 
+of the line performance for a given size of buffers. In the second, the buffer sizes are 
+optimized. For example, (Dallery and Gershwin, 1992), (Gershwin, 1993), (Heavey et 
+al., 1993), (Meerkov and Li, 2008), and (Tan and Gershwin, 2009) proposed models to 
+evaluate the performance of lines with unreliable machines and fixed sizes of buffers. 
+Markov models and aggregation or decomposition techniques are often used to calculate 
+steady state throughput or other performance indicators for these lines provided that the 
+buffer  capacities  are  given.  Based  on  these  models  for  performance  analysis,  in,  e.g., 
+(Smith  and  Daskalaki,  1988),  (So,  1997),  (Gershwin  and  Schor,  2000),  and  (Shi  and 
+Gershwin,  2009),  the  optimization  for  buffer  capacity  allocation  was  considered  with 
+respect to diverse optimality criteria and for different types of lines.
 
-%The graphs modelling the SDSN were constructed with different
-%trade-off between the model accuracy and the size of~$G$. Networks
-%of these instances contain vertices of low degree (from~2 to~7),
-%corresponding to satellites and dummy nodes, and vertices with
-%high degree (near to~$n/3$), corresponding to Internet gates at
-%ground stations. 
+\subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
 
-In this paper, the packet routing problem in software defined network is formulated (in what follows, we call it ``packet routing problem'' for short) and a greedy algorithm is proposed for its approximate solution.
-An alternative approach to approximate solving this problem by means of reduction to a special case of 
-fractional length-bounded maximum multicommodity flow is suggested. Experimental comparison of the greedy algorithm 
-and a fully polynomial-time approximation scheme~(FPTAS) for 
-fractional length-bounded maximum multicommodity flow is carried out on the testing instances,
-representing prospective SDSN.
+In the present paper, we assume that a machine can be in an operational state or under 
+repair. An operational machine may be blocked and temporarily stopped in case if there 
+is  no  room  in  the  downstream  buffer.  It  may  also  be  starved  if  there  are  no  parts  to 
+process  in  the  upstream  buffer. Otherwise operational machines are working. In what 
+follows, m denotes the number of machines in a production line. A working machine $i$, 
+$i=1,…,m$, is assumed to have a constant cycle time $C_i$ and, then, the average production 
+rate $u_i=1/C_i$. 
 
-\subsection{The Packet Routing Problem Formulation} \label{routing_formulation}
+It is supposed that machines break down only when they are working. The times to fail 
+and  times  to  repair  for  each  machine  are  assumed  to  be  mutually  independent  and 
+exponentially distributed random values. Let $T_b^i$ denote the average time to fail, and let 
+$\lambda_i=1/T_b^i$ be the failure rate for working machine $i$, $i=1,…,m$. Similarly, let $T_r^i$ and $\mu_i=1/T_r^i$  
+denote  respectively  the  time  to  repair  and  the repair rate for machine $i$. Under the 
+above  mentioned  assumptions  the  system  has  the  steady  state  mode  (see  e.g. 
+(Sevast'yanov,  1962)),  and  performance  of  the  system  in  this  state  is  important  for 
+applications.
 
-The packet routing problem has the follwoing input data:
+Let the buffers in the system be denoted by $B_1,…,B_N$ and let $h_j$ be the capacity of buffer 
+$B_j$,  which  is  to  be  decided.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_N )\in  Z_+^N$,  where  $Z_+$  is  the  set  of  non-negative  integers.  The  most  commonly  used 
+optimization criteria are:  
 \begin{itemize}
- \item $G = (V,E)$ is a digraph of inter-satellite and satellite-ground connections, $|V|=n, \ |E|=m$, where $E$ is the set of arcs, $V$ is the set of all satellites and ground stations in the system. 
- \item $u(e)\ge 0$ are the bandwidths of links (arcs).
- \item $N$ is the total number of user-to-user sessions.
-% \item The set of all sessions,
- \item The sessions are represented as triples $(A_i,B_i,W_i), \ i=1,\dots,N$ where
-$A_i, B_i \in V$ is the source-destionation pair of nodes, $W_i$ is the data traffic per time unit along this session. A real-life user-to-user session is considered here as session between the nodes (sattelites or a ground stations) to which the pair of users is currently 
-connected. 
-\item $L_{\max}$ is an upper bound on the number of edges in packet paths 
-%is imposed due to a natural technical limitation on the number
-%of bits reserved for encoding a packet route.
- \item $\tau(e)$ is the integer-valued delay while transmitting data along the link $e\in E$.
- \end{itemize}
+\item Average production rate (steady state throughput) $V(H)$; 
+\item Total buffer capacity $B(H)=h_1+h_2+…+h_N$ or buffer cost $C(H)$ linear in $H$;  
+\item Average steady state inventory cost $Q(H)= c_1q_1(H)+ …+c_N q_N(H)$, where $q_j(H)$ is the average steady state number of parts in buffer $B_j$, for $j=1,…,N$. 
+\end{itemize}
 
-It is required  to find routes in graph~$G$ for the maximum possible number of sessions, 
-so that each session is mapped to no more than one route,
-taking into account the restriction on the maximum number of arcs in the path and  that for each arc~$e\in E$ the total amount of transfered
-information on all routes passing through~$e$ should  not exceed its bandwidth~$u(e)$.
-As a secondary criterion, the maximum delay among all routed sessions may be considered.
+Let us introduce the following additional notation: 
+\begin{itemize}
+\item $T_{am}$  amortization time of the line (line life); 
+\item $R(V)$  revenue related to the production rate $V$; 
+\item $J(H)$ cost of buffer configuration H; 
+\item $d_j$ maximal admissible capacity of buffer $B_j$, $j=1,…,N$.  
+\end{itemize}
+
+$R(V)$ and $J(H)$ are assumed to be given monotone non-decreasing real-valued functions. 
+The cost function $J(H)$ may be non-linear to model some standard buffer capacities or 
+penalize  solutions  where  the  total  capacity  of  the  buffers  exceeds  an  upper  bound. A 
+non-linear revenue function $R(V)$ can model the law of diminishing returns, for example, 
+it  can  reflect  the  effect  of  overproduction  by  switching  from  strictly  increasing  to 
+constant at a certain threshold. A stepwise revenue function can be used to model zero 
+revenue  in  case  of  an  unacceptably  low  average  production  rate  (see  e.g.  Section  3). 
+Consider the following criterion: 
+  $\max \phi(H)=T_{am} R(V(H)) - J(H)$.   (1) 
+Function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_N \leq d_N$.
+
+The performance of this transfer line is measured in terms of production rate, i.e. the 
+steady state average number of parts produced per unit time. For the evaluation of this
+parameter, different types of Markov models have been considered in literature (see e.g. 
+Dallery and Gershwin, 1992; Papadopoulos and Heavey, 1996). 
+ 
+In general, the production rate with finite buffers is difficult to analyze precisely with 
+the Markov models. Exact performance computation of a production rate of a line with 
+more than two machines and one buffer is problematic due to exponential growth of the 
+number of states. Therefore, most of the techniques employed for the analysis of such 
+systems are in the form of analytic approximations and simulations. Analytical 
+approximations are generally based on the two-machines-one-buffer Markov models, 
+and either aggregation (De Koster, 1987) or decomposition approach (Dallery et al., 
+1989; Gershwin, 1987; Li, 2005). Simulation models are more expensive 
+computationally but applicable to a wider class of systems (Dolgui and Svirin, 1995; 
+Srensen and Janssens, 2004). 
+ 
+In this paper, we use two-machines-one-buffer Markov model independently developed 
+by Levin $\&$ Pasjko (1969), Dubois $\&$ Forestier (1982), and Coillard $\&$ Proth (1984). For 
+each tentative buffer allocation decision, the production rate is evaluated via an 
+aggregation algorithm (Dolgui, 1993; Dolgui and Svirin, 1995), which is similar to the 
+Terracol and David (1987) techniques. This aggregation approach appears to be 
+sufficiently rapid for evaluation of tentative buffer allocations within the optimization 
+algorithms.  
+ 
+The aggregation algorithm for production rate evaluation consists in recurrent 
+replacement of two adjacent machines by a single machine. The parameters $\lambda^*$, $\mu^*$, $c^*$ of 
+the resulting single machine are calculated from differential equations corresponding to
+the two-machines-one-buffer Markov model. After $N$ steps of such aggregation 
+procedure the system reduces to one virtual machine with parameters $\lambda^*$, $\mu^*$, $c^*$ and the 
+estimate of the overall production rate $V(H)$ is given by $c^*\mu^/(\lambda^*+\mu^)$
 
 
- The problem formulation with an upper bound on the
-secondary criterion would be NP-hard, which follows from
-the NP~hardness of the fractional length-bounded maximum
-multicommodity flow problem~\cite{Baier03}, see more details
-in Section~\ref{formulation} below. In practice, the problem has to be
-solved fast in real time,  this is why the packet routing problem is defined with maximization of the main criterion only.
-The secondary criterion in what follows will be
-taken into account optionally, ony when developing
-heuristics.
+In our previous work, we proposed several metaheuristics (Dolgui et al., 2002; 2007) for 
+some problems of this type. In these metaheuristics, we used a two-machine one-buffer 
+Markov  model  (Levin  $\&$  Pasjko,  1969;  Dubois  $\&$  Forestier,  1982;  Coillard  $\&$  Proth, 
+1984;  and  Dolgui,  1993)  -  see  some  elements  necessary  here  in  Appendix  -  and  an 
+aggregation algorithm (Dolgui, 1993; Dolgui and Svirin, 1995), which is similar to the 
+Terracol and David (1987) techniques to evaluate the average production rate of each 
+tentative buffer allocation decision for the more general case of series-parallel lines with 
+more than two machines. This aggregation approach appears to be sufficiently rapid for 
+the evaluation of tentative buffer allocations within the optimization algorithms. 
 
 \subsection{Contribution of the Paper}
 Our main contribution consists in formulation of the

@@ -1,0 +1,37 @@
+Experimental location studies
+local optima in the solution space of the optimization problem
+indicate that in many problems there is a high
+concentration of local optima in the immediate
+proximity to the global optimum~\cite{Reev}. This observation is known as
+the thesis about the existence of a <<big valley>> for minimization problems
+or <<central array>> for tasks to the maximum. Distance to global optimum
+in our case, we will calculate in the metric $l_1$.
+
+This thesis partly explains the performance of genetic
+algorithms. If local optima are collected in the population and
+the next solution is chosen somewhere between two arbitrary
+local optima, then such a process has many chances to find
+global optimum. In this regard, verification and theoretical
+substantiation of this hypothesis is of undoubted interest.
+
+In order to test this thesis, the paper proposes a method
+finding the number of integer points in the intersection
+ball of a given radius in the $l_1$ metric with a parallelepiped,
+having faces parallel to the coordinate planes. The
+the method was obtained by reducing the problem to a combinatorial one
+formulation already considered earlier for the case of non-negative
+integer points, using
+generating functions~\cite{Sach}. In the present work, a generalization
+the specified result to the conditions we need.
+
+
+A series of experiments were carried out on existing tasks for
+determination of the structure of local optima. With a one-time
+running the local lifting algorithm LSA solution $H$ whose elements $h_i$ are chosen with
+uniform distribution between 1 and $d_i$ improved to a local optimum.
+This procedure was repeated 300 times to create the necessary
+sample size~\cite{Bose}. Based on the results obtained, it was calculated
+the number of admissible solutions $\mid \Omega \mid$ in balls containing all found
+local optima. In this case, the distance from
+best found local optimum to the worst, and beyond the center -
+the best local optimum found. 

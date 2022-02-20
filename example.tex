@@ -227,6 +227,135 @@ all traffic between each source and destionation nodes into
 one {\em demand} and distribute it optionally between a certain
 number of paths, connectiong the two nodes.
 
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\hspace*{1.5mm}№\hspace*{0.1mm} &
+		\hspace*{1.5cm}$V1$\hspace*{0.1cm}&
+		\hspace*{1.5cm}$V2$\hspace*{0.1cm}&
+		\hspace*{0.5cm}$V1/V2$\hspace*{0.1cm}\\
+		\hline
+		1 &  2,84E+05  &  5,74E+05 &   0,49\\
+		2 &  8,88E+11  &  9,48E+11 &   0,94\\
+		3 &  8,60E+01  &  4,85E+03 &   0,02\\
+		4 &  2,34E+22  &  2,89E+22 &   0,81\\
+		5 &  4,17E+07  &  9,75E+07 &   0,43\\
+		6 &  1,00E+00  &  5,23E+08 &   0,00\\
+		\hline
+	\end{tabular}
+	%\vspace{1em}
+	\caption{Results of running a local search multiple times for a series as.1 - as.6}	\label{spher_as}
+\end{table}
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\hspace*{1.5mm}№\hspace*{0.1mm} &
+		\hspace*{1.5cm}$V1$\hspace*{0.1cm}&
+		\hspace*{1.5cm}$V2$\hspace*{0.1cm}&
+		\hspace*{0.5cm}$V1/V2$\hspace*{0.1cm}\\
+		\hline
+		9  & 7,97E+03  &  1,00E+04  &  0,80\\
+		10 & 7,55E+03  &  1,46E+04  &  0,52\\
+		\hline
+	\end{tabular}
+	%\vspace{1em}
+	\caption{Results of running a local search multiple times for a series vp6.9 - vp6.10}	\label{spher_vp6}
+\end{table}
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\hspace*{1.5mm}№\hspace*{0.1mm} &
+		\hspace*{1.5cm}$V1$\hspace*{0.1cm}&
+		\hspace*{1.5cm}$V2$\hspace*{0.1cm}&
+		\hspace*{0.5cm}$V1/V2$\hspace*{0.5cm}\\
+		\hline
+		9  & 6,50E+03  &  1,00E+04  &  0,65\\
+		10 & 9,95E+03  &  1,46E+04  &  0,68\\
+		\hline
+	\end{tabular}
+	%\vspace{1em}
+	\caption{Results of running a local search multiple times for a series vp7.9 - vp7.10}	\label{spher_vp7}
+\end{table}
+\begin{table}[h!]
+	\vspace{1cm}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\hspace*{1.5mm}№\hspace*{1.5mm} &
+		\hspace*{1.5cm}$V1$\hspace*{1.5cm}&
+		\hspace*{1.5cm}$V2$\hspace*{1.5cm}&
+		\hspace*{0.5cm}$V1/V2$\hspace*{0.5cm}\\
+		\hline
+		1 &  1,44E+05  &  1,94E+05  &  0,74\\
+		2 &  9,96E+03  &  1,94E+05  &  0,05\\
+		3 &  9,07E+04  &  1,94E+05  &  0,47\\
+		4 &  2,06E+04  &  1,94E+05  &  0,11\\
+		5 &  6,95E+04  &  1,94E+05  &  0,36\\
+		6 &  6,94E+04  &  1,94E+05  &  0,36\\
+		7 &  2,45E+04  &  1,94E+05  &  0,13\\
+		8 &  3,42E+03  &  1,94E+05  &  0,02\\
+		9 &  6,28E+04  &  1,94E+05  &  0,32\\
+		10&  1,00E+00  &  1,94E+05  &  0,00\\
+		\hline
+	\end{tabular}
+	\vspace{1em}
+	\caption{Results of running a local search multiple times for a series bn5.1 - bn5.10}	\label{spher_bn}
+\end{table}
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		%\hspace*{2mm} № \hspace*{2mm} & \hspace*{5.1cm} $\rho(r(\xi, \xi*),\varphi(\xi))$\hspace*{5.1cm}\\
+		\hspace*{2mm} № \hspace*{2mm} & \hspace*{1cm} $\rho(r(\xi, \xi*),\varphi(\xi))$\hspace*{1cm}\\
+		\hline
+		\multicolumn{2}{|c|}{Series as.1 - as.5}\\
+		\hline
+		1  & -0,87078206\\
+		2  & -0,437208613\\
+		7  & -0,547348483\\
+		8  & -0,943725905\\
+		\hline
+		\multicolumn{2}{|c|}{Series vp6.9 - bn6.10}\\
+		\hline
+		9  & -0,833583818\\
+		10 & -0,778237651\\
+		\hline	
+	\end{tabular}
+	\vspace{1em}
+	\caption{Results of running a local search multiple times for a series $as$ and $vp6$}	\label{res_korr_as_vp}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\hspace*{2mm} № \hspace*{2mm} & \hspace*{1cm} $\rho(r(\xi, \xi*),\varphi(\xi))$\hspace*{1cm}\\
+		\hline
+		\multicolumn{2}{|c|}{Series bn5.1 - bn5.9}\\
+		\hline
+		1  & -0,706451573\\
+		2  & -0,872602935\\
+		3  & -0,914939714\\
+		4  & -0,999969666\\
+		5  & -0,972555479\\
+		6  & -0,729655068\\
+		7  & -0,973827419\\
+		8  & -0,846807033\\
+		9  & -0,884916669\\
+		\hline
+		\multicolumn{2}{|c|}{Series vp7.9 - bn7.10}\\
+		\hline
+		9  & -0,907792301\\
+		10 & -0,889724863\\		
+		\hline		
+	\end{tabular}
+	\vspace{1em}
+	\caption{Correlation results for series $bn$ and $vp7$}	\label{res_korr_bn_vp}
+\end{table}
+
 Problem input data:
 
 \begin{itemize}

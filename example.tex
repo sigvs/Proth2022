@@ -14,7 +14,7 @@
 \begin{document}
 \begin{frontmatter}
 
-\title{Experimental Evaluation of Algorithms for Packet Routing in Software Defined Network\thanksref{footnoteinfo}} 
+\title{Investigation of Local Optimums Properties in Buffer Allocation Problem\thanksref{footnoteinfo}} 
 % Title, preferably not more than 10 words.
 
 \thanks[footnoteinfo]{The research is supported by Russian Science Foundation  grant~21-41-09017.}
@@ -23,10 +23,9 @@
 \author[Second]{Anton Eremeev} 
 \author[Third]{Viatcheslav Sigaev}
 
-\address[First]{Sobolev Institute of Mathematics SB RAS, Novosibirsk, Russia 
-(e-mail: eremeev@ofim.oscsbras.ru).}
-\address[Second]{Yaliny Research and Development Center,  Moscow, Russia }
-\address[Third]{Yaliny Research and Development Center,  Moscow, Russia }
+\address[First]{IMT Atlantique, Nantes, France}
+\address[Second]{Sobolev Institute of Mathematics SB RAS, Novosibirsk, Russia (e-mail: eremeev@ofim.oscsbras.ru).}
+\address[Third]{Avtomatika-Servis LLC, Omsk, Russia (e-mail: sigvs@yandex.ru).}
 
 
 \begin{abstract}                % Abstract of not more than 250 words.
@@ -82,7 +81,15 @@ respect to diverse optimality criteria and for different types of lines.
 
 \subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
 
-In the present paper, we assume that a machine can be in an operational state or under 
+In the present paper, we consider buffer allocation problem for line with a series-parallel structure, as shown in Fig. ~\ref{lineexample}, where the arrows are machines and the circles are buffers.
+
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.9]{LineSchems}
+  \caption{Example of a line with a series-parallel structure\label{lineexample}}
+  \end{figure}
+
+We assume that a machine can be in an operational state or under 
 repair. An operational machine may be blocked and temporarily stopped in case if there 
 is  no  room  in  the  downstream  buffer.  It  may  also  be  starved  if  there  are  no  parts  to 
 process  in  the  upstream  buffer. Otherwise operational machines are working. In what 
@@ -100,22 +107,24 @@ above  mentioned  assumptions  the  system  has  the  steady  state  mode  (see 
 applications.
 
 Let the buffers in the system be denoted by $B_1,…,B_N$ and let $h_j$ be the capacity of buffer 
-$B_j$,  which  is  to  be  decided.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_N )\in  Z_+^N$,  where  $Z_+$  is  the  set  of  non-negative  integers.  The  most  commonly  used 
-optimization criteria are:  
-\begin{itemize}
-\item Average production rate (steady state throughput) $V(H)$; 
-\item Total buffer capacity $B(H)=h_1+h_2+…+h_N$ or buffer cost $C(H)$ linear in $H$;  
-\item Average steady state inventory cost $Q(H)= c_1q_1(H)+ …+c_N q_N(H)$, where $q_j(H)$ is the average steady state number of parts in buffer $B_j$, for $j=1,…,N$. 
-\end{itemize}
+$B_j$,  which  is  to  be  decided.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_N )\in  Z_+^N$,  where  $Z_+$  is  the  set  of  non-negative  integers.  
 
-Let us introduce the following additional notation: 
+Optimization criteria that was used is:
+\begin{equation}
+\label{criteria}
+\max \phi(H)=T_{am} R(V(H)) - Q(H) - J(H),
+\end{equation}
+where 
 \begin{itemize}
 \item $T_{am}$  amortization time of the line (line life); 
+\item $V(H)$  average production rate (steady state throughput); 
 \item $R(V)$  revenue related to the production rate $V$; 
 \item $J(H)$ cost of buffer configuration H; 
-\item $d_j$ maximal admissible capacity of buffer $B_j$, $j=1,…,N$.  
+\item $d_j$ maximal admissible capacity of buffer $B_j$, $j=1,…,N$;
+\item $Q(H)= c_1q_1(H)+ …+c_N q_N(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $B_j$, for $j=1,…,N$.
 \end{itemize}
 
+Function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_N \leq d_N$.
 $R(V)$ and $J(H)$ are assumed to be given monotone non-decreasing real-valued functions. 
 The cost function $J(H)$ may be non-linear to model some standard buffer capacities or 
 penalize  solutions  where  the  total  capacity  of  the  buffers  exceeds  an  upper  bound. A 
@@ -123,9 +132,6 @@ non-linear revenue function $R(V)$ can model the law of diminishing returns, for
 it  can  reflect  the  effect  of  overproduction  by  switching  from  strictly  increasing  to 
 constant at a certain threshold. A stepwise revenue function can be used to model zero 
 revenue  in  case  of  an  unacceptably  low  average  production  rate  (see  e.g.  Section  3). 
-Consider the following criterion: 
-  $\max \phi(H)=T_{am} R(V(H)) - J(H)$.   (1) 
-Function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_N \leq d_N$.
 
 The performance of this transfer line is measured in terms of production rate, i.e. the 
 steady state average number of parts produced per unit time. For the evaluation of this

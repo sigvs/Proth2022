@@ -7,6 +7,7 @@
 %\usepackage[cp1251]{inputenc}
 %\usepackage[russian]{babel}
 \usepackage{graphicx}      % include this line if your document contains figures
+\usepackage{tikz}
 \usepackage{natbib}        % required for bibliography
 %\usepackage[ifacconf}
 
@@ -190,48 +191,57 @@ considered in~\cite{BEHTV19}.
 
 \section{Investigation of Local Optimums Properties} \label{investigation}
 
-The main idea of the greedy algorithm is to sequentially
-assign sessions to the shortest delay routes between the
-sender node and the receiver node. Once a new
-session~$(A_i,B_i,W_i)$ is assigned, the throughputs of edges on
-a shortest path from~$A_i$ to $B_i$ are decreased by~$W_i$.
-When the capacity of an edge is exhausted, this edge is
-removed from further consideration. To find the shortest paths
-between all pairs of vertices, one can use one of the well-known algorithms,
-e.g. the  Dijkstra's, the Floyd-Warshall (see, e.g.,~\cite{CLRC01}) or the Bellman-Ford algorithm.
-Since the set of shortest paths is computed at most~$m$ times, the time complexity
-of the greedy algorithm is~$O(m^2\log n)$ if the Dijkstra algorithm
-with heaps is used. The Bellman-Ford algorithm may be easily truncated so that the returned set of paths consists 
-has at most $L_{\max}$ edges in each path. In such a case the time 
-complexity of the greedy algorithm is~$O(m^2 L_{\max})$.
+Experimental location studies
+local optima in the solution space of the optimization problem
+indicate that in many problems there is a high
+concentration of local optima in the immediate
+proximity to the global optimum~\cite{Reev}. This observation is known as
+the thesis about the existence of a <<big valley>> for minimization problems
+or <<central array>> for tasks to the maximum. Distance to global optimum
+in our case, we will calculate in the metric $l_1$.
 
-The sequence of sessions assignment is in the descending order of
-delay along the shortest path from~$A_i$ to $B_i$. This rule is chosen
-in order to reduce the maximum delay and
-fulfill the restriction on the maximum number of arcs in
-path~$L_{\max}$, because sessions with the greatest delay on the shortest
-paths would most likely violate the~$L_{\max}$ constraint.
-It is these sessions that are routed first when there is
-a relatively large margin of arc capacity.
+\noindent The formulation of this thesis can be divided into two parts:
+\begin{enumerate}
+\item Local optima are located relatively close both to each other and to the global optimum.\newline
+\item Values of the objective function of local optima tend to deteriorate with increasing distance to the global optimum.
+\end{enumerate}
 
-The greedy algorithm does not have a guarantee of accuracy and the resulting set of
-routes may violate the limit on the maximum number of arcs in a path~$L_{\max}$, unless the Bellman-Ford algorithm is used in it.
-However, as the computational experiment in
-section~\ref{subsec:exp} will show, in practice it has
-competitive results in terms of the quality of solutions and has a small
-running time.
+This thesis partly explains the performance of genetic
+algorithms. If local optima are collected in the population and
+the next solution is chosen somewhere between two arbitrary
+local optima, then such a process has many chances to find
+global optimum. In this regard, verification and theoretical
+substantiation of this hypothesis is of undoubted interest.
 
-\section{Relaxed Packet Routing Problem} \label{formulation}
+In order to test this thesis, the paper proposes a method
+finding the number of integer points in the intersection
+ball of a given radius in the $l_1$ metric with a parallelepiped,
+having faces parallel to the coordinate planes. The
+the method was obtained by reducing the problem to a combinatorial one
+formulation already considered earlier for the case of non-negative
+integer points, using
+generating functions~\cite{Sach}. In the present work, a generalization
+the specified result to the conditions we need.
 
-This section contains the statement of the relaxed routing problem, which is
-simplified version of the original problem, as well as a description of the approximate
-algorithm for solving it with any a-priori given accuracy. The relaxation of the original packet routing problem consists in
-skipping the requirement that the whole traffic $W_i$ of each
-session~$i$ has to be routed via a single path. This implies
-that instead of considering specific sessions we can group
-all traffic between each source and destionation nodes into
-one {\em demand} and distribute it optionally between a certain
-number of paths, connectiong the two nodes.
+A series of experiments were carried out on existing tasks for
+determination of the structure of local optima. With a one-time
+running the local lifting algorithm LSA solution $H$ whose elements $h_i$ are chosen with
+uniform distribution between 1 and $d_i$ improved to a local optimum.
+This procedure was repeated 300 times to create the necessary
+sample size~\cite{Bose}. Based on the results obtained, it was calculated
+the number of admissible solutions $\mid \Omega \mid$ in balls containing all found
+local optima. In this case, the distance from
+best found local optimum to the worst, and beyond the center -
+the best local optimum found.
+
+In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $\mid \Omega \mid$ for balls containing
+local
+optima, the column $V2$ contains the cardinality of the entire space
+solutions for each problem, and the column $V1/V2$ is their ratio.
+As can be seen from the tables, the first part of the thesis about the existence of a <<central mountain range>>, that
+local optima are located relatively close both to each other and to the global optimum,
+in our case, it was not performed and mainly in the tasks used
+the optima are strongly scattered throughout the solution space.
 
 \begin{table}[ht]
 	\centering
@@ -285,6 +295,13 @@ number of paths, connectiong the two nodes.
 	%\vspace{1em}
 	\caption{Results of running a local search multiple times for a series vp7.9 - vp7.10}	\label{spher_vp7}
 \end{table}
+
+Also considered was a part of the thesis about the tendency to worsen the value of the objective function of local optima
+with increasing distance to the global optimum. To do this, for all the considered problems, the correlation was determined
+$\rho(\varphi(\xi),r(\xi,\xi^*))$ objective function values
+local optima $\varphi(\xi)$ and the distance to the global optimum $r(\xi,\xi^*)$.
+As shown by experiments on the proposed problems, there is a negative correlation $\rho$, and all values
+correlations are significantly different from 0 with a confidence level of 95\% (tables~\ref{res_korr_as_vp}--\ref{res_korr_bn_vp}).
 \begin{table}[h!]
 	\vspace{1cm}
 	\centering
@@ -362,6 +379,23 @@ number of paths, connectiong the two nodes.
 	\caption{Correlation results for series $bn$ and $vp7$}	\label{res_korr_bn_vp}
 \end{table}
 
+An interesting fact is that
+that in problems as.6, bn5.1 the entire set of local optima splits
+into clusters, for each of which a part of the thesis about the tendency to
+deterioration of the value of the objective function of local optima
+with increasing distance to the global optimum.
+
+Figures~\ref{klaster_as4} and ~\ref{klaster_bn5_1} show diagrams of local optima for problems
+as.6, bn5.1, where the ordinate shows the value of the objective function of the local optimum $\varphi(H)$, and the abscissa is
+distance in metric $l_1$ to the chosen solution.
+
+The effect of clustering is especially well manifested in problems with parallel sections of the line.
+This effect can be justified by the fact that there are several different paths in lines with a parallel structure.
+from start bin to end bin. Thus, if you create two lines that are identical in graph structure,
+such that one line will have relatively large bunkers along the same path, and the other -
+otherwise, it is possible to achieve two solutions close in value to the objective function, but located on <<enough>>
+great distance from each other.
+
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[scale=0.2]{klaster_as4.png}\\
@@ -369,13 +403,27 @@ number of paths, connectiong the two nodes.
 	\end{center}
 \end{figure} 
 \begin{figure}[h!]
-	\vspace{-1cm}
 	\begin{center}
 		\includegraphics[scale=0.2]{klaster_bn5_1.png}\\
 		\caption{The structure of local optima of the problem bn5.1.} \label{klaster_bn5_1}
 	\end{center}
-	\vspace{-1cm}
 \end{figure} 
+
+Another reason for the clustering effect is the property
+line symmetry. This property is set to~\cite{LP} for a serial line,
+consisting of two EU and a bunker
+between them. If we swap the parameters of the first and second EOs so that
+that the input section of the line will become the output, and the output - the input, then
+line performance will not change.
+
+Consider the example of serial line t.1 from
+%{\frac{1}{T^{\rm O}_j} = 2U_j}, {\frac{1}{T^{\rm B}_j}= 4U_j}, {U_j = U_{j+1} }
+three HUs and two hoppers between them with the following parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
+ ${U_1=1}$, ${U_2=0.5}$ , ${U_3=1}$;
+ ${d_j=4}$, ${c_j=0}$, $j = 1,\ldots,2$;
+ $T_{am}=7000$;
+ $J(H)=50\cdot(h_1+h_2)$;
+ if $V(H) < 2570$ then $R(V(H))=0.9\cdot V(H)$, otherwise $R(V(H))=2570$.
 
  \begin{figure}[h!]
 	\centering
@@ -383,550 +431,93 @@ number of paths, connectiong the two nodes.
   \caption{Values of the objective function on the set $D$ for problem t.1\label{t_1}}
   \end{figure}
 
-Problem input data:
+The set of global optima (see Fig.~\ref{t_1}) of this example splits into two clusters. IN
+the first cluster contains solutions $H^1=(1,2)$ and $H^2=(1,3)$, and
+the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering optima in
+considered example is a consequence of the symmetry and singularities
+aggregation algorithm from~\cite{Dol} used in calculating the average
+line performance.
 
-\begin{itemize}
- \item $G = (V,E)$ is a digraph, $|V|=n, \ |E|=m$,
- \item $u(e)\ge 0$ are the bandwidths of arcs,
- \item $k$ is the number of  source-destionation pairs of nodes $(s_j, t_j)\in V^2$, $1\le j \le k$.
- \item $d_j$ is the amount of data per unit of time, requested for transmission from the node $s_j$ to the node $t_j$;
-\item $L_{\max}$ is an upper bound on the number of edges in packet paths.
- \item $\tau(e)$ is the integer-valued delay on the link $e\in E$.
- \end{itemize}
+In the general case, for lines with $n\geq 3$ bins, the effect
+symmetry can be observed in several internal areas
+lines. This leads to the fact that with this aggregation algorithm
+the set of local optima is divided into several clusters.
 
-A feasible solution is a set of paths for all $k$ source-destionation pairs with indication of real-valued
-transmission volumes for each path. Costraints:
-\begin{itemize}
-\item The sum of all transmission volumes along the paths passing through each
-arc $e\in E$ must not exceed the capacity of the arc.
-
-\item In sum, the amount of transmission over paths starting at $s_j$ and
-ending in~$t_j$ does not exceed~$d_j$.
-\end{itemize}
-
-The optimization criterion is to maximize the total amount of data transfer across all 
-source-destionation pairs. 
-%The secondary criterion is to minimize the maximum transfer delay across all data paths.
-Let us denote:
-
-\begin{itemize}
- \item $P$ is a directed path in graph~$G$,
- \item $S$ is a set of all nodes with positive amount of data, requested for transmission from that node, i.e.
-$S=\{v\in V\ : \ \exists \ j, \ s_j=v\}$,
- \item $T_v\subset V$ is the set of all nodes with positive amount of data, requested for transmission from~$v$ to that node, i.e.
-$T_v=\{v'\ : \ \exists \ j, \ s_j=v,\ t_j=v'\}$.
-\end{itemize}
-
-Let ${\mathcal P}_{j}(L)$ be the set of paths with at most  $L$ arcs, connecting the nodes $s_j$ and $t_j$. In what follows, ${\mathcal
-P}(L)=\cup_j {\mathcal P}_j(L).$ The variable $x(P)$ will be the amount of data transfer per time unit along the path~$P$. Now the relaxed routing problem may be formulated as follows:
-\begin{equation} \label{eqn:crit1}
-\max \sum_{P\in {\mathcal P}(L_{\max})} x(P),
-\end{equation}
-
-\begin{equation}\label{eqn:capas}
-\sum_{P\in {\mathcal P}(L_{\max}) : e \in P}  x(P) \le u(e), \ \ e\in
-E,
-\end{equation}
-
-\begin{equation}\label{eqn:dem}
-\sum_{P\in {\mathcal P}_j(L_{\max})}  x(P) \le d_j, \ \ j=1,\dots,k,
-\end{equation}
-
-\begin{equation}\label{eqn:pos}
-x(P) \ge 0, \ \ P\in {\mathcal P}(L_{\max}).
-\end{equation}
-
-This linear programming problem~(let us denote it by~{\bf
-P}), generally speaking, contains an exponential number of variables,
-however, it can be used to build algorithms without
-a need to process and store all of the variables. This problem is known as 
-{\em fractional length-bounded maximum multicommodity flow problem}
-where all edges have the length equal to one, see~\cite{Baier03,BEHTV19}.
-Note that the fractional length-bounded maximum multicommodity flow problem with arbitrary edge lengths is NP hard (see~\cite{Baier03}), 
-which implies that imposing a constraint on maximal communication delay would make the relaxed problem
-intractable.
-
-A modification of this problem with
-an additional constraint that the flow on all edges must be
-integer-valued is called integral length-bounded maximum multicommodity flow. The
-results from~\cite{GVY97} imply that even when there is no length
-constraint at all, this problem does not admit approximation
-algorithms with constant approximation ratio, unless P=NP. This implies intractability of the (non-relaxed) packet routing problem, even in
-the special case where all sessions $i$ require identical data traffic $W_i$.
-
-If the number of sessions in each source-destination pair~$(s_j,t_j)$ is large,
-the routing problem may be solved approximately, using a feasible solution to the relaxed problem~{\bf P}. To do this,  in case all
-sessions have equal transfer rates it suffices to solve (exactly or approximately) the relaxed version of the problem, where $d_j$ is equal to the 
-total transfer rate of sessions from vertex~$s_j$ to $t_j$ and to round down the obtained solution w.r.t. the transfer rate of a single session. If sessions have different rates, then this issue can be resolved analogously.
-
-
-
-\subsection{Fully Polynomial Time Approximation Scheme}
-\label{FPTAS}
-
-Due to the large number of variables  of the problem~{\bf P}, instead of finding
-its exact solution, one can consider the problem of finding
-approximate solution that differs in objective function from
-the optimum~$\beta$ of the~{\bf P} problem at most by a factor~$1-\omega$,
-where $\omega \in (0,1)$ is a specified parameter for the required precision.
-
-A $(1-\omega)$-approximation algorithm is an algorithm for solving a maximization problem,
- that obtains a feasible solution with the value of the objective
-function~$f_{appr}$ that differs from the optimal~$f^*$ by no more than
-$(1-\omega)$ times if the problem is solvable:
-$$
-f_{appr} \ge (1-\omega) f^*.
-$$
-Fully polynomial time approximation scheme~(FPTAS) for the maximization problem
- is a family of $(1-\omega)$-approximation algorithms for all $\omega>0$ with polynomially bounded running time
-with respect to the length of the problem input $|x|$ and w.r.t. $1/\omega$ (see,
-e.g.~\cite{GJ}).
-
-An FPTAS for the relaxed routing problem is based on
-the same principles as FPTAS of~\cite{Fleis2000} for the problem of
-maximum multi-product flow.
-Here approximate solution to the problem~{\bf P} is found via
-iterative refinement of the existing primal solution and at the same time
-an approximate solution of the dual problem is calculated and updated.
-The latter, due to the duality inequality, allows to estimate the error of the available primal
-solution on each
-iteration of the algorithm.
-
-Instead of the current dual-feasible solution in the algorithm
-it is more convenient to calculate a set of parameters $\{\ell(e)\}_{e\in E}$,
-called {\em arc lengths}, related to
-the variables of the dual problem by multiplication
-with some scaling factor~$\alpha$. The number of times the factor~$\alpha$ is updated is
-$r_{max}:=\lfloor \log_{1+\varepsilon}
- \frac{1+\varepsilon}{\delta}\rfloor$. The value of parameters~$\varepsilon, \delta>0$ will be
-defined later. In what follows, $\ell(P)$
-will denote the sum of the lengths of all arcs that make up the path~$P.$
-
-The algorithm starts with length function~$\ell(e)=\delta$ for all
-$e\in E$, and with a primal
-solution~$x(P)=0$. While there is a path
- of length less than~1, the algorithm selects
-such a path and updates the primal and the dual variables as
-follows. For the primal solution~$x$, the algorithm increases the
-flow along path~$P$ by the minimum edge capacity in the path, scaled
-down by the factor $r_{\max}$. Let
-us denote this bottleneck capacity by~$u$.
-%The primal solution is then updated by
-%setting $x(P) = x(P)+u$.
-%The updated primal solution may be infeasible, so in order to
-%return~$x$ to the feasible region, all of its components are scaled
-%down by an appropriate scalar. 
-Now the dual variables are updated
-in such a way that the higher the congestion of an edge the greater
-multiplier is given to its length:
-$$
-\ell(e) = \ell(e)\left(1 + \frac{\varepsilon u}{u(e)}\right), \
-e\in P.
-$$
-
-%As an initial approximation, we assume $x(P)\equiv0$ for
-%of all $P \in {\mathcal P}(L_{\max})$. For the initial values
-%of lengths we put $\ell(e)\equiv\delta$. The value~$\delta$ will be
-%defined below.
-
-%���������� ��������� {\bf P'} ������~{\bf P}, � ������� ������ �
-%�������� ������ $d_j$, $j=1,\dots,k$, ���������� ����������
-%��������� $\tau_{\max}$ ������ ����������� ���������� ����� ��� �
-%��������� $L_{\max}$. ��� $L_{\max}=n$ ������ {\bf P'}
-%������������ ������~{\bf P}.
-
-Note that the problem {\bf P} for $L_{\max}=\infty$ may be reduced to
-the maximum multicommodity flow problem in a new graph~$G'$,
-where for each vertex~$v\in V$ for $|T_v|>0,$ we indroduce
-$|T_v|$ dummy vertices, each of which is incident to exactly one
-arc leading from this dummy vertex to~$v$. The dummy vertices
-one-to-one correspond to the recipient vertices $t \in T_v$
-and the capacities of the arcs, connecting them to the vertex~$v$,
-are equal to $d_j,$ where $j$ is such that $s_j=v$, $t_j=t$.
-
-With this reducibility taken into account, the problem {\bf P'} may be solved with any given
-accuracy~$\omega>0$ by modifying the  algorithm from~\cite{Fleis2000}. The main differences  from the original algorithm are the following:
-\begin{itemize}
-\item The subset~$\mathcal{P}(L_{\max})$ is used instead of a set of all paths from senders to recipients.
-\item The search for the shortest paths in~${\mathcal P}_i(L_{\max})$ is done by means
-of a truncated version of the Ford-Bellman algorithm.
-\item We choose 
-$\varepsilon =\frac{3-\omega-\sqrt{(3-\omega)^2-4\omega}}{2},$
- $\delta:=\frac{1+\varepsilon}{\sqrt[\varepsilon]{(1+\varepsilon)L_{\max}}}.$
-\item Graph~$G'$ is not explicitly used. For the storage of
-weights of arcs outgoing from dummy vertices, additional
-variables~$\ell_{j}, \ j=1,\dots,k$ are introduced.
- \end{itemize}
-Justification of the approximation accuracy~$1-\omega$
- for the FPTAS, as well as admissibility
-of the resulting solution is provided in~\cite{BEHTV19}.
-
-%\paragraph{On the connection between the relaxed routing problem and the original statement.}
-
-%CHECK!!!
-%Note that in case each session has~$W_i=C, \ i=1,\dots,N$ and there are~$K$ sessions from source~$s$ to destination~$t$, 
-%so that $u(e)\ge KC, \ \forall \ e\in E$, then to ensure that in each iteration of the FPTAS the flow increment $KC/r_{\max}$ along the chosen $s$ -- $t$ path~$P$ was at least~$C$, it suffices to have $K \ge r_{\max}$. The latter is equivalent to $K \ge
-%\varepsilon^{-1} +\varepsilon^{-1}
-%\ln(L_{\max}+1)/\ln(1+\varepsilon)$. For example, for $L_{\max}=10$ and
-%$\varepsilon=0.1$ it is enough to have $K\ge 262.$. 
-
-The sessions from each source node~$s_j$ to a target node $t_j$ are routed within
-the amount~$x(P)$, which are found in solving the relaxed problem. One can use the greedy algorithm as an attempt to improve the obtained solution by routing those sessions that could not be routed within the amounts~$x(P)$.
-% If between some vertices there are a small number of sessions, then the routing of this traffic can also be calculated by the greedy algorithm even before the application of the FPTAS.
-
-
+\section{Relaxed Packet Routing Problem} \label{formulation}
 
 \section{Computational Experiment}
+For computational experiments, three series of problems were considered in the dissertation:
+\begin{table}[!ht]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|}
+\hline
+Series&Number of Lines&Number of HU&Source\\
+\hline
+AS & 8 & 4 -- 14 & Renault Production~\cite{Ancelin1987}\\
+BN & 10 & 5 & \cite{eng1}\\
+VP & 4 & 5 & \cite{vp}\\
+\hline
+\end{tabular}
+\caption{List of series}\label{tabl:series}
+\vspace{-0.5cm}
+\end{table}
 
+The AS series consists of tasks created from streaming
+lines~1,2,3,4,5,6,7,8 from~\cite{Ancelin1987} with real data from
+produced by Renault.
+Test case~3 from~\cite{Ancelin1987}
+was not used as it demonstrates a special case where
+approximate calculation of line performance is essential
+differs from the simulation results.
+Lines~4,5 from~\cite{Ancelin1987} are not used due to small
+dimensions. A distinctive feature of the ~7.8 lines is the presence
+parallel sections (see figures~\ref{fig:vis_as7},~\ref{fig:vis_as8}).
+Line parameters~1,2,6,7,8 are given in tables \ref{tabl:as1}-\ref{tabl:as7as8}.
 
-The input data of the SDSN instances may be generated with different levels of details, regarding the communications of the ground stations.
-The considered options are described in the following subsections. 
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{||c|c||c|c|c|c||}
+\hline \multicolumn{2}{||c||}{Bunkers}&\multicolumn{4}{|c||}{EU}\\
+\hline
+$i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
+\hline
+1 & 20 & 1 & 244.2 & 150 & 10\\
+2 & 17 & 2 & 255.3 & 300 & 10\\
+3 & 38 & 3 & 176 & 75 & 10\\
+4 & 48 & 4 & 184 & 600 & 10\\
+&& 5 & 192 & 450 & 10\\
+\hline
+\end{tabular}\\
+%\vspace{1em}
+\caption{Task parameters $\textit{AS1}$}\label{tabl:as1}
+%\vspace{1em}
+\end{table}
+
+bn5.1-bn5.10 series consists of 10 lines with 5 machines in
+each. There are two <<bottlenecks>> in the problems of this series. Under
+<<bottleneck>> is understood as a line section of two relatively slow machines and a bunker
+between them. The parameters of all lines are given in the tables \ref{tabl:bn5_1,2}-\ref{tabl:bn5_9,10}.
+
+Series vp6.9-vp6.10 and vp7.9-vp7.10~\cite{vp} are composed of problems on lines from
+5 consecutive machines. Machine parameters and line structure are given in tables \ref{tabl:vp6} - \ref{tabl:vp7}.
 
 \subsection{ Graph ``Clique for links''.}
 \label{subsec:initialclique}
 
-The input data is presented as a list of satellites and stations, and
-connections between them. The satellite corresponds to one vertex, while the station consists of several links, and therefore
-it is represented by several nodes.
-The ``satellite-satellite'' and ``satellite-station'' arcs are given, specifying
-bandwidth and communication delay.
-
-The ``station-satellite'' arcs are defined in the same way. The connections between
-stations are set for individual links, i.e. arcs are defined
-as pairs of links. For each such arc, only the delay is defined, and
-the total bandwidth is set for the entire link (one can distinguish
-incoming and outgoing bandwidth, but at the moment they are considered the same).
-
-Thus, the graph consists of two types of vertices: satellites and
-links. The ``satellite-to-satellite'' arcs are assigned the bandwidth and delay. Connections between
-satellites and stations can be represented by arcs between the satellite and one of the 
-links of the station, such arcs are also given the bandwidth and delay. All possible arcs of the 
-``link-link'' type, with the value of delay, and the total bandwidth may be specified
-for each link. It is also assumed that the links of one station are
-connected in a chain by arcs with bandwidth $\infty$ and delay 0.
-An examplary fragment of such a graph is shown in Fig.~\ref{fig:original_graph}.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=6cm]{original_graph.png}
- \caption{\label{fig:original_graph} Graph ``Clique for links''}
-\end{center}
-\end{figure}
-
-
 
 \subsection{Graph ``Large clique for links''} \label{subsec:clique}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=5cm,height=4.1cm]{bandwidthmodel.png}
- \caption{\label{fig:bandwidthmodel}Graph ``Large clique for links' 
-that models link bandwidths as arc capacities}
-\end{center}
-\end{figure}
-In the packet routing problem, it
-is assumed that capacities are given
-only for arcs, not for vertices. To build a graph with such
-property, it is necessary to add two more dummy vertices to each link. One of these vertices is
-responsible for incoming and the other one is responsible for the outgoing connections. These
-arcs will be assigned link bandwidths, and the delay value
-equal to~0. 
-
-In what follows, the graph constructed in such a way
-will be referred to as a ``link clique graph'' since all dummy vertices must be
-interconnected (and hence form a clique). An examplary fragment of such graph is given in
-Fig.~\ref{fig:bandwidthmodel}
-
-Despite the fact that the described approach allows the most accurate
-description of the communication structure, due to
-high dimension of the input data, it seems to be irrelevant for practical applications.
-
-\subsection{The graph ``Star for individual
-links''}\label{subsec:linkstar}
-
-To reduce the dimension of the problem and speed up the algorithms
-it is proposed to consider a simplified model where a vertex ``Center'' is added
-and connected to all links. Bandwidths
-of these arcs are equal to the bandwidth of the links, and the delay is calculated
-as the average delay from the current link to the rest. It is obvious that
-this way some information about individual delay values is lost.
-%, in addition
-%this way it is impossible to imagine a situation where there is no
-% arc between some pair of links (although, judging by the problem statement,
-%this should not happen). 
-However, the solution built
-on such a graph, may be a good approximation of the optimum.
-
-%\subsection{Graph ``Star for individual
-%links''}\label{subsec:linkstar}
-
-%To reduce the dimension of the problem and speed up the algorithms
-%it is proposed to consider a simplified model where a 
-%``Center'' vertex is added and connected to all links. Bandwidths
-%of these arcs are equal to the bandwidth of the links, and the delay is calculated
-%as the average delay from the current link to the rest. It is obvious that with
-%this approach some information about individual delay values is lost as well.
-% in addition
-%in this way it is impossible to imagine a situation where there is no
-%an arc between some pair of links (although, judging by the problem statement,
-%this should not happen). However, the solution built
-%on such a graph, may be a good approximation of the optimum.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=6cm]{graph_star.png}
- \caption{\label{fig:graph_star}  Graph ``Star' for individual
-links''}
-\end{center}
-\end{figure}
 
 
 \subsection{Graph``Star  for Stations''}\label{subsec:basestar}
 
-A further simplification of the problem is to ignore
-separate links, but combine them into one vertex corresponding to
-one station. As before, the ``Center'' vertex is created and
-connected to all stations. Bandwidths of all links
-of a station are summed up. The delay is defined as the average delay of the links.
-
 
 \subsection{ Graph ``Clique  for Stations''}\label{subsec:baseclique}
-
-Graph ``Clique  for Stations'' is similar to the ``Large clique for links''
-(see Subsection~\ref{subsec:clique}), only links of one station are combined into one vertex. The capacity of this vertex is defined as
-the sum of the bandwidths of its constituent links.
-To represent the throughput of a vertex through
-arc capacities, two additional vertices are created, one is responsible for incoming
-connections, the other is responsible for the outgoing (as in Subsection~\ref{subsec:clique} above). 
-Thus, the station model, shown in Fig. \ref{fig:bandwidthmodel}
-is converted to the from of Fig.~\ref{fig:cliqforstn}.
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=6cm,height=4.1cm]{cliqforstn.png}
- \caption{\label{fig:cliqforstn} Model ``Clique for Stations''}
-\end{center}
-\end{figure}
 
 
 \section{Experimental comparison of algorithms for solving the packet routing problem}
 \label{subsec:exp}
-
-The results presented in this section show the performance of the greedy algorithm based on the Dijkstra's algorithm, compared to the FPTAS, based on the trancated Bellman-Ford algorithm. 
-
-Description and numbering of test instances:
-
-\begin{enumerate}
-\item {\em ``Clique for links'' $\times 2$} is a graph with cliques for
-links, formed according to Subsection~\ref{subsec:clique} with doubled
-throughput of links of base stations.
- \item {\em ``Star for links''} is a graph formed according to
-Subsection~\ref{subsec:linkstar}.
- \item {\em ``Star for links'' $\times
-2$} is a the graph formed according to Subsection~\ref{subsec:linkstar} with
-doubled bandwidth of base station links.
- \item {\em ``Star for stations''} is a graph formed according to
-Subsection~\ref{subsec:basestar}.
-\item {\em ``Star for stations'' $\times 2$} is a graph formed according to Subsection~\ref{subsec:basestar}
-with doubled capacity of base station links.
- \item {\em ``Satellites, random sessions''} is a graph that contains only
-vertices modeling the satellites (no base stations). Sessions are randomly generated
-in order to get high traffic.
- \item {\em ``Clique for stations'' $\times 2$} is a graph formed according to Subsection~\ref{subsec:baseclique} with
-doubled bandwidth of base station links.
-\end{enumerate}
-
-The source-destination pairs were generated so as
-to model the global telecommunication flows. We assumed that the
-number of active users in each square unit of the Earth surface is
-proportional to population on the unit. The origin and the
-destination of each call is chosen at random among active users.
-All active users are assigned to the nearest satellite or ground
-station.
-
-The dimensions of the constructed packet routing problems are given in
-Table~\ref{tabl:Problems}. 
-%All designations in column headings in this and subsequent tables correspond to those entered in the previous sections.
-The total amount of data transfer was 2246.3~Mbit/sec in all instances, except for Problem~6, where $\sum_{i=1}^N W_i=14028$~Mbit/sec.
-The link bandwidth is ranging from 100 to 300~Mbit/sec.
-The transfer rate of each session is 9600~bit/sec which may be considered to be negligibly small compared with link capacities and source-destination 
-transfer demands. This motivates the application of the FPTAS (with subsequent routing of all sessions according with the relaxed problem solution) 
-and its comparison to the greedy algorithm, where each session is routed explicitly. 
-
-\begin{table}
-\caption{Test problem parameters} \label{tabl:Problems}
- \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
- { Instance }    &$n$& $m$ & $N$  & $k$\\
-\hline
-1&543&19474&245481& 12373 \\
-2 &272&1292 &245481& 12373 \\
-3&272&1292 &245481& 12373\\
-4&197& 992 &245481& 12373\\
-5&197& 992 &245481& 12373\\
-6&135& 750 &1517697& 743 \\
-7&318&4652& 245481& 12373\\
-  \hline
-\end{tabular}
-\end{table}
-
-Values of the objective function for the heuristic solutions were compared to the LP upper bound for the
-optimum computed using CPLEX (see e.g.~\cite{BEHTV19}). This allowed us to calculate the upper bound~$\omega'$ on the 
-relative error in Table~\ref{tabl:Bandwidth}. If the algorithm obtained a 
-solution with objective function value~$f_{appr}$, while the LP optimum
-equals~$f^*$, then the upper bound on the relative error is $\omega'=(f^*-f_{appr})/f^*$. 
-%In the instance ``Clique for
-%links $\times 2$'' CPLEX could not find a solution due to a lack of memory.
-%Nevertheless, it can be argued that the optimum of this problem is equal to
-%the total amount of traffic, because greedy algorithm for the same initial
-%data, in the model ``Star for stations $\times 2$'' finds a solution
-%where 100\% of sessions are routed.
-
-In general, we can conclude that on the practical instances the FPTAS obtains solutions with approximation ratio~$\omega'$ much smaller than the approximation guarantee~$\omega$. The FPTAS is more accurate than greedy algorithm in the worst case, but on some instances the greedy finds the optimal solutions, while FPTAS solutions have some error. 
-
-\begin{table}
-\caption{ The estimate of relative error $\omega'$}
-\label{tabl:Bandwidth}
- \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
- { }        & greedy   &\multicolumn{2}{c|}{FPTAS using} \\
- { }        & algorithm   &\multicolumn{2} {|c|} {Bellman-Ford alg.} \\
-\hline
-{ }  &  &    $\omega=0.2, $& $\omega=0.4,$ \\
-{ }  &  &    $L_{\max}=13$& $L_{\max}=10$ \\
-\hline 
-1&  0       & 8.5$\times10^{-10}$  & 0.005\\
-2&  0       & 0.003 & 0.009\\
-3&  0.06    & 8.5$\times10^{-10}$ & 0.005  \\
-4&  0       & 0.004  & 0.01  \\
-5&  0       & 0.0001 & 0.005 \\
-6&  0.066   & 0.01 & 0.058  \\
-7&  0       & 6.3$\times10^{-5}$ & 0.005  \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Delay and Number of Arcs in Routes}
-The delay in the transfer of sessions for the solutions found
-%, as well as
-%its lower bound~LB  based on linear programming, computed using CPLEX, 
-are given in
-Table~\ref{tabl:Delay}. 
-%In cases where calculations could not be carried out due to
-%lack of memory or other technical reasons, the symbol~``NA'' is specified. If the value is undefined,
-%then there is a sign~``--''.
-It can be seen from the table that the greedy algorithm is preferable to the FPTAS in terms of delay
-because it takes into account the delays of the arcs. The average delay of FPTAS with $w=0.2, L_{\max}=13$ was greater than that in
-the case of $w=0.4, L_{\max}=10$. The relation between the maximal delays is the opposite. 
-
-\begin{table}
-\caption{Delay in sessions transfer} \label{tabl:Delay}
- \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
- { } &\multicolumn{2}{|c|}{greedy}& \multicolumn{2}{|c|}{FPTAS, $\omega=0.2$,}&  \multicolumn{2}{|c|}{FPTAS, $\omega=0.4$,}\\
- {  } &\multicolumn{2}{|c|}{algorithm}& \multicolumn{2}{|c|}{$L_{\max}=13$}& \multicolumn{2}{|c|}{$L_{\max}=10$}\\
- % { }       & \multicolumn{2}{|c }{computed by}& \multicolumn{2}{c||}{in case of}& \multicolumn{2}{|c||}{Bellman-Ford}  \\
-% { }       & \multicolumn{2}{|c }{given model}& \multicolumn{2}{c||}{model ``Clique''}& \multicolumn{2}{|c||}{ }  \\
-\hline
- &        $\max$ & avg &  $\max$ & avg &  $\max$ & avg\\
-\hline 
-1  & 145 & 68.5 & 321 & 109.5& 371 & 102.4\\
-2     & 285 & 70.4 &  370   & 119.3 &392   & 114.2\\
-3& 219 & 61.6 & 382  &  142 & 397   &    135.0 \\
-4&            290 & 66.3 & 377   &  119.25 & 390    &  114.9\\
-5& 290 & 70.1 & 379  &   142.2 & 400   &   136.3\\
-6 & 138 & 54.8   & 143  &   58 & 165   &    54.7\\
-7& 146& 69.4  &325  & 109.5 &368    & 102.8\\
- \hline
-\end{tabular}
-\end{table}
-
-%The lower bound of the average delay in Table~\ref{tabl:Delay} for instance
-%{\em ``Star for links'' $\times 2$}~(72.1~ms) was higher
-%than the average delay in the solution obtained by greedy
-%algorithm~(61.6~ms). This is due to the fact that in the solution obtained by the greedy algorithm
-%only~94\% of sessions are routed by the greedy algorithm 
-%(see table.~\ref{tabl:Bandwidth}), 
-%and the lower bound applies only to
-%solutions in which ~100\% of sessions are routed.
-
-In all problems with base stations, except for problems~6 and~7,
-the maximum number of arcs in the routes found by the greedy algorithm,
-amounted to~13. This number includes fictitious arcs that model
-links.
-%In addition, note that in the ``star'' column, forwarding
-% via the Internet is modeled by two arcs (towards the central vertex and
-%from it).
-In problem~6, the maximum number of arcs in routes is~12, and in
-task~7 it is 14. The maximum number of arcs in the FPTAS solutions always equals to~$L_{\max}$.
-
-\subsection{Computation Time}
-Computation time of the heuristic algorithms obtaining the described results
-is given in Table~\ref{tabl:CPUtime}. For these calculations
-Xeon~E5420 QuadCore 2.5~GHz was used,
-8Gb~RAM. For the approximation algorithms we used the compiler from Intel~C++ Composer~XE for Windows. 
-This table also contains the CPU time of a parallel implementation of the greedy algorithm,
-where we used a specially designed version of the Dijkstra's algorithm that may be called in
-parallel for each root vertex ${v\in V}$. The experiments were run on 8-core hardware, therefore at most 8 threads of Dijkstra's algorithm
-were run in parallel.  
-%Solving the linear programming problems, we applied
-%GAMS package with CPLEX~11 solver, in which by default
-%the dual simplex method was used. The notation ``sec$^b$''
-%stands in the case when instead of the dual simplex method
-%the barrier method was called (it works faster on this instance). The instance
-%``Clique for  stations'' $\times 2$ required more RAM for the LP~solver, so it
-%was run on Xeon~X5675, 3.07~GHz, 96~Gb~RAM --
-%this case in Table~\ref{tabl:CPUtime} is marked
-%with~"sec$^*$"
-% a sign~"$^*$".
-
-\begin{table}
-\caption{Computing time} \label{tabl:CPUtime}
- \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-{ }         & \multicolumn{2}{|c|}{greedy algorithm}  & {FPTAS, $\omega=0.2$ }  &  {FPTAS, $\omega=0.4$ }  \\
-{ }  & \multicolumn{2}{|c|}{ time (ms) }& $L_{\max}=13$           &  $L_{\max}=10$      \\
-{ }  & 1 thread& 8 threads & time (sec)           & time (sec)   \\
-\hline
-1&  1915 &333 & 9731.7   & 878 \\
-2&  303 & 188 & 1372.0   &  93.5 \\
-3&  389 & 141 & 1377.5   &  95.2\\
-4&  136 & 137 & 929.5   &  68.3\\
-5&  72.6 & 86.7& 942.7   &  68.9 \\
-6&  954 & 195 & 40,2    &  2.9\\
-7&  268 & 109 & 2664.3  & 272.7 \\
-\hline
-\end{tabular}
-\end{table}
-
-The parallel version of Greedy using 8 cores is clearly the fastest one, achieving speed-ups of
-about 5.7~times on instance 1 (``Click for links $\times 2$') compared to the serial version. On smaller instances
-this speed-up vanishes due to communication cost. 
-%The worst performance of the parallel version is
-%observed on the instance 6, where the greedy algorithm performs 319 iterations of the main loop in contrast with 5-48 iterations
-%on the rest of the problems. A large number out of 319 of iterations on instance 6 required no parallelism at all.
-
-In general, it can be seen from the tables, for the instance ``Click for links $\times 2$'',
-which has the largest number of vertices and arcs, all of
-the tested algorithms have the highest error and the
-longest CPU time.
-However, the amount of delay in routes
-found by the greedy algorithm on this problem turns out to be the smallest,
-which is due to the most detailed modelling of 
-delays between the ground stations in this version of the problem.
-%The large error of the greedy algorithm on this problem
-%seems to be related to the increased load of those links that
-%allow to achieve the lowest delay from one base station to
-%another.
-%���������� ����� ������ �� ������ ����� ���� ����� ��
-%����������� ��������� ������� ���������.
-
-
 
 \section{Conclusion}
 
@@ -944,19 +535,7 @@ was from tens of seconds to few thousand seconds.
 
 \item In practice the FPTAS obtains solutions with approximation ratio much smaller than its approximation guarantee.
 
-%\item The packet routing problem can in principle be solved by means of mixed-integer linear programming, however, the application of these methods to problems with real-life dimensions is problematic due to the large number of integer variables.
-
-%\item  ������� ������ �� ����� ����������, ������� ����� ���� ��������� �� ������������ �
-%����������� ����� ���� ������� ���������� ��������� ���������������� (��. ��.~\ref{subsec:LPmaxflow}, \ref{subsec:LPminAVGdelay}).
-% ����� ���������� ���� ������ ��� ����� � ��������� ������������� ���������� �� ���������� ����� �� ���������� ����� (��.
-% ����.~\ref{tabl:CPUtime}).
-
 \end{enumerate}
-
-%\begin{ack}
-%The authors are grateful to Vadim Teplyakov for suggesting the problem formulation and the testing data set. 
-%The research is supported by Russian Science Foundation  grant~21-41-09017. 
-%\end{ack}
 
 \bibliography{eremeev_et_al}   
                                                   
@@ -994,38 +573,6 @@ challenges, and solutions. IEEE Access, 6, 4027--4041.
 
 \end{thebibliography}
 
-%\bibitem[Able(1956)]{Abl:56}
-%B.C. Able.
-%\newblock Nucleic acid content of microscope.
-%\newblock \emph{Nature}, 135:\penalty0 7--9, 1956.
-
-%\bibitem[Able et~al.(1954)Able, Tagg, and Rush]{AbTaRu:54}
-%B.C. Able, R.A. Tagg, and M.~Rush.
-%\newblock Enzyme-catalyzed cellular transanimations.
-%\newblock In A.F. Round, editor, \emph{Advances in Enzymology}, volume~2, pages
-%  125--247. Academic Press, New York, 3rd edition, 1954.
-
-%\bibitem[Keohane(1958)]{Keo:58}
-%R.~Keohane.
-%\newblock \emph{Power and Interdependence: World Politics in Transitions}.
-%\newblock Little, Brown \& Co., Boston, 1958.
-
-%\bibitem[Powers(1985)]{Pow:85}
-%T.~Powers.
-%\newblock Is there a way out?
-%\newblock \emph{Harpers}, pages 35--47, June 1985.
-
-%\bibitem[Soukhanov(1992)]{Heritage:92}
-%A.~H. Soukhanov, editor.
-%\newblock \emph{{The American Heritage. Dictionary of the American Language}}.
-%\newblock Houghton Mifflin Company, 1992.
-
-%\end{thebibliography}
-
-%\appendix
-%\section{A summary of Latin grammar}    % Each appendix must have a short title.
-%\section{Some Latin vocabulary}              % Sections and subsections are supported  
-                                                                         % in the appendices.
 \end{document}
 
 

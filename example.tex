@@ -15,12 +15,15 @@
 \begin{document}
 \begin{frontmatter}
 
-\title{Investigation of Local Optimums Properties in Buffer Allocation Problem\thanksref{footnoteinfo}} 
+\title{On Local Optima Distribution in Buffer Allocation Problem for Production Line with Unreliable Machines\thanksref{footnoteinfo}} 
 % Title, preferably not more than 10 words.
 
 \thanks[footnoteinfo]{The research is supported by Russian Science Foundation  grant~21-41-09017.}
 
-\author[First]{Dolgui Alexander} 
+
+\thanks[footnoteinfo]{The research is supported by Russian Science Foundation  grant~21-41-09017.}
+
+\author[First]{Alexandre Dolgui} 
 \author[Second]{Anton Eremeev} 
 \author[Third]{Viatcheslav Sigaev}
 
@@ -48,7 +51,7 @@ test problems several clusters of local optima can be found.
 \end{abstract}
 
 \begin{keyword}
-Flow-line, Buffer allocation, Markov model, Genetic algorithms, Local optima.
+Production line, Unreliable machines, Buffer allocation, Series-parallel network, Genetic algorithms, Local optima.
 \end{keyword}
 
 \end{frontmatter}
@@ -82,12 +85,12 @@ respect to diverse optimality criteria and for different types of lines.
 
 \subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
 
-In the present paper, we consider buffer allocation problem for line with a series-parallel structure, as shown in Fig. ~\ref{lineexample}, where the arrows are machines and the circles are buffers.
+In the present paper, we consider buffer allocation problem for line with a series-parallel network, as shown in Fig. ~\ref{lineexample}, where the arrows are machines and the circles are buffers.
 
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.9]{LineSchems}
-  \caption{Example of a line with a series-parallel structure\label{lineexample}}
+  \caption{Example of a line with a series-parallel network\label{lineexample}}
   \end{figure}
 
 We assume that a machine can be in an operational state or under 
@@ -189,15 +192,15 @@ detailed presentation and study of the practical instances
 considered in~\cite{BEHTV19}.
 
 
-\section{Investigation of Local Optimums Properties} \label{investigation}
+\section{Investigation of Local Optima Properties} \label{investigation}
 
 Experimental location studies
 local optima in the solution space of the optimization problem
 indicate that in many problems there is a high
 concentration of local optima in the immediate
 proximity to the global optimum~\cite{Reev}. This observation is known as
-the thesis about the existence of a <<big valley>> for minimization problems
-or <<central array>> for tasks to the maximum. Distance to global optimum
+the thesis about the existence of a ``big valley'' for minimization problems
+or ``massive central'' for tasks to the maximum~\cite{Boese,Hains}. Distance to global optimum
 in our case, we will calculate in the metric $l_1$.
 
 \noindent The formulation of this thesis can be divided into two parts:
@@ -390,7 +393,7 @@ as.6, bn5.1, where the ordinate shows the value of the objective function of the
 distance in metric $l_1$ to the chosen solution.
 
 The effect of clustering is especially well manifested in problems with parallel sections of the line.
-This effect can be justified by the fact that there are several different paths in lines with a parallel structure.
+This effect can be justified by the fact that there are several different paths in lines with a parallel network.
 from start bin to end bin. Thus, if you create two lines that are identical in graph structure,
 such that one line will have relatively large bunkers along the same path, and the other -
 otherwise, it is possible to achieve two solutions close in value to the objective function, but located on <<enough>>
@@ -540,35 +543,14 @@ was from tens of seconds to few thousand seconds.
 \bibliography{eremeev_et_al}   
                                                   
 \begin{thebibliography}{xx}  % you can also add the bibliography by hand
-\bibitem[Baier(2003)]{Baier03} Baier, G.: Flows with Path Restrictions.
-Ph.D. Dissertation, TU Berlin, Berlin (2003)
 
-\bibitem[Borisovsky et al.(2019)]{BEHTV19} Borisovsky P., Eremeev A., Hrushev S., Teplyakov V., Vorozhtsov M. On three approaches to length-bounded maximum multicommodity flow with unit edge-lengths. Yugoslav Journal of Operations Research, Vol. 29, N 1, 93-112 (2019) 
+\bibitem[Boese(1993)]{Boese}
+Boese KD, Kahng AB and Muddu S (1993). On the big valley and adaptive multi-start for discrete global optimizations. Technical report, 
+UCLA CS Department, TR-930015.
 
-\bibitem[Cormen et al. (2001)]{CLRC01}
-Cormen, T.H., Leiserson, C.E., Rivest, R.L., and Stein,~C.: {\em
-Introduction to Algorithms,} 2nd edition, MIT Press, 2001.
-
-\bibitem[Fleischer(2000)]{Fleis2000} Fleischer L.K. Aproximating fractional multicommodity flow independent of the
-number of commodities, SIAM J.Disc.Math., 13 (2000), 505--520.
-
-\bibitem[Garey and Johnson(1979)] {GJ} {Garey, M.R. and Johnson, D.S.}: Computers and intractability.
-A guide to the theory of NP-completeness. W.H. Freeman and
-Company, San Francisco (1979)
-
-\bibitem[Garg et al.(1997)]{GVY97} Garg N., Vazirani V., Yannakakis M.
-Primal-dual approximation algorithms  for integral flow and
-multicut in trees, Algorithmica, 18, 3--20 (1997)
-
-\bibitem[Tang et al.(2014)]{TZYFW14}
-Tang, Z., Zhao, B., Yu, W., Feng, Z., and Wu, C. (2014).
-Software dened satellite networks: Benets and chal-
-lenges. 2014 IEEE Computers, Communications and
-IT Applications Conference, 127--132.
-
-\bibitem[Xu et al.(2018)]{SXM18} Xu, S., Wang, X.W., and Huang, M. (2018). Software-
-dened next-generation satellite networks: Architecture,
-challenges, and solutions. IEEE Access, 6, 4027--4041.
+\bibitem[Hains et al. (2011)]{Hains} Hains, D., Whitley, L. \& Howe, A. Revisiting the big valley search space structure in the TSP. 
+J. Oper. Res. Soc. 62, 305-312 (2011) 
+%https://doi.org/10.1057/jors.2010.116
 
 
 \end{thebibliography}

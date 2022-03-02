@@ -29,170 +29,170 @@ You can probably speed up the process by creating custom macros.
 \tikzstyle{point} = [coordinate]
 
 \begin{tikzpicture}[auto, node distance=1.6cm,>=latex']
-    \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0] (b_1) {$b_1$};
-    \node [bunker, right of=b_1] (b_2) {$b_2$};   
-    \node [bunker, above of=b_2,yshift=-0.5cm] (b_3) {$b_{n-2}$};    
-    \node [bunker, right of=b_2,xshift=0.2cm] (b_4) {$b_n$};
-    \node [bunker, right of=b_4] (b_5) {$b_{n+1}$};
-    \node [bunker, right of=b_5] (b_i) {$b_{i}$};
-    \node [bunker, right of=b_i,xshift=1.5cm] (b_ip1) {$b_{i+1}$};
+    \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0] (b_1) {$B_1$};
+    \node [bunker, right of=b_1] (b_2) {$B_2$};   
+    \node [bunker, above of=b_2,yshift=-0.5cm] (b_3) {$B_{3}$};    
+    \node [bunker, right of=b_2,xshift=0.2cm] (b_4) {$B_4$};
+    \node [bunker, right of=b_4] (b_5) {$B_{5}$};
+    \node [bunker, right of=b_5] (b_i) {$B_{i}$};
+    \node [bunker, right of=b_i,xshift=1.5cm] (b_ip1) {$B_{i+1}$};
     
-    \draw [->] (b_0) -- node {$m_1$} (b_1);
-    \draw [->] (b_1) -- node {$m_2$} (b_2);
-    \draw [->] (b_2) -- node {$m_4$} (b_4);
-    \draw [->] (b_4) -- node {$m_7$} (b_5);
-    \draw [->] (b_1.north)  |-  node[yshift=0cm, xshift=0.7cm] {$m_{3}$}(b_3.west);
-    \draw [->] (b_3.east)  -|  node[yshift=0.2cm, xshift=-1.1cm] {$m_{5}$}(b_4.north);    
-    \draw [->] (b_1.south) --++(0,-0.5)  -|  node[yshift=0.2cm, xshift=-1.3cm] {$m_{6}$}(b_4.south);
-    \draw [->] (b_i) -- node {$m_j$} node[yshift=-0.7cm] {$(T_j^{\text{О}},T_j^{\text{В}},U_j)$} (b_ip1);
+    \draw [->] (b_0) -- node {$M_1$} (b_1);
+    \draw [->] (b_1) -- node {$M_2$} (b_2);
+    \draw [->] (b_2) -- node {$M_4$} (b_4);
+    \draw [->] (b_4) -- node {$M_7$} (b_5);
+    \draw [->] (b_1.north)  |-  node[yshift=0cm, xshift=0.7cm] {$M_{3}$}(b_3.west);
+    \draw [->] (b_3.east)  -|  node[yshift=0.2cm, xshift=-1.1cm] {$M_{5}$}(b_4.north);    
+    \draw [->] (b_1.south) --++(0,-0.5)  -|  node[yshift=0.2cm, xshift=-1.3cm] {$M_{6}$}(b_4.south);
+    \draw [->] (b_i) -- node {$M_j$} node[yshift=-0.7cm] {$(T_j^{\text{О}},T_j^{\text{В}},U_j)$} (b_ip1);
 
 \end{tikzpicture}
 
 \begin{tikzpicture}[auto, node distance=1.6cm,>=latex']
-    \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0] (b_1) {$b_1$};
-    \node [bunker, right of=b_1] (b_2) {$b_2$};   
-    \node [bunker, above of=b_2,yshift=-0.5cm] (b_3) {$b_{n-2}$};    
-    \node [bunker, right of=b_2,xshift=0.2cm] (b_4) {$b_n$};
-    \node [bunker, right of=b_4] (b_5) {$b_{n+1}$};
-    \node [bunker, right of=b_5] (b_i) {$b_{i}$};
+    \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0] (b_1) {$B_1$};
+    \node [bunker, right of=b_1] (b_2) {$B_2$};   
+    \node [bunker, above of=b_2,yshift=-0.5cm] (b_3) {$B_{n-2}$};    
+    \node [bunker, right of=b_2,xshift=0.2cm] (b_4) {$B_n$};
+    \node [bunker, right of=b_4] (b_5) {$B_{n+1}$};
+    \node [bunker, right of=b_5] (b_i) {$B_{i}$};
     \node [text=black, right of=b_i, xshift=-0.2cm] (db_i) {$\text{бункер}$};
     \node [text=black,  above of=b_i,yshift=-0.5cm] (eo) {\large $\xrightarrow{m_i}$};
     \node [text=black, right of=eo, xshift=1.8cm] (deo) {$\text{единица оборудования (станок)}$};
     
-    \draw [->] (b_0) -- node {$m_1$} (b_1);
-    \draw [->] (b_1) -- node {$m_2$} (b_2);
-    \draw [->] (b_2) -- node {$m_4$} (b_4);
-    \draw [->] (b_4) -- node {$m_7$} (b_5);
-    \draw [->] (b_1.north)  |-  node[yshift=0cm, xshift=0.7cm] {$m_{3}$}(b_3.west);
-    \draw [->] (b_3.east)  -|  node[yshift=0.2cm, xshift=-1.1cm] {$m_{5}$}(b_4.north);    
-    \draw [->] (b_1.south) --++(0,-0.5)  -|  node[yshift=0.2cm, xshift=-1.3cm] {$m_{6}$}(b_4.south);
+    \draw [->] (b_0) -- node {$M_1$} (b_1);
+    \draw [->] (b_1) -- node {$M_2$} (b_2);
+    \draw [->] (b_2) -- node {$M_4$} (b_4);
+    \draw [->] (b_4) -- node {$M_7$} (b_5);
+    \draw [->] (b_1.north)  |-  node[yshift=0cm, xshift=0.7cm] {$M_{3}$}(b_3.west);
+    \draw [->] (b_3.east)  -|  node[yshift=0.2cm, xshift=-1.1cm] {$M_{5}$}(b_4.north);    
+    \draw [->] (b_1.south) --++(0,-0.5)  -|  node[yshift=0.2cm, xshift=-1.3cm] {$M_{6}$}(b_4.south);
 
 \end{tikzpicture}
 
 \begin{tikzpicture}[auto, node distance=1.6cm,>=latex']
-    \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0] (b_1) {$b_1$};
-    \node [bunker, right of=b_1] (b_2) {$b_2$};   
-    \node [bunker, above of=b_2,yshift=-0.5cm] (b_3) {$b_3$};    
-    \node [bunker, right of=b_2] (b_4) {$b_4$};
-    \node [bunker, right of=b_4] (b_6) {$b_6$};
-    \node [bunker, above of=b_6,yshift=-0.5cm] (b_5) {$b_5$};        
-    \node [bunker, right of=b_6] (b_7) {$b_7$};
-    \node [bunker, right of=b_7] (b_8) {$b_8$};
+    \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0] (b_1) {$B_1$};
+    \node [bunker, right of=b_1] (b_2) {$B_2$};   
+    \node [bunker, above of=b_2,yshift=-0.5cm] (b_3) {$B_3$};    
+    \node [bunker, right of=b_2] (b_4) {$B_4$};
+    \node [bunker, right of=b_4] (b_6) {$B_6$};
+    \node [bunker, above of=b_6,yshift=-0.5cm] (b_5) {$B_5$};        
+    \node [bunker, right of=b_6] (b_7) {$B_7$};
+    \node [bunker, right of=b_7] (b_8) {$B_8$};
     
-    \draw [->] (b_0) -- node {$m_1$} (b_1);
-    \draw [->] (b_1) -- node {$m_2$} (b_2);
-    \draw [->] (b_2) -- node {$m_5$} (b_4);
-    \draw [->] (b_4) -- node {$m_7$} (b_6);
-    \draw [->] (b_6) -- node {$m_8$} (b_7);
-    \draw [->] (b_3) -- node {$m_6$} (b_5);
-    \draw [->] (b_7) -- node {$m_{10}$} (b_8);
-    \draw [->] (b_1.north)  |-  node[yshift=0cm, xshift=0.7cm] {$m_{3}$}(b_3.west);
-    \draw [->] (b_5.east)  -|  node[yshift=0.2cm, xshift=-1.1cm] {$m_{9}$}(b_7.north);    
-    \draw [->] (b_1.south) --++(0,-0.5)  -|  node[yshift=0.2cm, xshift=-3cm] {$m_{4}$}(b_7.south);
+    \draw [->] (b_0) -- node {$M_1$} (b_1);
+    \draw [->] (b_1) -- node {$M_2$} (b_2);
+    \draw [->] (b_2) -- node {$M_5$} (b_4);
+    \draw [->] (b_4) -- node {$M_7$} (b_6);
+    \draw [->] (b_6) -- node {$M_8$} (b_7);
+    \draw [->] (b_3) -- node {$M_6$} (b_5);
+    \draw [->] (b_7) -- node {$M_{10}$} (b_8);
+    \draw [->] (b_1.north)  |-  node[yshift=0cm, xshift=0.7cm] {$M_{3}$}(b_3.west);
+    \draw [->] (b_5.east)  -|  node[yshift=0.2cm, xshift=-1.1cm] {$M_{9}$}(b_7.north);    
+    \draw [->] (b_1.south) --++(0,-0.5)  -|  node[yshift=0.2cm, xshift=-3cm] {$M_{4}$}(b_7.south);
 
 \end{tikzpicture}
 
 \begin{tikzpicture}[auto, node distance=1.6cm,>=latex']
-      \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0] (b_1) {$b_1$};
-    \node [bunker, right of=b_1] (b_2) {$b_2$};   
-    \node [bunker, right of=b_2] (b_3) {$b_3$};    
-    \node [bunker, above of=b_3,yshift=-0.5cm] (b_4) {$b_4$};            
-    \node [bunker, right of=b_3] (b_5) {$b_5$};    
-    \node [bunker, right of=b_5] (b_6) {$b_6$};
-    \node [bunker, right of=b_6] (b_7) {$b_7$};
-    \node [bunker, right of=b_7] (b_8) {$b_8$};
+      \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0] (b_1) {$B_1$};
+    \node [bunker, right of=b_1] (b_2) {$B_2$};   
+    \node [bunker, right of=b_2] (b_3) {$B_3$};    
+    \node [bunker, above of=b_3,yshift=-0.5cm] (b_4) {$B_4$};            
+    \node [bunker, right of=b_3] (b_5) {$B_5$};    
+    \node [bunker, right of=b_5] (b_6) {$B_6$};
+    \node [bunker, right of=b_6] (b_7) {$B_7$};
+    \node [bunker, right of=b_7] (b_8) {$B_8$};
     
-    \draw [->] (b_0) -- node {$m_1$} (b_1);
-    \draw [->] (b_1) -- node {$m_2$} (b_2);
-    \draw [->] (b_2) -- node {$m_3$} (b_3);    
-    \draw [->] (b_2.north) |- node[yshift=-0.05cm, xshift=0.7cm] {$m_4$} (b_4.west);
-    \draw [->] (b_3) -- node {$m_5$} (b_5);    
-    \draw [->] (b_4.east) -| node[yshift=0.2cm, xshift=-1.3cm] {$m_6$} (b_5.north);
-    \draw [->] (b_5) -- node {$m_7$} (b_6);
-    \draw [->] (b_6.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.3cm] {$m_{8}$}(b_7.north);
-    \draw [->] (b_6) -- node {$m_9$} (b_7);
-    \draw [->] (b_7) -- node {$m_{10}$} (b_8);
+    \draw [->] (b_0) -- node {$M_1$} (b_1);
+    \draw [->] (b_1) -- node {$M_2$} (b_2);
+    \draw [->] (b_2) -- node {$M_3$} (b_3);    
+    \draw [->] (b_2.north) |- node[yshift=-0.05cm, xshift=0.7cm] {$M_4$} (b_4.west);
+    \draw [->] (b_3) -- node {$M_5$} (b_5);    
+    \draw [->] (b_4.east) -| node[yshift=0.2cm, xshift=-1.3cm] {$M_6$} (b_5.north);
+    \draw [->] (b_5) -- node {$M_7$} (b_6);
+    \draw [->] (b_6.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.3cm] {$M_{8}$}(b_7.north);
+    \draw [->] (b_6) -- node {$M_9$} (b_7);
+    \draw [->] (b_7) -- node {$M_{10}$} (b_8);
 \end{tikzpicture}
 
 
 \begin{tikzpicture}[auto, node distance=1.7cm]
-    \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0, draw=red] (b_1) {$b_1$};
-    \node [bunker, right of=b_1] (b_2) {$b_2$};
+    \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0, draw=red] (b_1) {$B_1$};
+    \node [bunker, right of=b_1] (b_2) {$B_2$};
     
     \node [text=black, right of=b_2, xshift=-4mm] (t1) {\large $\xRightarrow{\bf R_1}$};
 
-    \node [bunker, right of=t1, xshift=-4mm] (b0) {$b_0$};
-    \node [bunker, right of=b0] (b2) {$b_2$};
+    \node [bunker, right of=t1, xshift=-4mm] (b0) {$B_0$};
+    \node [bunker, right of=b0] (b2) {$B_2$};
     
     \node [text=black, right of=b2, xshift=-3mm] (t2) {\large $\xRightarrow{\bf R_2}$};    
 
-    \node [bunker, right of=t2, xshift=-3mm] (r0) {$b_0$};
-    \node [bunker, right of=r0] (r2) {$b_2$};
+    \node [bunker, right of=t2, xshift=-3mm] (r0) {$B_0$};
+    \node [bunker, right of=r0] (r2) {$B_2$};
 
 
-    \draw [->] (b_0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-2.2cm] {$m_3$}(b_2.north);
-    \draw [->, draw=red] (b_0) -- node {$m_1$} (b_1);
-    \draw [->, draw=red] (b_1) -- node {$m_2$} (b_2);
-    \draw [->, draw=blue] (b0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.2cm] {$m_3$}(b2.north);
+    \draw [->] (b_0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-2.2cm] {$M_3$}(b_2.north);
+    \draw [->, draw=red] (b_0) -- node {$M_1$} (b_1);
+    \draw [->, draw=red] (b_1) -- node {$M_2$} (b_2);
+    \draw [->, draw=blue] (b0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.2cm] {$M_3$}(b2.north);
     \draw [->, draw=blue] (b0) -- node {$EO'$} (b2);
     \draw [->] (r0) -- node {$EO^*$} (r2);    
 \end{tikzpicture}
 
 \begin{tikzpicture}[auto, node distance=1.7cm]
-    \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0, draw=red] (b_1) {$b_1$};
-    \node [bunker, right of=b_1] (b_2) {$b_2$};
+    \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0, draw=red] (b_1) {$B_1$};
+    \node [bunker, right of=b_1] (b_2) {$B_2$};
     
     \node [text=black, right of=b_2, xshift=-4mm] (t1) {\large $\xRightarrow{\bf R_1}$};
 
-    \node [bunker, right of=t1, xshift=-4mm] (b0) {$b_0$};
-    \node [bunker, right of=b0] (b2) {$b_2$};
+    \node [bunker, right of=t1, xshift=-4mm] (b0) {$B_0$};
+    \node [bunker, right of=b0] (b2) {$B_2$};
     
-    \draw [->] (b_0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-2.2cm] {$m_3$}(b_2.north);
-    \draw [->, draw=red] (b_0) -- node {$m_1$} (b_1);
-    \draw [->, draw=red] (b_1) -- node {$m_2$} (b_2);
-    \draw [->] (b0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.2cm] {$m_3$}(b2.north);
+    \draw [->] (b_0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-2.2cm] {$M_3$}(b_2.north);
+    \draw [->, draw=red] (b_0) -- node {$M_1$} (b_1);
+    \draw [->, draw=red] (b_1) -- node {$M_2$} (b_2);
+    \draw [->] (b0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.2cm] {$M_3$}(b2.north);
     \draw [->, draw=red] (b0) -- node {$EO'$} (b2);
 \end{tikzpicture}
 
 \begin{tikzpicture}[auto, node distance=1.7cm]
-    \node [bunker] (b0) {$b_0$};
-    \node [bunker, right of=b0] (b2) {$b_2$};
+    \node [bunker] (b0) {$B_0$};
+    \node [bunker, right of=b0] (b2) {$B_2$};
     
     \node [text=black, right of=b2, xshift=-3mm] (t2) {\large $\xRightarrow{\bf R_2}$};    
 
-    \node [bunker, right of=t2, xshift=-3mm] (r0) {$b_0$};
-    \node [bunker, right of=r0] (r2) {$b_2$};
+    \node [bunker, right of=t2, xshift=-3mm] (r0) {$B_0$};
+    \node [bunker, right of=r0] (r2) {$B_2$};
 
-    \draw [->, draw=red] (b0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.2cm] {$m_3$}(b2.north);
+    \draw [->, draw=red] (b0.north) --++(0,0.5)  -|  node[yshift=0.2cm, xshift=-1.2cm] {$M_3$}(b2.north);
     \draw [->, draw=red] (b0) -- node {$EO'$} (b2);
     \draw [->, draw=red] (r0) -- node {$EO^*$} (r2);    
 \end{tikzpicture}
 
 \begin{tikzpicture}[auto, node distance=1cm]
-    \node [bunker] (b_0) {$b_0$};
-    \node [bunker, right of=b_0, xshift=1.7cm] (b_i) {$b_i$};
-    \node [bunker, above of=b_i] (b_2) {$b_2$};
-    \node [bunker, above of=b_2] (b_1) {$b_1$};          
-    \node [bunker, below of=b_i] (b_nm1) {$b_{n-1}$};    
-    \node [bunker, below of=b_nm1] (b_n) {$b_n$};    
-    \node [bunker, right of=b_i, xshift=1.7cm] (b_np1) {$b_{n+1}$};
+    \node [bunker] (b_0) {$B_0$};
+    \node [bunker, right of=b_0, xshift=1.7cm] (b_i) {$B_i$};
+    \node [bunker, above of=b_i] (b_2) {$B_2$};
+    \node [bunker, above of=b_2] (b_1) {$B_1$};          
+    \node [bunker, below of=b_i] (b_nm1) {$B_{n-1}$};    
+    \node [bunker, below of=b_nm1] (b_n) {$B_n$};    
+    \node [bunker, right of=b_i, xshift=1.7cm] (b_np1) {$B_{n+1}$};
     
-    \draw [->] (b_0.north)  |-  node[yshift=-0.1cm, xshift=1cm] {$m_1$}(b_1.west);
-    \draw [->] (b_0.north)  |-  node[yshift=-0.1cm, xshift=1cm] {$m_3$}(b_2.west);
-    \draw [->] (b_0.south)  |-  node[yshift=-0.1cm, xshift=1.2cm] {$m_{2(n-1)-1}$}(b_nm1.west);
-    \draw [->] (b_0.south)  |-  node[yshift=-0.1cm, xshift=1.2cm] {$m_{2n-1}$}(b_n.west);    
-    \draw [->] (b_1.east)    -|  node[yshift=0.2cm, xshift=-1.7cm] {$m_2$}(b_np1.north);    
-    \draw [->] (b_2.east)    -|  node[yshift=0.2cm, xshift=-1.7cm] {$m_4$}(b_np1.north);    
-    \draw [->] (b_nm1.east)-|  node[yshift=0.2cm, xshift=0cm] {$m_{2(n-1)}$}(b_np1.south);    
-    \draw [->] (b_n.east)    -|  node[yshift=0.2cm, xshift=-0.6cm] {$m_{2n}$}(b_np1.south);    
-    \draw [->] (b_0) -- node {$m_{2i-1}$} (b_i);
-    \draw [->] (b_i) -- node [xshift=0.2cm] {$m_{2i}$} (b_np1);
+    \draw [->] (b_0.north)  |-  node[yshift=-0.1cm, xshift=1cm] {$M_1$}(b_1.west);
+    \draw [->] (b_0.north)  |-  node[yshift=-0.1cm, xshift=1cm] {$M_3$}(b_2.west);
+    \draw [->] (b_0.south)  |-  node[yshift=-0.1cm, xshift=1.2cm] {$M_{2(n-1)-1}$}(b_nm1.west);
+    \draw [->] (b_0.south)  |-  node[yshift=-0.1cm, xshift=1.2cm] {$M_{2n-1}$}(b_n.west);    
+    \draw [->] (b_1.east)    -|  node[yshift=0.2cm, xshift=-1.7cm] {$M_2$}(b_np1.north);    
+    \draw [->] (b_2.east)    -|  node[yshift=0.2cm, xshift=-1.7cm] {$M_4$}(b_np1.north);    
+    \draw [->] (b_nm1.east)-|  node[yshift=0.2cm, xshift=0cm] {$M_{2(n-1)}$}(b_np1.south);    
+    \draw [->] (b_n.east)    -|  node[yshift=0.2cm, xshift=-0.6cm] {$M_{2n}$}(b_np1.south);    
+    \draw [->] (b_0) -- node {$M_{2i-1}$} (b_i);
+    \draw [->] (b_i) -- node [xshift=0.2cm] {$M_{2i}$} (b_np1);
 \end{tikzpicture}
 
 

@@ -20,9 +20,6 @@
 
 \thanks[footnoteinfo]{The research is supported by Russian Science Foundation  grant~21-41-09017.}
 
-
-\thanks[footnoteinfo]{The research is supported by Russian Science Foundation  grant~21-41-09017.}
-
 \author[First]{Alexandre Dolgui} 
 \author[Second]{Anton Eremeev} 
 \author[Third]{Viatcheslav Sigaev}
@@ -85,7 +82,7 @@ respect to diverse optimality criteria and for different types of lines.
 
 \subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
 
-In the present paper, we consider buffer allocation problem for line with a series-parallel network, as shown in Fig. ~\ref{lineexample}, where the arrows are machines and the circles are buffers.
+In the present paper, we consider buffer allocation problem for line with a series-parallel network. Example of line with a series-parallel network shown in Fig. ~\ref{lineexample}, where $M_1,…,M_7$ are machines and $B_0,…,B_5$ are buffers.
 
  \begin{figure}[h!]
 	\centering
@@ -110,8 +107,8 @@ above  mentioned  assumptions  the  system  has  the  steady  state  mode  (see 
 (Sevast'yanov,  1962)),  and  performance  of  the  system  in  this  state  is  important  for 
 applications.
 
-Let the buffers in the system be denoted by $B_1,…,B_N$ and let $h_j$ be the capacity of buffer 
-$B_j$,  which  is  to  be  decided.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_N )\in  Z_+^N$,  where  $Z_+$  is  the  set  of  non-negative  integers.  
+Let the buffers in the system be denoted by $B_1,…,B_n$ and let $h_j$ be the capacity of buffer 
+$B_j$,  which  is  to  be  decided.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_n )\in  Z_+^n$,  where  $Z_+$  is  the  set  of  non-negative  integers.  
 
 Optimization criteria that was used is:
 \begin{equation}
@@ -124,11 +121,11 @@ where
 \item $V(H)$  average production rate (steady state throughput); 
 \item $R(V)$  revenue related to the production rate $V$; 
 \item $J(H)$ cost of buffer configuration H; 
-\item $d_j$ maximal admissible capacity of buffer $B_j$, $j=1,…,N$;
-\item $Q(H)= c_1q_1(H)+ …+c_N q_N(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $B_j$, for $j=1,…,N$.
+\item $d_j$ maximal admissible capacity of buffer $B_j$, $j=1,…,n$;
+\item $Q(H)= c_1q_1(H)+ …+c_n q_n(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $b_j$, for $j=1,…,n$.
 \end{itemize}
 
-Function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_N \leq d_N$.
+Function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_n \leq d_n$.
 $R(V)$ and $J(H)$ are assumed to be given monotone non-decreasing real-valued functions. 
 The cost function $J(H)$ may be non-linear to model some standard buffer capacities or 
 penalize  solutions  where  the  total  capacity  of  the  buffers  exceeds  an  upper  bound. A 
@@ -137,11 +134,6 @@ it  can  reflect  the  effect  of  overproduction  by  switching  from  strictly
 constant at a certain threshold. A stepwise revenue function can be used to model zero 
 revenue  in  case  of  an  unacceptably  low  average  production  rate  (see  e.g.  Section  3). 
 
-The performance of this transfer line is measured in terms of production rate, i.e. the 
-steady state average number of parts produced per unit time. For the evaluation of this
-parameter, different types of Markov models have been considered in literature (see e.g. 
-Dallery and Gershwin, 1992; Papadopoulos and Heavey, 1996). 
- 
 In general, the production rate with finite buffers is difficult to analyze precisely with 
 the Markov models. Exact performance computation of a production rate of a line with 
 more than two machines and one buffer is problematic due to exponential growth of the 
@@ -150,57 +142,36 @@ systems are in the form of analytic approximations and simulations. Analytical
 approximations are generally based on the two-machines-one-buffer Markov models, 
 and either aggregation (De Koster, 1987) or decomposition approach (Dallery et al., 
 1989; Gershwin, 1987; Li, 2005). Simulation models are more expensive 
-computationally but applicable to a wider class of systems (Dolgui and Svirin, 1995; 
+computationally but applicable to a wider class of systems (~\cite{DS95}; 
 Srensen and Janssens, 2004). 
  
 In this paper, we use two-machines-one-buffer Markov model independently developed 
-by Levin $\&$ Pasjko (1969), Dubois $\&$ Forestier (1982), and Coillard $\&$ Proth (1984). For 
+by~\cite{LP},~\cite{DF} and~\cite{Proth84}. For 
 each tentative buffer allocation decision, the production rate is evaluated via an 
-aggregation algorithm (Dolgui, 1993; Dolgui and Svirin, 1995), which is similar to the 
-Terracol and David (1987) techniques. This aggregation approach appears to be 
+aggregation algorithm (~\cite{Dolgui93};~\cite{DS95}), which is similar to the~\cite{TD87} techniques. 
+This aggregation approach appears to be 
 sufficiently rapid for evaluation of tentative buffer allocations within the optimization 
 algorithms.  
  
 The aggregation algorithm for production rate evaluation consists in recurrent 
 replacement of two adjacent machines by a single machine. The parameters $\lambda^*$, $\mu^*$, $c^*$ of 
 the resulting single machine are calculated from differential equations corresponding to
-the two-machines-one-buffer Markov model. After $N$ steps of such aggregation 
+the two-machines-one-buffer Markov model. After $n$ steps of such aggregation 
 procedure the system reduces to one virtual machine with parameters $\lambda^*$, $\mu^*$, $c^*$ and the 
 estimate of the overall production rate $V(H)$ is given by $c^*\mu^/(\lambda^*+\mu^)$
 
-
-In our previous work, we proposed several metaheuristics (Dolgui et al., 2002; 2007) for 
-some problems of this type. In these metaheuristics, we used a two-machine one-buffer 
-Markov  model  (Levin  $\&$  Pasjko,  1969;  Dubois  $\&$  Forestier,  1982;  Coillard  $\&$  Proth, 
-1984;  and  Dolgui,  1993)  -  see  some  elements  necessary  here  in  Appendix  -  and  an 
-aggregation algorithm (Dolgui, 1993; Dolgui and Svirin, 1995), which is similar to the 
-Terracol and David (1987) techniques to evaluate the average production rate of each 
-tentative buffer allocation decision for the more general case of series-parallel lines with 
-more than two machines. This aggregation approach appears to be sufficiently rapid for 
-the evaluation of tentative buffer allocations within the optimization algorithms. 
-
 \subsection{Contribution of the Paper}
-Our main contribution consists in formulation of the
-packet routing problem as a fractional length-bounded
-maximum multicommodity flow problem where all edges
-have the unit length. Investigation of the practical per-
-formance of a simple greedy heuristic and of the FPTAS
-from~\cite{BEHTV19} with respect to the secondary
-criterion and the required CPU time is another contribu-
-tion of the paper. Therefore it may be considered as a more
-detailed presentation and study of the practical instances
-considered in~\cite{BEHTV19}.
+We study structure of local optima for buffer allocation problem for lines with a series-parallel structure. 
+Structure of local optima for each task we obtain by multi-start local descent alghoritm. After that we verify the thesis existence of a fitness landscape. On basis of obtained results, the behavior of genetic algorithm and tabu search algorithm on each task is substantiated.
 
+\section{Investigation of Local Optimums Properties} \label{investigation}
 
-\section{Investigation of Local Optima Properties} \label{investigation}
-
-Experimental location studies
-local optima in the solution space of the optimization problem
-indicate that in many problems there is a high
-concentration of local optima in the immediate
-proximity to the global optimum~\cite{Reev}. This observation is known as
-the thesis about the existence of a ``big valley'' for minimization problems
-or ``massive central'' for tasks to the maximum~\cite{Boese,Hains}. Distance to global optimum
+\subsection{Fitness Landscapes}\label{subsec:landscapes}
+Experimental investigation of structure of local optima in solution space of optimization problem
+indicate that in many cases there is a high
+concentration of local optima close to global optimum. 
+This observation is known as
+the thesis about the existence of a fitness landscape~\cite{Boese,Hains}. Distance to global optimum
 in our case, we will calculate in the metric $l_1$.
 
 \noindent The formulation of this thesis can be divided into two parts:
@@ -216,15 +187,179 @@ local optima, then such a process has many chances to find
 global optimum. In this regard, verification and theoretical
 substantiation of this hypothesis is of undoubted interest.
 
-In order to test this thesis, the paper proposes a method
-finding the number of integer points in the intersection
-ball of a given radius in the $l_1$ metric with a parallelepiped,
-having faces parallel to the coordinate planes. The
-the method was obtained by reducing the problem to a combinatorial one
-formulation already considered earlier for the case of non-negative
+
+\subsection{Tasks Used In Computational Experiment}\label{subsec:series}
+For computational experiments we use three series of problems:
+\begin{table}[!ht]
+\centering
+\small
+\begin{tabular}{|c|c|c|}
+\hline
+Series&Number of Lines&Number of Machines\\
+\hline
+AS & 8 & 4 -- 14 \\
+BN & 10 & 5 \\
+VP & 4 & 5 \\
+\hline
+\end{tabular}
+\caption{List of series}\label{tabl:series}
+\vspace{-0.5cm}
+\end{table}
+
+The AS series consists of tasks created from lines~1,2,6,7,8 from~\cite{Ancelin1987} with real data from
+produced by Renault.
+A distinctive feature of the 7 and 8 lines is the presence
+parallel sections (see figures~\ref{fig:vis_as7},~\ref{fig:vis_as8}).
+Line parameters~1,2,6,7,8 are given in tables \ref{tabl:as1}-\ref{tabl:as8}.
+
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.6]{ans7}
+  \caption{Line structure AS7} \label{fig:vis_as7}
+  \end{figure}
+
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.55]{ans8}
+  \caption{Line structure AS8} \label{fig:vis_as8}
+  \end{figure}
+
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{||c|c||c|c|c|c||}
+\hline \multicolumn{2}{||c||}{buffers}&\multicolumn{4}{|c||}{machines}\\
+\hline
+$i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
+\hline
+1 & 20 & 1 & 244.2 & 150 & 10\\
+2 & 17 & 2 & 255.3 & 300 & 10\\
+3 & 38 & 3 & 176 & 75 & 10\\
+4 & 48 & 4 & 184 & 600 & 10\\
+&& 5 & 192 & 450 & 10\\
+\hline
+\end{tabular}\\
+\caption{Task parameters $\textit{AS1}$}\label{tabl:as1}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{||c|c||c|c|c|c||}
+		\hline \hline
+		\multicolumn{2}{||c||}{Buffers}&\multicolumn{4}{|c||}{Machines}\\
+		\hline
+		$i$ & $d_i$ & $j$  & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$ \\
+		\hline
+		1 & 0   & 1  & 10000 & 440 & 22 \\
+		2 & 50  & 2  & 20000 & 440 & 23 \\
+		3 & 20  & 3  & 5000  & 430 & 22 \\
+		4 & 50  & 4  & 40000 & 520 & 23 \\
+		5 &  0  & 5  & 30000 & 430 & 24 \\
+		6 & 80  & 6  & 2442  & 440 & 22 \\
+		7 & 20  & 7  & 1840  & 520 & 23 \\
+		8 & 100 & 8  & 1680  & 430 & 21 \\
+		9 & 100 & 9  & 2208  & 920 & 24 \\
+		\hline
+	\end{tabular}
+	\caption{Task parameters $\textit{AS2}$} \label{tabl:as2}
+\end{table}  
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{||c|c||c|c|c|c||}
+		\hline \hline
+		\multicolumn{2}{||c||}{Buffers}&\multicolumn{4}{|c||}{Machines}\\
+		\hline
+		$i$ & $d_i$ & $j$  & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$ \\
+		\hline
+		1  & 60 & 1 & 29880 & 22000 &  385\\
+		2  & 60 & 2 & 29880 & 22000 & 426\\
+		3  & 50 & 3 & 876000 & 22300 & 330 \\
+		4  & 70 & 4 & 29880 & 22000 & 372\\
+		5  & 60 & 5 & 33250 & 27500 & 316 \\
+		6  & 80 & 6 & 144000 & 8500 & 340 \\
+		7  & 45 & 7 & 102300 & 74000 & 340 \\
+		8  & 25 & 8 & 113300 & 7200 & 340 \\
+		9  & 35 & 9 & 540000 &  60000 & 380 \\
+		10 & 80 & 10 & 538800 & 349000 & 350 \\
+		11 & 40 & 11 & 5064000 & 73700 & 400 \\
+		12 & 45 & 12 & 468000 & 306000 & 400 \\
+		13 & 65 & 13 & 1032000 & 54000 & 319 \\
+		& & 14 & 45600 & 31120 & 319 \\
+		\hline
+	\end{tabular}
+	\caption{Task parameters $\textit{AS6}$} \label{tabl:as6}
+\end{table}  
+
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{||c|c||c|c|c|c||}
+		\hline \hline
+		\multicolumn{2}{||c||}{Buffers}&\multicolumn{4}{|c||}{Machines}\\
+		\hline
+		$i$ & $d_i$ & $j$  & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$ \\
+		\hline
+		1 & 15 & 1 & 50000 & 12000 & 1000\\
+		2 & 10 & 2 & 48000 & 2000 & 3450\\
+		3 & 15 & 3 & 55000 & 9000 & 2780 \\
+		4 & 10 & 4 & 39000 & 6000 & 3030\\
+		5 &  25  & 5 & 75000 & 10000 & 3333\\
+		6 &  10 & 6 & 59000 & 11000 & 2560\\
+		7 & 10 & 7 & 28000 & 8000 & 3030\\
+			&  & 8 & 35000 & 8000 & 3125\\
+			&  & 9 & 65000 &  35000 & 2174\\
+			&  & 10 & 20000 & 4000 & 800\\
+		\hline \hline
+	\end{tabular}
+	\caption{Task parameters $\textit{AS7}$} \label{tabl:as7}
+\end{table}
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{||c|c||c|c|c|c||}
+		\hline \hline
+		\multicolumn{2}{||c||}{Buffers}&\multicolumn{4}{|c||}{Machines}\\
+		\hline
+		$i$ & $d_i$ & $j$  & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$ \\
+		\hline
+		1 & 1300 & 1 & 87000 & 27000 & 23\\
+		2 & 200 & 2 & 77000 & 22000 & 27\\
+		3 & 0 & 3 & 580000 & 18000 & 38\\
+		4 & 0 & 4 & 410000 & 12500 & 30\\
+		5 & 0 & 5 & 580000 & 18000 & 38\\
+		6 & 2000 & 6 & 410000 & 12500 & 30\\
+		7 & 0 & 7 & 725000 & 21000 & 20\\
+		  &  & 8 & 550000 & 14000 & 40\\
+		 &  & 9 & 430000 & 24000 & 43\\
+		   &  & 10 & 270000 & 22000 & 33\\
+		\hline \hline
+	\end{tabular}
+	\caption{Task parameters $\textit{AS8}$} \label{tabl:as8}
+\end{table}
+
+bn5.1-bn5.10 series consists of 10 lines with 5 machines in
+each from~\cite{eng1}. There are two bottlenecks in the problems of this series. Under
+bottleneck is understood as a line section of two relatively slow machines and a buffer
+between them. 
+
+Series vp6.9-vp6.10 and vp7.9-vp7.10~\cite{vp} are composed of problems on lines from
+5 consecutive machines from~\cite{vp}. 
+
+
+\subsection{Computational Experiment} \label{subsec:experiment}
+
+To verify the thesis, a method was developed
+for finding the number of integer points in
+a ball of a given radius in the metric $l_1$ at the intersection with a parallelepiped
+whose faces are parallel to coordinate planes.
+The method
+was obtained by reducing the problem to a combinatorial
+formulation, already considered earlier for the case of non-negative
 integer points, using
-generating functions~\cite{Sach}. In the present work, a generalization
-the specified result to the conditions we need.
+generating functions ~\cite{Sach}.
 
 A series of experiments were carried out on existing tasks for
 determination of the structure of local optima. With a one-time
@@ -393,9 +528,9 @@ as.6, bn5.1, where the ordinate shows the value of the objective function of the
 distance in metric $l_1$ to the chosen solution.
 
 The effect of clustering is especially well manifested in problems with parallel sections of the line.
-This effect can be justified by the fact that there are several different paths in lines with a parallel network.
+This effect can be justified by the fact that there are several different paths in lines with a parallel structure.
 from start bin to end bin. Thus, if you create two lines that are identical in graph structure,
-such that one line will have relatively large bunkers along the same path, and the other -
+such that one line will have relatively large buffers along the same path, and the other -
 otherwise, it is possible to achieve two solutions close in value to the objective function, but located on <<enough>>
 great distance from each other.
 
@@ -414,7 +549,7 @@ great distance from each other.
 
 Another reason for the clustering effect is the property
 line symmetry. This property is set to~\cite{LP} for a serial line,
-consisting of two EU and a bunker
+consisting of two machine and a buffer
 between them. If we swap the parameters of the first and second EOs so that
 that the input section of the line will become the output, and the output - the input, then
 line performance will not change.
@@ -446,238 +581,18 @@ symmetry can be observed in several internal areas
 lines. This leads to the fact that with this aggregation algorithm
 the set of local optima is divided into several clusters.
 
-\section{Relaxed Packet Routing Problem} \label{formulation}
-
-\section{Computational Experiment}
-For computational experiments, three series of problems were considered in the dissertation:
-\begin{table}[!ht]
-\centering
-\small
-\begin{tabular}{|c|c|c|c|}
-\hline
-Series&Number of Lines&Number of HU&Source\\
-\hline
-AS & 8 & 4 -- 14 & Renault Production~\cite{Ancelin1987}\\
-BN & 10 & 5 & \cite{eng1}\\
-VP & 4 & 5 & \cite{vp}\\
-\hline
-\end{tabular}
-\caption{List of series}\label{tabl:series}
-\vspace{-0.5cm}
-\end{table}
-
-The AS series consists of tasks created from streaming
-lines~1,2,3,4,5,6,7,8 from~\cite{Ancelin1987} with real data from
-produced by Renault.
-Test case~3 from~\cite{Ancelin1987}
-was not used as it demonstrates a special case where
-approximate calculation of line performance is essential
-differs from the simulation results.
-Lines~4,5 from~\cite{Ancelin1987} are not used due to small
-dimensions. A distinctive feature of the ~7.8 lines is the presence
-parallel sections (see figures~\ref{fig:vis_as7},~\ref{fig:vis_as8}).
-Line parameters~1,2,6,7,8 are given in tables \ref{tabl:as1}-\ref{tabl:as7as8}.
-
-\begin{table}[h!]
-\centering
-\small
-\begin{tabular}{||c|c||c|c|c|c||}
-\hline \multicolumn{2}{||c||}{Bunkers}&\multicolumn{4}{|c||}{EU}\\
-\hline
-$i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
-\hline
-1 & 20 & 1 & 244.2 & 150 & 10\\
-2 & 17 & 2 & 255.3 & 300 & 10\\
-3 & 38 & 3 & 176 & 75 & 10\\
-4 & 48 & 4 & 184 & 600 & 10\\
-&& 5 & 192 & 450 & 10\\
-\hline
-\end{tabular}\\
-%\vspace{1em}
-\caption{Task parameters $\textit{AS1}$}\label{tabl:as1}
-%\vspace{1em}
-\end{table}
-
-bn5.1-bn5.10 series consists of 10 lines with 5 machines in
-each. There are two <<bottlenecks>> in the problems of this series. Under
-<<bottleneck>> is understood as a line section of two relatively slow machines and a bunker
-between them. The parameters of all lines are given in the tables \ref{tabl:bn5_1,2}-\ref{tabl:bn5_9,10}.
-
-Series vp6.9-vp6.10 and vp7.9-vp7.10~\cite{vp} are composed of problems on lines from
-5 consecutive machines. Machine parameters and line structure are given in tables \ref{tabl:vp6} - \ref{tabl:vp7}.
-
-\subsection{ Graph ``Clique for links''.}
-\label{subsec:initialclique}
-
-
-\subsection{Graph ``Large clique for links''} \label{subsec:clique}
-
-
-\subsection{Graph``Star  for Stations''}\label{subsec:basestar}
-
-
-\subsection{ Graph ``Clique  for Stations''}\label{subsec:baseclique}
-
-
-\section{Experimental comparison of algorithms for solving the packet routing problem}
-\label{subsec:exp}
-
 \section{Conclusion}
 
 \begin{enumerate}
 
-\item Approximate solution of the packet routing problem in software defined networks for many practical cases can be
-found using the proposed greedy algorithm with relatively low computing time.
-The computation time for most of the considered SDSN instances was less than a second.
-%about 70~ms~-~3s.
+\item Cluster structure of local optima is established of some tasks having parallel parts in structure.
 
-\item If the transfer rate of each session is negligibly small, compared to other problem input data, then the routing problem 
-can be solved with any chosen accuracy using the FPTAS. The computation time for the considered practical instances 
-was from tens of seconds to few thousand seconds.
-%70~s-2500~s.
-
-\item In practice the FPTAS obtains solutions with approximation ratio much smaller than its approximation guarantee.
+\item Reasons for the emergence of clusters of local optima are determined..
 
 \end{enumerate}
 
 \bibliography{eremeev_et_al}   
                                                   
-\begin{thebibliography}{xx}  % you can also add the bibliography by hand
-
-\bibitem[Boese(1993)]{Boese}
-Boese KD, Kahng AB and Muddu S (1993). On the big valley and adaptive multi-start for discrete global optimizations. Technical report, 
-UCLA CS Department, TR-930015.
-
-\bibitem[Hains et al. (2011)]{Hains} Hains, D., Whitley, L. \& Howe, A. Revisiting the big valley search space structure in the TSP. 
-J. Oper. Res. Soc. 62, 305-312 (2011) 
-%https://doi.org/10.1057/jors.2010.116
-
-
-\end{thebibliography}
-
 \end{document}
 
-
-\subsection{Finding shortest paths between all pairs of vertices}
-
-\subsection{Dijkstra's Parallel Algorithm} \label{subsubsec:deikstra}
-
-One run of Dijkstra's algorithm finds the shortest distances from a
-fixed vertex~$i$ to all other vertices. Parallelization of this algorithm is not prospective
- due to the high dependence between the operations of the algorithm.
-When searching for distances between all pairs of vertices, the algorithm
-runs independently for all initial vertices~$i$ from 1 to $n$.
-In this case, all of the instances  of the algorithm (or at least some of them) may be performed in parallel.
-
-An experiment was conducted to estimate the running time in the following
-conditions:
-
-$\bullet$ Execution  on one core of a CPU, no parallelism
-used.
-
-$\bullet$ Execution on CPU on $M$ cores. Graph vertices are divided uniformly
- into $M$ subsets, calculation for each of them
-runs in its own thread.
-
-
-$\bullet$ ���������� �� ����������� ���������� (GPU). ������ ���
-������� $i$ ����������� � ����� ������. ���������� ���������
-��������� ����������� ������������ ����������, � ���������, ������
-(threads) ������ ������������ � ����� (blocks), ��� ����
-���������� ������ ������ ������ �� �������� ������. ������� �����
-�����������, ��� ��������� ���������� ����������� ��� ����������
-������ ������ 24, ��������������, ������ ���� (����� ����������)
-�������� $n / 24$ ������. ��� ��������� ����� ���������� ���
-������ �����������.
-
-� ������������ �������������� ������������ �������
-������������������: CPU AMD Phenom 2 X6 2.8 GHz, GPU GeForce GTS
-450. ���������� �� ������, ��������� � �������~\ref{sec:input_data}
-���������� � ����~\ref{tabl:compareSSSP3}.
-
-�� ����������� �����, ��� ��������� �������� ������������ �������
-�� ������������ CPU. ����� ������� ������ ��������� ���
-������������� ��������� � �������� ������������ � ������ ���������
-��� ������ �������������. ����� ��������, ��� ���� ���������
-������ ���� �� �� ���� ������, � ������ �� �����, �� ����� ������
-����� ���� ������.
-
-\begin{table}[h]
-\begin{center}
-\caption{����� �����~(ms) ��������� �������� �� ��������� ������.
-\label{tabl:compareSSSP3}}
-\begin{tabular}{|c|c|c|c|c|c||c|c||c|c|}
-  \hline
-������ & $n$ & GPU     & CPU,     & CPU, \\
-            &        &              & 1 �����  & 6 �������\\
-   \hline
- ������ ��������                                           & 135 &  2.4   & 1.2         & 0.3   \\
-\hline
- �������� + &  &  &        &    \\
- ������� ``������'' 
- %(��. �.~\ref{subsec:linkstar})
-                                                          & 272 & 13.1  & 5.4         & 0.6   \\
-\hline 
- �������� + ������� 
- %(��. �.~\ref{subsec:initialclique})  
-                                                         & 271 & 53.4  & 20.5        & 5.5   \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\subsubsection{�������� ������-�������� � ��������� ������������������}
-\label{subsubsec:warshell}
-
-��� �������� ����������� �� ������ ������� ������ � ���������
-��������:
-
-$\bullet$ ���������� �� CPU �� ����� ����, �������������� ��
-������������.
-
-$\bullet$ ���������� �� CPU �� 8 �����, �����������������
-���������� Open MP.
-
-$\bullet$ ���������� �� ����������� ���������� (GPU).
-
-� ������������ �������������� ������������ 8-������� CPU Intel
-Core~i7-2600~3.40~��� � GPU GeForce GTX~560~Ti 
-%(Memory Clock Rate~(KHz):~2004000, shared memory/block: 49152~bytes, maximum
-%number of threads/block:~1024). 
-���������� �� ����� ``������
-��������'' ���������� � ����~\ref{tabl:compareSSSP4}.
-
-
-\begin{table}[h]
-\begin{center}
-\caption{����� �����~(ms) ��������� ������-�������� �� �����
-``������ ��������''. \label{tabl:compareSSSP4}}
-\begin{tabular}{|c|c|c|c|}
-  \hline
- GPU                    & GPU               & CPU, & CPU, \\
- (no shared mem.) &(shared mem.) &1 ����� & 8 �������\\
-   \hline
-  17.7   &                    16.5        & 2.8          & 17.2 \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-����� ������� �� ����� ���������� �������� � 2 ���� ������, ���
-���������� �������, �� ����� ��������� ��� ������������� ���������
-� �������� ������������ � ������ ��������� ��� ������
-�������������. ������������� ����� ������������ �������� ���������
-������� ������ ���� ����������� ������, �.�. ����� ���� ����������
-�����, ���������� ���������� ������-�������� �������� ��������� �
-����� ������� ����������� $n\times n$, � � ���������� ������� $n$
-���������� �������� ����� ��������~$n$ �������� ���������� �����.
-
-�� ����������� �����, ��� ����������
-�� CPU ����� ������������ ����� ������������ �� GPU �� ������� �����. 
-������������� GPU ��� ���� ����� �� ��������������
-�������������, ��-�� ����, ��� ������� ������������ ������������
-������ ��� ������������� ���� �������� GPU. ��� ���� ���� ���� GPU ����������� ��������� ����
-CPU, ��� ���������, ������ ����� ���������� �������� ��� ������ $i$ ��� $n = 300$ �
-������� ������� $n/2$ ����������� �� GPU �� 8 ms, ����� ��� �� CPU
-��� �������� ����� 0.5 ms.
 

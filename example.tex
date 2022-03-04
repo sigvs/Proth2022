@@ -527,12 +527,30 @@ Figures~\ref{klaster_as4} and ~\ref{klaster_bn5_1} show diagrams of local optima
 as.6, bn5.1, where the ordinate shows the value of the objective function of the local optimum $\varphi(H)$, and the abscissa is
 distance in metric $l_1$ to the chosen solution.
 
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{multistart_klaster}
+  \caption{Local optimums obtained by local descent multistart } \label{fig:multistart_klaster}
+  \end{figure}
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{ga_klaster}
+  \caption{Final population of GA} \label{fig:ga_klaster}
+  \end{figure}
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{gals_klaster}
+  \caption{Final population of GA with local descent} \label{fig:gals_klaster}
+  \end{figure}
+
 The effect of clustering is especially well manifested in problems with parallel sections of the line.
 This effect can be justified by the fact that there are several different paths in lines with a parallel structure.
 from start bin to end bin. Thus, if you create two lines that are identical in graph structure,
 such that one line will have relatively large buffers along the same path, and the other -
 otherwise, it is possible to achieve two solutions close in value to the objective function, but located on <<enough>>
 great distance from each other.
+
+
 
 \begin{figure}[h!]
 	\begin{center}

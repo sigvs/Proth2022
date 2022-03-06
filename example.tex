@@ -70,14 +70,11 @@ unit of time.
 
 In the literature, there are two types of publications. The first concerns only evaluation 
 of the line performance for a given size of buffers. In the second, the buffer sizes are 
-optimized. For example, (Dallery and Gershwin, 1992), (Gershwin, 1993), (Heavey et 
-al., 1993), (Meerkov and Li, 2008), and (Tan and Gershwin, 2009) proposed models to 
+optimized. For example,~\cite{DG92},~\cite{Gershwin1993},~\cite{HPB1993},~\cite{Meerkov2009}, and~\cite{TanGer09} proposed models to 
 evaluate the performance of lines with unreliable machines and fixed sizes of buffers. 
 Markov models and aggregation or decomposition techniques are often used to calculate 
 steady state throughput or other performance indicators for these lines provided that the 
-buffer  capacities  are  given.  Based  on  these  models  for  performance  analysis,  in,  e.g., 
-(Smith  and  Daskalaki,  1988),  (So,  1997),  (Gershwin  and  Schor,  2000),  and  (Shi  and 
-Gershwin,  2009),  the  optimization  for  buffer  capacity  allocation  was  considered  with 
+buffer  capacities  are  given.  Based  on  these  models  for  performance  analysis,  in,  e.g.,~\cite{SmiDas88},~\cite{So97},~\cite{GS},  and~\cite{ShiGer2009},  the  optimization  for  buffer  capacity  allocation  was  considered  with 
 respect to diverse optimality criteria and for different types of lines.
 
 \subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
@@ -140,11 +137,13 @@ more than two machines and one buffer is problematic due to exponential growth o
 number of states. Therefore, most of the techniques employed for the analysis of such 
 systems are in the form of analytic approximations and simulations. Analytical 
 approximations are generally based on the two-machines-one-buffer Markov models, 
-and either aggregation (De Koster, 1987) or decomposition approach (Dallery et al., 
-1989; Gershwin, 1987; Li, 2005). Simulation models are more expensive 
-computationally but applicable to a wider class of systems (~\cite{DS95}; 
-Srensen and Janssens, 2004). 
+and either aggregation~\cite{DeKoster87} or decomposition approach~\cite{DalXie89};~\cite{Gers87};~\cite{Li2005}. Simulation models are more expensive 
+computationally but applicable to a wider class of systems (~\cite{DS95};~\cite{SorJan2004}). 
  
+
+
+
+
 In this paper, we use two-machines-one-buffer Markov model independently developed 
 by~\cite{LP},~\cite{DF} and~\cite{Proth84}. For 
 each tentative buffer allocation decision, the production rate is evaluated via an 
@@ -187,8 +186,17 @@ local optima, then such a process has many chances to find
 global optimum. In this regard, verification and theoretical
 substantiation of this hypothesis is of undoubted interest.
 
+To verify the thesis, a method was developed
+for finding the number of integer points in
+a ball of a given radius in the metric $l_1$ at the intersection with a parallelepiped
+whose faces are parallel to coordinate planes.
+The method
+was obtained by reducing the problem to a combinatorial
+formulation, already considered earlier for the case of non-negative
+integer points, using
+generating functions ~\cite{Sach}.
 
-\subsection{Tasks Used In Computational Experiment}\label{subsec:series}
+\subsection{Tasks Used In Computational Experiment}\label{subsec:tasks}
 For computational experiments we use three series of problems:
 \begin{table}[!ht]
 \centering
@@ -351,34 +359,23 @@ Series vp6.9-vp6.10 and vp7.9-vp7.10~\cite{vp} are composed of problems on lines
 
 \subsection{Computational Experiment} \label{subsec:experiment}
 
-To verify the thesis, a method was developed
-for finding the number of integer points in
-a ball of a given radius in the metric $l_1$ at the intersection with a parallelepiped
-whose faces are parallel to coordinate planes.
-The method
-was obtained by reducing the problem to a combinatorial
-formulation, already considered earlier for the case of non-negative
-integer points, using
-generating functions ~\cite{Sach}.
-
 A series of experiments were carried out on existing tasks for
 determination of the structure of local optima. With a one-time
-running the local lifting algorithm LSA solution $H$ whose elements $h_i$ are chosen with
+running the local descend algorithm LDA solution $H$ whose elements $h_i$ are chosen with
 uniform distribution between 1 and $d_i$ improved to a local optimum.
 This procedure was repeated 300 times to create the necessary
-sample size~\cite{Bose}. Based on the results obtained, it was calculated
-the number of admissible solutions $\mid \Omega \mid$ in balls containing all found
-local optima. In this case, the distance from
-best found local optimum to the worst, and beyond the center -
-the best local optimum found.
+sample size (~\cite{Boese}). Based on the results obtained, it was calculated
+number of admissible solutions $\mid \Omega \mid$ in balls containing all found
+local optima. In this case, distance from
+best found local optimum to worst, and beyond center - best local optimum found.
 
-In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $\mid \Omega \mid$ for balls containing
+In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains cardinality $\mid \Omega \mid$ for balls containing
 local
-optima, the column $V2$ contains the cardinality of the entire space
+optima, the column $V2$ contains cardinality of entire space
 solutions for each problem, and the column $V1/V2$ is their ratio.
-As can be seen from the tables, the first part of the thesis about the existence of a <<central mountain range>>, that
-local optima are located relatively close both to each other and to the global optimum,
-in our case, it was not performed and mainly in the tasks used
+As can be seen from tables, first part of the thesis, that
+local optima are located relatively close both to each other and to global optimum,
+in our case, it was not performed and mainly in tasks used
 the optima are strongly scattered throughout the solution space.
 
 \begin{table}[ht]
@@ -434,11 +431,11 @@ the optima are strongly scattered throughout the solution space.
 	\caption{Results of running a local search multiple times for a series vp7.9 - vp7.10}	\label{spher_vp7}
 \end{table}
 
-Also considered was a part of the thesis about the tendency to worsen the value of the objective function of local optima
-with increasing distance to the global optimum. To do this, for all the considered problems, the correlation was determined
+Also considered was a part of the thesis about tendency to worsen value of objective function of local optima
+with increasing distance to global optimum. To do this, for all considered problems,  correlation was determined
 $\rho(\varphi(\xi),r(\xi,\xi^*))$ objective function values
-local optima $\varphi(\xi)$ and the distance to the global optimum $r(\xi,\xi^*)$.
-As shown by experiments on the proposed problems, there is a negative correlation $\rho$, and all values
+local optima $\varphi(\xi)$ and distance to global optimum $r(\xi,\xi^*)$.
+As shown by experiments on proposed problems, there is a negative correlation $\rho$, and all values
 correlations are significantly different from 0 with a confidence level of 95\% (tables~\ref{res_korr_as_vp}--\ref{res_korr_bn_vp}).
 \begin{table}[h!]
 	\vspace{1cm}
@@ -518,14 +515,68 @@ correlations are significantly different from 0 with a confidence level of 95\% 
 \end{table}
 
 An interesting fact is that
-that in problems as.6, bn5.1 the entire set of local optima splits
-into clusters, for each of which a part of the thesis about the tendency to
+that in problems as.6, bn5.1 entire set of local optima splits
+into clusters, for each of which a part of the thesis about tendency to
 deterioration of the value of the objective function of local optima
-with increasing distance to the global optimum.
+with increasing distance to global optimum.
 
 Figures~\ref{klaster_as4} and ~\ref{klaster_bn5_1} show diagrams of local optima for problems
-as.6, bn5.1, where the ordinate shows the value of the objective function of the local optimum $\varphi(H)$, and the abscissa is
-distance in metric $l_1$ to the chosen solution.
+as.6, bn5.1, where ordinate shows the value of objective function of local optimum $\varphi(H)$, and abscissa is
+distance in metric $l_1$ to chosen solution.
+
+Clustering effect is especially well manifested in tasks with parallel sections of line.
+This effect can be justified by fact that there are several different paths in lines with a parallel structure.
+from start buffer to end buffer. Thus, if you create two lines that are identical in graph structure,
+such that one line will have relatively large buffers along same path, and other -
+otherwise, it is possible to achieve two solutions close in value to the objective function, but located on "enough"
+great distance from each other.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.2]{klaster_as4.png}\\
+		\caption{Structure of local optima of problem as6.} \label{klaster_as4}
+	\end{center}
+\end{figure} 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.2]{klaster_bn5_1.png}\\
+		\caption{Structure of local optima of problem bn5.1.} \label{klaster_bn5_1}
+	\end{center}
+\end{figure} 
+
+Another reason for clustering effect is the property
+line symmetry. This property is set to~\cite{LP} for a serial line,
+consisting of two machine and a buffer
+between them. If we swap the parameters of first and second machines so that
+that input buffer of line will become output, and output - input, then
+line performance will not change.
+
+Consider the example of serial line t.1 from
+%{\frac{1}{T^{\rm O}_j} = 2U_j}, {\frac{1}{T^{\rm B}_j}= 4U_j}, {U_j = U_{j+1} }
+three machiness and two buffers between them with following parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
+ ${U_1=1}$, ${U_2=0.5}$ , ${U_3=1}$;
+ ${d_j=4}$, ${c_j=0}$, $j = 1,\ldots,2$;
+ $T_{am}=7000$;
+ $J(H)=50\cdot(h_1+h_2)$;
+ if $V(H) < 2570$ then $R(V(H))=0.9\cdot V(H)$, otherwise $R(V(H))=2570$.
+
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.9]{test}
+  \caption{Values of the objective function on the set $D$ for problem t.1\label{t_1}}
+  \end{figure}
+
+Set of global optima (see Fig.~\ref{t_1}) of this example splits into two clusters. In
+first cluster contains solutions $H^1=(1,2)$ and $H^2=(1,3)$, and
+the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering optima in
+considered example is a consequence of symmetry and singularities
+aggregation algorithm from~\cite{Dol} used in calculating average
+line performance.
+
+In general case, for lines with $n\geq 3$ buffers, effect
+symmetry can be observed in several internal areas
+lines. This leads to fact that with this aggregation algorithm
+set of local optima is divided into several clusters.
 
  \begin{figure}[h!]
 	\centering
@@ -542,62 +593,6 @@ distance in metric $l_1$ to the chosen solution.
 	\includegraphics[scale=0.5]{gals_klaster}
   \caption{Final population of GA with local descent} \label{fig:gals_klaster}
   \end{figure}
-
-The effect of clustering is especially well manifested in problems with parallel sections of the line.
-This effect can be justified by the fact that there are several different paths in lines with a parallel structure.
-from start bin to end bin. Thus, if you create two lines that are identical in graph structure,
-such that one line will have relatively large buffers along the same path, and the other -
-otherwise, it is possible to achieve two solutions close in value to the objective function, but located on <<enough>>
-great distance from each other.
-
-
-
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[scale=0.2]{klaster_as4.png}\\
-		\caption{The structure of local optima of the problem as6.} \label{klaster_as4}
-	\end{center}
-\end{figure} 
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[scale=0.2]{klaster_bn5_1.png}\\
-		\caption{The structure of local optima of the problem bn5.1.} \label{klaster_bn5_1}
-	\end{center}
-\end{figure} 
-
-Another reason for the clustering effect is the property
-line symmetry. This property is set to~\cite{LP} for a serial line,
-consisting of two machine and a buffer
-between them. If we swap the parameters of the first and second EOs so that
-that the input section of the line will become the output, and the output - the input, then
-line performance will not change.
-
-Consider the example of serial line t.1 from
-%{\frac{1}{T^{\rm O}_j} = 2U_j}, {\frac{1}{T^{\rm B}_j}= 4U_j}, {U_j = U_{j+1} }
-three HUs and two hoppers between them with the following parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
- ${U_1=1}$, ${U_2=0.5}$ , ${U_3=1}$;
- ${d_j=4}$, ${c_j=0}$, $j = 1,\ldots,2$;
- $T_{am}=7000$;
- $J(H)=50\cdot(h_1+h_2)$;
- if $V(H) < 2570$ then $R(V(H))=0.9\cdot V(H)$, otherwise $R(V(H))=2570$.
-
- \begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.9]{test}
-  \caption{Values of the objective function on the set $D$ for problem t.1\label{t_1}}
-  \end{figure}
-
-The set of global optima (see Fig.~\ref{t_1}) of this example splits into two clusters. IN
-the first cluster contains solutions $H^1=(1,2)$ and $H^2=(1,3)$, and
-the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering optima in
-considered example is a consequence of the symmetry and singularities
-aggregation algorithm from~\cite{Dol} used in calculating the average
-line performance.
-
-In the general case, for lines with $n\geq 3$ bins, the effect
-symmetry can be observed in several internal areas
-lines. This leads to the fact that with this aggregation algorithm
-the set of local optima is divided into several clusters.
 
 \section{Conclusion}
 

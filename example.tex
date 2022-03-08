@@ -138,7 +138,7 @@ number of states. Therefore, most of the techniques employed for the analysis of
 systems are in the form of analytic approximations and simulations. Analytical 
 approximations are generally based on the two-machines-one-buffer Markov models, 
 and either aggregation~\cite{DeKoster87} or decomposition approach~\cite{DalXie89};~\cite{Gers87};~\cite{Li2005}. Simulation models are more expensive 
-computationally but applicable to a wider class of systems (~\cite{DS95};~\cite{SorJan2004}). 
+computationally but applicable to a wider class of systems (\cite{DS95};~\cite{SorJan2004}). 
  
 
 
@@ -147,7 +147,7 @@ computationally but applicable to a wider class of systems (~\cite{DS95};~\cite{
 In this paper, we use two-machines-one-buffer Markov model independently developed 
 by~\cite{LP},~\cite{DF} and~\cite{Proth84}. For 
 each tentative buffer allocation decision, the production rate is evaluated via an 
-aggregation algorithm (~\cite{Dolgui93};~\cite{DS95}), which is similar to the~\cite{TD87} techniques. 
+aggregation algorithm (\cite{Dolgui93};~\cite{DS95}), which is similar to the~\cite{TD87} techniques. 
 This aggregation approach appears to be 
 sufficiently rapid for evaluation of tentative buffer allocations within the optimization 
 algorithms.  
@@ -157,36 +157,44 @@ replacement of two adjacent machines by a single machine. The parameters $\lambd
 the resulting single machine are calculated from differential equations corresponding to
 the two-machines-one-buffer Markov model. After $n$ steps of such aggregation 
 procedure the system reduces to one virtual machine with parameters $\lambda^*$, $\mu^*$, $c^*$ and the 
-estimate of the overall production rate $V(H)$ is given by $c^*\mu^/(\lambda^*+\mu^)$
+estimate of the overall production rate $V(H)$ is given by $c^*\mu/(\lambda^*+\mu).$
+
+The buffer allocation problem is known to be NP~hard as shown by~\cite{DEKS2013,DEKS2018}  and therefore it features some properties of the
+well-known combinarotial optimization problems, one of such properties is that often it is easy to find a locally optimal solution (computable in polynomial time 
+w.r.t. the problem input size), although it is hard to find the global optimum (requires exponential time in the worst case).  
+
+\subsection{Big Valley or Massif Central}\label{subsec:landscapes}
+
+In many combinatorial optimization problems, local optima tend to be clustered in a ``big valley`` (in  the case of minimization problems) or
+``massif central`` (in  the case of maximization problems). This landscape structure has been observed  e.g. in 
+NK-landscapes by~\cite{KL87}, in the traveling salesman problem by~\cite{Boese,Hains}, in the graph bisection by~\cite{Boese}, and 
+flowshop scheduling by~\cite{Reeves99}. More precisely, the ``big valley`` or
+``massif central`` is described by the following two statements (see e.g.~\cite{Boese}):
+\begin{enumerate}
+\item Values of the objective function of local optima tend to deteriorate with increasing distance to the global optimum.
+\item Local optima are located relatively close both to each other and to the global optimum (they are located in a ball, which is smaller than 
+the whole search space by several orders of magnitude).
+\end{enumerate}
+The presence of such structure partly explains good performance of genetic
+algorithms~(GAs). If different local optima are found in the population of a GA and
+the new solution is built by means of a crossover operator, 
+then the intuition suggests that such algorithm should have good chances to find the
+global optimum. This is supported by the theoretical analysis in the case of the Jump benchmark of~\cite{DFKKLOS18}, and
+by the experimental studies, e.g. of~\cite{Hains}.
+In this respect, identification of the ``big valley`` or
+``massif central`` structure, or the absence of such structure, is of great practical interest.
 
 \subsection{Contribution of the Paper}
-We study structure of local optima for buffer allocation problem for lines with a series-parallel structure. 
-Structure of local optima for each task we obtain by multi-start local descent alghoritm. After that we verify the thesis existence of a fitness landscape. On basis of obtained results, the behavior of genetic algorithm and tabu search algorithm on each task is substantiated.
+We study the distribution of local optima for buffer allocation problem for lines with a series-parallel structure. 
+The location of local optima for each task is evaluated by the multi-start of a local search alghoritm. 
+After that we verify the massif central conjecture. On basis of obtained results, the 
+behavior of genetic algorithm and tabu search algorithm on each task is substantiated.
 
-\section{Investigation of Local Optimums Properties} \label{investigation}
+\section{Investigation of Local Optima Properties} \label{investigation}
 
-\subsection{Fitness Landscapes}\label{subsec:landscapes}
-Experimental investigation of structure of local optima in solution space of optimization problem
-indicate that in many cases there is a high
-concentration of local optima close to global optimum. 
-This observation is known as
-the thesis about the existence of a fitness landscape~\cite{Boese,Hains}. Distance to global optimum
+The distance to global optimum
 in our case, we will calculate in the metric $l_1$.
-
-\noindent The formulation of this thesis can be divided into two parts:
-\begin{enumerate}
-\item Local optima are located relatively close both to each other and to the global optimum.\newline
-\item Values of the objective function of local optima tend to deteriorate with increasing distance to the global optimum.
-\end{enumerate}
-
-This thesis partly explains the performance of genetic
-algorithms. If local optima are collected in the population and
-the next solution is chosen somewhere between two arbitrary
-local optima, then such a process has many chances to find
-global optimum. In this regard, verification and theoretical
-substantiation of this hypothesis is of undoubted interest.
-
-To verify the thesis, a method was developed
+To verify the big valley conjecture, a method was developed
 for finding the number of integer points in
 a ball of a given radius in the metric $l_1$ at the intersection with a parallelepiped
 whose faces are parallel to coordinate planes.

@@ -41,10 +41,12 @@ optimality criterion, which depends on the average production rate
 of the line, the buffer acquisition and installation cost and the
 inventory cost. The tentative solutions are evaluated with an
 approximate method based on the Markov models aggregation
-approach. The computational experiments show better quality of
-solutions obtained by a genetic algorithm compared with the local
-descent and tabu-search algorithms. It is indicated that in many
-test problems several clusters of local optima can be found.
+approach. It is indicated that in many
+test problems several clusters of local optima can be found and the ``massif central'' structure
+of the fitness landscape is present only in part. 
+The computational experiments show better quality of
+solutions obtained by a genetic algorithm with local search, compared with the multi-start 
+of a local search heuristic. 
 \end{abstract}
 
 \begin{keyword}
@@ -167,11 +169,12 @@ w.r.t. the problem input size), although it is hard to find the global optimum (
 
 In many combinatorial optimization problems, local optima tend to be clustered in a ``big valley`` (in  the case of minimization problems) or
 ``massif central`` (in  the case of maximization problems). This landscape structure has been observed  e.g. in 
-NK-landscapes by~\cite{KL87}, in the traveling salesman problem by~\cite{Boese,Hains}, in the graph bisection by~\cite{Boese}, and 
+NK-landscapes by~\cite{KL87}, in the traveling salesman problem~(TSP) by~\cite{Boese,Hains}, in the graph bisection by~\cite{Boese}, and 
 flowshop scheduling by~\cite{Reeves99}. More precisely, the ``big valley`` or
 ``massif central`` is described by the following two statements (see e.g.~\cite{Boese}):
 \begin{enumerate}
-\item Values of the objective function of local optima tend to deteriorate with increasing distance to the global optimum.
+\item Values of the objective function of local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
+of objective function in the local optima with the distance to the global optimum).
 \item Local optima are located relatively close both to each other and to the global optimum (they are located in a ball, which is smaller than 
 the whole search space by several orders of magnitude).
 \end{enumerate}
@@ -179,16 +182,19 @@ The presence of such structure partly explains good performance of genetic
 algorithms~(GAs). If different local optima are found in the population of a GA and
 the new solution is built by means of a crossover operator, 
 then the intuition suggests that such algorithm should have good chances to find the
-global optimum. This is supported by the theoretical analysis in the case of the Jump benchmark of~\cite{DFKKLOS18}, and
+global optimum. This is supported by the theoretical analysis in the case of the Jump benchmark of~\cite{bib:Dang2016a}, and
 by the experimental studies, e.g. of~\cite{Hains}.
 In this respect, identification of the ``big valley`` or
 ``massif central`` structure, or the absence of such structure, is of great practical interest.
 
 \subsection{Contribution of the Paper}
-We study the distribution of local optima for buffer allocation problem for lines with a series-parallel structure. 
-The location of local optima for each task is evaluated by the multi-start of a local search alghoritm. 
-After that we verify the massif central conjecture. On basis of obtained results, the 
-behavior of genetic algorithm and tabu search algorithm on each task is substantiated.
+On the basis of computational experiments we show that the distribution of local optima for many instances of the buffer allocation 
+problem on lines with a series-parallel structure has multipe clusters. The problem features causing such structures
+are discussed. The massif central / big valley structure is identified but only in part: 
+While the negative correlation between the objective function in local optima and their distance to the global solution is present, yet the concentarion of all 
+local optima in a tiny fraction of the search space is not confirmed. The observed structures of fitness landscape appear to be similar 
+to those observed by~\cite{Hains} for the TSP, and in both cases the GA combined with a local search heuristic is able to locate
+the cluster of high quality local optima.
 
 \section{Investigation of Local Optima Properties} \label{investigation}
 
@@ -361,22 +367,21 @@ each from~\cite{eng1}. There are two bottlenecks in the problems of this series.
 bottleneck is understood as a line section of two relatively slow machines and a buffer
 between them. 
 
-Series vp6.9-vp6.10 and vp7.9-vp7.10~\cite{vp} are composed of problems on lines from
-5 consecutive machines from~\cite{vp}. 
+Problems vp6.9-vp6.10, vp7.9-vp7.10 are defined on serial five-machine lines of~\cite{vp}. 
 
 
 \subsection{Computational Experiment} \label{subsec:experiment}
 
 A series of experiments were carried out on existing tasks for
 determination of the structure of local optima. With a one-time
-running the local descend algorithm LDA solution $H$ whose elements $h_i$ are chosen with
-uniform distribution between 1 and $d_i$ improved to a local optimum.
+running the local search algorithm LSA, starting from a random solution $H$ whose elements $h_i$ are chosen with
+uniform distribution between 1 and $d_i$.
 This procedure was repeated 300 times to create the necessary
 sample size (~\cite{Boese}). Based on this sample, we calculated the
 number of admissible solutions $|\Omega |$ in the minimal sphere encompassing all the
 local optima found. In our case, radius of the sphere equal to distance in metric $l_1$ from best local optimum found to worst.
 
-In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $| \Omega |$ for spheres containing
+In tables~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $| \Omega |$ for spheres containing
 local optima, the column $V2$ contains cardinality of the entire space of feasible
 solutions, and the column $V1/V2$ is the ratio of the two.
 As can be seen from the tables, second part of the massif central / big valley conjecture was not confimed and in most of the instances under consideration
@@ -400,7 +405,7 @@ the optima are scattered throughout the solution space.
 		\hline
 	\end{tabular}
 	%\vspace{1em}
-	\caption{Results of running a local descend multiple times for a series as.1 - as.6}	\label{spher_as}
+	\caption{Results of running a local search multiple times for a series as.1 - as.6}	\label{spher_as}
 \end{table}
 \begin{table}[ht]
 	\centering
@@ -416,7 +421,7 @@ the optima are scattered throughout the solution space.
 		\hline
 	\end{tabular}
 	%\vspace{1em}
-	\caption{Results of running a local descend multiple times for a series vp6.9 - vp6.10}	\label{spher_vp6}
+	\caption{Results of running a local seach multiple times for a series vp6.9 - vp6.10}	\label{spher_vp6}
 \end{table}
 \begin{table}[ht]
 	\centering
@@ -432,15 +437,14 @@ the optima are scattered throughout the solution space.
 		\hline
 	\end{tabular}
 	%\vspace{1em}
-	\caption{Results of running a local descend multiple times for a series vp7.9 - vp7.10}	\label{spher_vp7}
+	\caption{Results of running a local search multiple times for a series vp7.9 - vp7.10}	\label{spher_vp7}
 \end{table}
 
-Also considered was a part of the thesis about tendency to worsen value of objective function of local optima
-with increasing distance to global optimum. To do this, for all considered problems,  correlation was determined
-$\rho(\varphi(\xi),r(\xi,\xi^*))$ objective function values
-local optima $\varphi(\xi)$ and distance to global optimum $r(\xi,\xi^*)$.
-As shown by experiments on proposed problems, there is a negative correlation $\rho$, and all values
-correlations are significantly different from 0 with a confidence level of 95\% (tables~\ref{res_korr_as_vp}--\ref{res_korr_bn_vp}).
+The first part of the massif central / big valley conjecture about the correlation $\rho(\varphi(\xi),r(\xi,\xi^*))$ of the value of 
+objective function of local optima $\varphi(\xi)$
+with the distance $r(\xi,\xi^*)$ to a global optimum. 
+Our experiments suggest that there is a negative correlation $\rho$, and all values of the
+correlation are significantly different from 0 with a confidence level of 95\% (tables~\ref{res_korr_as_vp}--\ref{res_korr_bn_vp}).
 \begin{table}[h!]
 	\vspace{1cm}
 	\centering
@@ -464,7 +468,7 @@ correlations are significantly different from 0 with a confidence level of 95\% 
 		\hline
 	\end{tabular}
 	\vspace{1em}
-	\caption{Results of running a local descend multiple times for a series bn5.1 - bn5.10}	\label{spher_bn}
+	\caption{Results of running a local search multiple times for a series bn5.1 - bn5.10}	\label{spher_bn}
 \end{table}
 \begin{table}[h!]
 	\centering
@@ -487,7 +491,7 @@ correlations are significantly different from 0 with a confidence level of 95\% 
 		\hline	
 	\end{tabular}
 	\vspace{1em}
-	\caption{Results of running a local descend multiple times for a series $as$ and $vp6$}	\label{res_korr_as_vp}
+	\caption{Results of running a local search multiple times for a series $as$ and $vp6$}	\label{res_korr_as_vp}
 \end{table}
 
 \begin{table}[h!]
@@ -518,22 +522,22 @@ correlations are significantly different from 0 with a confidence level of 95\% 
 	\caption{Correlation results for series $bn$ and $vp7$}	\label{res_korr_bn_vp}
 \end{table}
 
-An interesting fact is that
-that in problems as.4, bn5.1 entire set of local optima splits
-into clusters, for each of which a part of the thesis about tendency to
-deterioration of the value of the objective function of local optima
-with increasing distance to global optimum.
+An interesting fact is 
+that in problems as.4, bn5.1, the entire set of local optima splits
+into clusters, and in each of the clusters, the negative correlation~$\rho$ is observed.
+%for each of which a part of the thesis about tendency to
+%deterioration of the value of the objective function of local optima
+%with increasing distance to global optimum.
 
 Figures~\ref{fig:multistart_klaster} and ~\ref{klaster_bn5_1} show diagrams of local optima for problems
 as.6, bn5.1, where ordinate shows the value of objective function of local optimum $\varphi(H)$, and abscissa is
 distance in metric $l_1$ to chosen solution.
 
 Clustering effect is especially well manifested in tasks with parallel sections of line.
-This effect can be justified by fact that there are several different paths in lines with a parallel structure.
-from start buffer to end buffer. Thus, if you create two lines that are identical in graph structure,
-such that one line will have relatively large buffers along same path, and other -
-otherwise, it is possible to achieve two solutions close in value to the objective function, but located on "enough"
-great distance from each other.
+This effect can be justified by the  fact that there are several different paths in lines with a parallel structure.
+from start buffer to end buffer. Thus, if there are two parallel paths that are identical in their network structure,
+such that one path will have relatively large buffers, and other one will have relatively small buffers, then 
+it is possible to obtain two solutions with close values of the objective function, but located at great distance from each other.
 
  \begin{figure}[h!]
 	\centering
@@ -547,16 +551,16 @@ great distance from each other.
 	\end{center}
 \end{figure} 
 
-Another reason for clustering effect is the property
-line symmetry. This property is set to~\cite{LP} for a serial line,
-consisting of two machine and a buffer
-between them. If we swap the parameters of first and second machines so that
-that input buffer of line will become output, and output - input, then
+Another reason for clustering effect is the property of
+line symmetry. This property is indicated by~\cite{LP} for a serial line,
+consisting of two machines and a buffer
+between them. If we swap the parameters of the first and the second machines so that
+that input buffer of the line will become its output, and output buffer will become the input, then
 line performance will not change.
 
-Consider the example of serial line t.1 from
+Consider the example of serial line t.1 of
 %{\frac{1}{T^{\rm O}_j} = 2U_j}, {\frac{1}{T^{\rm B}_j}= 4U_j}, {U_j = U_{j+1} }
-three machiness and two buffers between them with following parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
+three machiness and two buffers between them with the following parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
  ${U_1=1}$, ${U_2=0.5}$ , ${U_3=1}$;
  ${d_j=4}$, ${c_j=0}$, $j = 1,\ldots,2$;
  $T_{am}=7000$;
@@ -565,37 +569,35 @@ three machiness and two buffers between them with following parameters: ${T^{\rm
 
  \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.9]{test}
+	\includegraphics[scale=0.7]{test}
   \caption{Values of the objective function on the set $D$ for problem t.1\label{t_1}}
   \end{figure}
 
-Set of global optima (see Fig.~\ref{t_1}) of this example splits into two clusters. In
+The set of global optima (see Fig.~\ref{t_1}) of this example splits into two clusters. The
 first cluster contains solutions $H^1=(1,2)$ and $H^2=(1,3)$, and
 the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering optima in
-considered example is a consequence of symmetry and singularities
-aggregation algorithm from~\cite{Dolgui93} used in calculating average
+considered example is a consequence of line symmetry effects
+%and singularities
+in the aggregation algorithm from~\cite{Dolgui93} used in calculating average
 line performance.
 
-In general case, for lines with $n\geq 3$ buffers, effect
-symmetry can be observed in several internal areas
-lines. This leads to fact that with this aggregation algorithm
-set of local optima is divided into several clusters.
+In the general case, for lines with $n\geq 3$ buffers, the effect of
+symmetry can be observed in several internal areas of a
+lines. This leads to fact that with this aggregation algorithm, a
+set of local optima may be divided into several clusters.
 
-If a buffer allocation problem has local
-optima with different values of
-objective 
-function,
-then it can become
-difficult for local descend algorithm.
-Sequence of points
-generated by this algorithm and falling into one of a clusters, as
-as a rule, remains in it until end of the calculations. For a tabu-search algorithm, transition between clusters is unlikely, which also makes
-such tasks are difficult for him. Best performance for
-considered problems, compared with the other two algorithms,
-showed the GA and GA with local optimization heuristic from~\cite{sHBBA2007}. 
-As experiments have shown, the population of the GA contains individuals that correspond to solutions from different clusters. 
-Using of selection, crossover and mutation operators allows maintaining the diversity of population.
-There is a competitive struggle between different clusters for their representative in the population at each step of GA.
+%If a buffer allocation problem has local optima with different values of objective 
+%function, then it can become difficult for local search algorithm.
+A sequence of points generated by an algorithm, based on the local search principles, after falling into one of the clusters, usually
+ remains in the cluster until the end of the calculations. For example, for a tabu-search algorithm, transition between clusters is unlikely, which also makes
+such tasks difficult for him. 
+%Best performance for
+%considered problems, compared with the other two algorithms,
+%showed the 
+The GA with local optimization heuristic from~\cite{sHBBA2007} is one of the most efficient algorithms for this problem. 
+As experiments have shown, the population of the pure GA contains individuals that correspond to solutions from different clusters. 
+Usage of selection, crossover and mutation operators allows maintaining the diversity of population.
+There is a competitive struggle between different clusters for their representation in the population at each step of a GA.
 
  \begin{figure}[h!]
 	\centering
@@ -605,10 +607,16 @@ There is a competitive struggle between different clusters for their representat
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{gals_klaster}
-  \caption{Final population of GA with local optimization heuristic of task as.4} \label{fig:gals_klaster}
+  \caption{Final population of the GA with local optimization heuristic of task as.4 \label{fig:gals_klaster} (note that the scale is different from 
+  Fig~\ref{fig:multistart_klaster} and \ref{fig:ga_klaster})}
   \end{figure}
 
-Task AS4 can serve as an illustrative example. Figure~\ref{fig:multistart_klaster} shows structure of local optima obtained by running the local descent algorithm multistart. Figures~\ref{fig:ga_klaster} and~\ref{fig:gals_klaster} show final populations of GAs and GAs with local optimization heuristic, which show the cluster structure of final population. Figure~\ref{fig:gals_klaster} shows the work of the local heuristic, its use allows leaving only the best individuals in each cluster.
+Problem as4 can serve as an illustrative example. Figure~\ref{fig:multistart_klaster} shows the structure 
+of local optima obtained by multistart  of the local search algorithm. 
+Figures~\ref{fig:ga_klaster} and~\ref{fig:gals_klaster} show the final populations of the pure GA and the GA 
+with local optimization heuristic, where the cluster structure of the final population is visible. 
+Figure~\ref{fig:gals_klaster} shows the impact of the local heuristic in the GA: with this heuristic only the best individuals are kept 
+in each cluster.
 
 \section{Conclusion}
 
@@ -616,7 +624,7 @@ Task AS4 can serve as an illustrative example. Figure~\ref{fig:multistart_klaste
 
 \item Cluster structure of local optima is established of some tasks having parallel parts in structure.
 
-\item Reasons for the emergence of clusters of local optima are determined..
+\item Reasons for the emergence of clusters of local optima are determined.
 
 \end{enumerate}
 

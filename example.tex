@@ -373,9 +373,9 @@ running the local descend algorithm LDA solution $H$ whose elements $h_i$ are ch
 uniform distribution between 1 and $d_i$ improved to a local optimum.
 This procedure was repeated 300 times to create the necessary
 sample size (~\cite{Boese}). Based on the results obtained, it was calculated
-number of admissible solutions $\mid \Omega \mid$ in balls containing all found
-local optima. In this case, distance from
-best found local optimum to worst, and beyond center - best local optimum found.
+number of admissible solutions $\mid \Omega \mid$ in sphere containing all found
+local optima. 
+In our case, radius of the sphere equal to distance in metric $l_1$ from best local optimum found to worst.
 
 In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains cardinality $\mid \Omega \mid$ for balls containing
 local
@@ -523,12 +523,12 @@ correlations are significantly different from 0 with a confidence level of 95\% 
 \end{table}
 
 An interesting fact is that
-that in problems as.6, bn5.1 entire set of local optima splits
+that in problems as.4, bn5.1 entire set of local optima splits
 into clusters, for each of which a part of the thesis about tendency to
 deterioration of the value of the objective function of local optima
 with increasing distance to global optimum.
 
-Figures~\ref{klaster_as4} and ~\ref{klaster_bn5_1} show diagrams of local optima for problems
+Figures~\ref{fig:multistart_klaster} and ~\ref{klaster_bn5_1} show diagrams of local optima for problems
 as.6, bn5.1, where ordinate shows the value of objective function of local optimum $\varphi(H)$, and abscissa is
 distance in metric $l_1$ to chosen solution.
 
@@ -539,16 +539,15 @@ such that one line will have relatively large buffers along same path, and other
 otherwise, it is possible to achieve two solutions close in value to the objective function, but located on "enough"
 great distance from each other.
 
+ \begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{multistart_klaster}
+  \caption{Structure of local optima of task as.4 } \label{fig:multistart_klaster}
+  \end{figure}
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[scale=0.2]{klaster_as4.png}\\
-		\caption{Structure of local optima of problem as6.} \label{klaster_as4}
-	\end{center}
-\end{figure} 
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[scale=0.2]{klaster_bn5_1.png}\\
-		\caption{Structure of local optima of problem bn5.1.} \label{klaster_bn5_1}
+		\includegraphics[scale=0.5]{klaster_bn5_1.png}\\
+		\caption{Structure of local optima of task bn5.1.} \label{klaster_bn5_1}
 	\end{center}
 \end{figure} 
 
@@ -604,18 +603,13 @@ There is a competitive struggle between different clusters for their representat
 
  \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{multistart_klaster}
-  \caption{Local optimums obtained by local descent multistart } \label{fig:multistart_klaster}
-  \end{figure}
- \begin{figure}[h!]
-	\centering
 	\includegraphics[scale=0.5]{ga_klaster}
-  \caption{Final population of GA} \label{fig:ga_klaster}
+  \caption{Final population of GA of task as.4} \label{fig:ga_klaster}
   \end{figure}
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{gals_klaster}
-  \caption{Final population of GA with local optimization heuristic} \label{fig:gals_klaster}
+  \caption{Final population of GA with local optimization heuristic of task as.4} \label{fig:gals_klaster}
   \end{figure}
 
 Task AS4 can serve as an illustrative example. Figure~\ref{fig:multistart_klaster} shows structure of local optima obtained by running the local descent algorithm multistart. Figures~\ref{fig:ga_klaster} and~\ref{fig:gals_klaster} show final populations of GAs and GAs with local optimization heuristic, which show the cluster structure of final population. Figure~\ref{fig:gals_klaster} shows the work of the local heuristic, its use allows leaving only the best individuals in each cluster.

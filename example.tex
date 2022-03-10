@@ -373,7 +373,15 @@ Problems vp6.9-vp6.10, vp7.9-vp7.10 are defined on serial five-machine lines of~
 \subsection{Computational Experiment} \label{subsec:experiment}
 
 A series of experiments were carried out on existing tasks for
-determination of the structure of local optima. With a one-time
+determination of the structure of local optima. 
+To find local optimum, we used local search algorithm LSA. At each step, of the LSA in neighborhood of radius 1 in metric $l_1$ of current solution finds 
+an improving solution by value of  objective function, after which the found solution becomes the current one.
+The process continues as long as there is improvement.
+  As a result, the LSA
+any solution improves to a local optimum, where local optimum is a solution that does not have a solution at a distance that improves it
+1 in metric $l_1$.
+
+With a one-time
 running the local search algorithm LSA, starting from a random solution $H$ whose elements $h_i$ are chosen with
 uniform distribution between 1 and $d_i$.
 This procedure was repeated 300 times to create the necessary

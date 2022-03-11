@@ -30,22 +30,22 @@
 
 
 \begin{abstract}                % Abstract of not more than 250 words.
-In this paper, we consider a manufacturing flow-line
-organized as a series-parallel system of machines separated by
-finite buffers. The failure and repair times of machines are
-supposed to be exponentially distributed. The production rate of
+In this paper, we consider a buffer allocation problem in a manufacturing flow line, which has a series-parallel 
+network structure where nodes correspond to buffers  of finite capacity, and arcs correspond to the machines. 
+The machines are supposed to be unreliable, their time to failure and repair time are
+assumed to be exponentially distributed. The production rate of
 each machine is deterministic, and different machines may have
 different production rates. The buffer allocation problem consists
 in determining the buffer capacities with respect to a given
 optimality criterion, which depends on the average production rate
 of the line, the buffer acquisition and installation cost and the
-inventory cost. The tentative solutions are evaluated with an
+inventory cost. Tentative solutions are evaluated by means of an
 approximate method based on the Markov models aggregation
-approach. It is indicated that in many
-test problems several clusters of local optima can be found and the ``massif central'' structure
-of the fitness landscape is present only in part. 
+approach. In this paper, we show that in many
+problem instances, several clusters of local optima can be found and the ``massif central'' or ``big valley'' structure
+of the fitness landscape is partially present. 
 The computational experiments show better quality of
-solutions obtained by a genetic algorithm with local search, compared with the multi-start 
+solutions obtained by a genetic algorithm with local search, compared to the multi-start 
 of a local search heuristic. 
 \end{abstract}
 
@@ -58,30 +58,31 @@ Production line, Unreliable machines, Buffer allocation, Series-parallel network
 
 \section{Introduction}
 
-Buffer  capacity  allocation  problems  arise  in  a  wide  range  of  manufacturing  systems, 
-such  as  transfer  lines,  flexible  manufacturing  or  robotic  assembly  systems  which  are 
-flow lines. Buffers separate any two consecutive machines. The parts are accumulated in
-a buffer when the machines downstream are less productive than machines upstream. 
-Assume that machines can breakdown. When a breakdown occurs, the corresponding 
-machine is not used in production for a random repair time which is independent on the 
+Buffer  capacity  allocation  problems  arise  in  a  wide  range  of  flow line manufacturing  systems, 
+such  as  transfer  lines,  flexible  manufacturing  or  robotic  assembly  systems. 
+The parts are accumulated in the intermediate buffers when the machines downstream are less productive than the upstream machines. 
+It is assumed that machines can break down. When a breakdown occurs, the corresponding 
+machine is not used in production for a random repair time, and the duration of this period is independent of the 
 number of failed machines. It is assumed that there is a sufficient number of raw parts at 
-the input of the system and these parts are always available. The completed parts depart 
-from the system immediately. The performance of the flow-line is measured in terms of 
-the average production rate, i.e., the steady state average number of parts produced per 
-unit of time.
+the input of the system and the completed parts depart 
+from the system immediately. The performance of the flow-line is measured by
+the average production rate, i.e., the average number of parts produced per 
+unit of time in steady state mode.
 
-In the literature, there are two types of publications. The first concerns only evaluation 
-of the line performance for a given size of buffers. In the second, the buffer sizes are 
-optimized. For example,~\cite{DG92},~\cite{Gershwin1993},~\cite{HPB1993},~\cite{Meerkov2009}, and~\cite{TanGer09} proposed models to 
-evaluate the performance of lines with unreliable machines and fixed sizes of buffers. 
-Markov models and aggregation or decomposition techniques are often used to calculate 
-steady state throughput or other performance indicators for these lines provided that the 
-buffer  capacities  are  given.  Based  on  these  models  for  performance  analysis,  in,  e.g.,~\cite{SmiDas88},~\cite{So97},~\cite{GS},  and~\cite{ShiGer2009},  the  optimization  for  buffer  capacity  allocation  was  considered  with 
-respect to diverse optimality criteria and for different types of lines.
+Evaluation  of the manufacturing flow-line performance for given sizes of buffers is studied 
+by~\cite{Proth84}, \cite{DG92}, \cite{Gershwin1993}, \cite{HPB1993}, \cite{Meerkov2009}, and \cite{TanGer09}. A number of
+ models to evaluate the performance of lines with unreliable machines and fixed sizes of buffers were proposed by these and other authors. 
+Markov models and aggregation or decomposition techniques are often used to calculate the
+steady state throughput or other performance indicators for these lines.  
+The  optimization  for  buffer  capacity  allocation with 
+respect to diverse optimality criteria and for different types of lines was studied 
+using such models by~\cite{SmiDas88},~\cite{So97},~\cite{GS},  and~\cite{ShiGer2009} and many other authors. 
 
 \subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
 
-In the present paper, we consider buffer allocation problem for line with a series-parallel network. Example of line with a series-parallel network shown in Fig. ~\ref{lineexample}, where $M_1,…,M_7$ are machines and $B_0,…,B_5$ are buffers.
+In this paper, we consider buffer allocation problem for line with a series-parallel network. 
+An example of a line, stuctured as
+ a series-parallel network shown in Fig. ~\ref{lineexample}, where $M_1,…,M_7$ are machines and $B_0,…,B_5$ are buffers.
 
  \begin{figure}[h!]
 	\centering
@@ -93,23 +94,23 @@ We assume that a machine can be in an operational state or under
 repair. An operational machine may be blocked and temporarily stopped in case if there 
 is  no  room  in  the  downstream  buffer.  It  may  also  be  starved  if  there  are  no  parts  to 
 process  in  the  upstream  buffer. Otherwise operational machines are working. In what 
-follows, m denotes the number of machines in a production line. A working machine $i$, 
-$i=1,…,m$, is assumed to have a constant cycle time $C_i$ and, then, the average production 
+follows, $m$ is the number of machines in a production line. A working machine $i$, 
+$i=1,…,m$, is assumed to have a constant cycle time $C_i$ and, its average production 
 rate $u_i=1/C_i$. 
 
-It is supposed that machines break down only when they are working. The times to fail 
+It is supposed that machines may break down only when they are working. The times to fail 
 and  times  to  repair  for  each  machine  are  assumed  to  be  mutually  independent  and 
-exponentially distributed random values. Let $T_b^i$ denote the average time to fail, and let 
-$\lambda_i=1/T_b^i$ be the failure rate for working machine $i$, $i=1,…,m$. Similarly, let $T_r^i$ and $\mu_i=1/T_r^i$  
-denote  respectively  the  time  to  repair  and  the repair rate for machine $i$. Under the 
-above  mentioned  assumptions  the  system  has  the  steady  state  mode  (see  e.g. 
-(Sevast'yanov,  1962)),  and  performance  of  the  system  in  this  state  is  important  for 
+exponentially distributed random values. Let $T_b^i$ denote the average time till failure, and let 
+$\lambda_i=1/T_b^i$ be the failure rate for a machine $i$, $i=1,...,m$, conditioned that this machine is working. Similarly, let $T_r^i$ and $\mu_i=1/T_r^i$  
+denote  respectively  the  time  to  repair  and  the repair rate for machine $i$, conditioned that this machine is under repair. Given the 
+above  mentioned  assumptions,  the  system  has  the  steady  state  mode  (see  e.g. \cite{Seva62}),  and  the performance  of  the  system  in  this  mode  is  important  for 
 applications.
 
-Let the buffers in the system be denoted by $B_1,…,B_n$ and let $h_j$ be the capacity of buffer 
-$B_j$,  which  is  to  be  decided.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_n )\in  Z_+^n$,  where  $Z_+$  is  the  set  of  non-negative  integers.  
+%Let the buffers in the system be denoted by $B_1,…,B_n$ and l
+Let $h_j$ be the capacity of buffer 
+$B_j$, $j=1,\dots,n$.  Denote  the  vector  of  decision  variables  as  $H=  (h_1,  h_2,…, h_n )\in  Z_+^n$,  where  $Z_+$  is  the  set  of  non-negative  integers.  
 
-Optimization criteria that was used is:
+The optimization criterion used in this paper is:
 \begin{equation}
 \label{criteria}
 \max \phi(H)=T_{am} R(V(H)) - Q(H) - J(H),
@@ -120,26 +121,29 @@ where
 \item $V(H)$  average production rate (steady state throughput); 
 \item $R(V)$  revenue related to the production rate $V$; 
 \item $J(H)$ cost of buffer configuration H; 
-\item $d_j$ maximal admissible capacity of buffer $B_j$, $j=1,…,n$;
+\item $d_j$ maximal admissible capacity of buffer $B_j$;
 \item $Q(H)= c_1q_1(H)+ …+c_n q_n(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $b_j$, for $j=1,…,n$.
 \end{itemize}
 
-Function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_n \leq d_n$.
-$R(V)$ and $J(H)$ are assumed to be given monotone non-decreasing real-valued functions. 
+The function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_n \leq d_n$.
+The functions $R(V)$ and $J(H)$ are assumed to be monotone and  non-decreasing. 
 The cost function $J(H)$ may be non-linear to model some standard buffer capacities or 
 penalize  solutions  where  the  total  capacity  of  the  buffers  exceeds  an  upper  bound. A 
 non-linear revenue function $R(V)$ can model the law of diminishing returns, for example, 
 it  can  reflect  the  effect  of  overproduction  by  switching  from  strictly  increasing  to 
-constant at a certain threshold. A stepwise revenue function can be used to model zero 
-revenue  in  case  of  an  unacceptably  low  average  production  rate  (see  e.g.  Section  3). 
+constant at a certain threshold. 
+%A stepwise revenue function can be used to model zero 
+%revenue  in  case  of  an  unacceptably  low  average  production  rate. 
 
-In general, the production rate with finite buffers is difficult to analyze precisely with 
-the Markov models. Exact performance computation of a production rate of a line with 
+%In general, the production rate with finite buffers is difficult to analyze precisely with 
+%the Markov models. 
+Exact performance computation of a production rate of a line with 
 more than two machines and one buffer is problematic due to exponential growth of the 
 number of states. Therefore, most of the techniques employed for the analysis of such 
-systems are in the form of analytic approximations and simulations. Analytical 
+systems are based on analytical approximations or simulations. Analytical 
 approximations are generally based on the two-machines-one-buffer Markov models, 
-and either aggregation~\cite{DeKoster87} or decomposition approach~\cite{DalXie89};~\cite{Gers87};~\cite{Li2005}. Simulation models are more expensive 
+and either aggregation~\cite{DeKoster87} or decomposition approach~\cite{DalXie89};~\cite{Gers87};~\cite{Li2005}. 
+Simulation models are more expensive 
 computationally but applicable to a wider class of systems (\cite{DS95};~\cite{SorJan2004}). 
  
 
@@ -165,15 +169,15 @@ The buffer allocation problem is known to be NP~hard as shown by~\cite{DEKS2013,
 well-known combinarotial optimization problems, one of such properties is that often it is easy to find a locally optimal solution (computable in polynomial time 
 w.r.t. the problem input size), although it is hard to find the global optimum (requires exponential time in the worst case).  
 
-\subsection{Big Valley or Massif Central}\label{subsec:landscapes}
+\subsection{``Big Valley'' or ``Massif Central''}\label{subsec:landscapes}
 
-In many combinatorial optimization problems, local optima tend to be clustered in a ``big valley`` (in  the case of minimization problems) or
-``massif central`` (in  the case of maximization problems). This landscape structure has been observed  e.g. in 
+In many combinatorial optimization problems, local optima of the objective function (or fitness)  tend to be clustered in a ``big valley`` (in  the case of minimization problems) or
+``massif central`` (in  the case of maximization problems). This fitness landscape structure has been observed  e.g. in 
 NK-landscapes by~\cite{KL87}, in the traveling salesman problem~(TSP) by~\cite{Boese,Hains}, in the graph bisection by~\cite{Boese}, and 
 flowshop scheduling by~\cite{Reeves99}. More precisely, the ``big valley`` or
 ``massif central`` is described by the following two statements (see e.g.~\cite{Boese}):
 \begin{enumerate}
-\item Values of the objective function of local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
+\item Values of the objective function in the local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
 of objective function in the local optima with the distance to the global optimum).
 \item Local optima are located relatively close both to each other and to the global optimum (they are located in a ball, which is smaller than 
 the whole search space by several orders of magnitude).
@@ -190,7 +194,7 @@ In this respect, identification of the ``big valley`` or
 \subsection{Contribution of the Paper}
 On the basis of computational experiments we show that the distribution of local optima for many instances of the buffer allocation 
 problem on lines with a series-parallel structure has multipe clusters. The problem features causing such structures
-are discussed. The massif central / big valley structure is identified but only in part: 
+are discussed. The ``massif central'' structure is identified but only in part: 
 While the negative correlation between the objective function in local optima and their distance to the global solution is present, yet the concentarion of all 
 local optima in a tiny fraction of the search space is not confirmed. The observed structures of fitness landscape appear to be similar 
 to those observed by~\cite{Hains} for the TSP, and in both cases the GA combined with a local search heuristic is able to locate
@@ -200,17 +204,17 @@ the cluster of high quality local optima.
 
 The distance to global optimum
 in our case, we will calculate in the metric $l_1$.
-To verify the big valley conjecture, a method was developed
+To verify the ``massif central'' structure, we delevoped a method 
 for finding the number of integer points in
-a ball of a given radius in the metric $l_1$ at the intersection with a parallelepiped
+a ball of a given radius at the intersection with a parallelepiped
 whose faces are parallel to coordinate planes.
 The method
 was obtained by reducing the problem to a combinatorial
 formulation, already considered earlier for the case of non-negative
 integer points, using
-generating functions ~\cite{Sach}.
+generating functions, see~\cite{Sach}.
 
-\subsection{Tasks Used In Computational Experiment}\label{subsec:tasks}
+\subsection{Problem Instances Used In Computational Experiment}\label{subsec:tasks}
 For computational experiments we use three series of problems:
 \begin{table}[!ht]
 \centering
@@ -228,8 +232,8 @@ VP & 4 & 5 \\
 \vspace{-0.5cm}
 \end{table}
 
-The AS series consists of tasks created from lines~1,2,6,7,8 from~\cite{Ancelin1987} with real data from
-produced by Renault.
+The AS series consists of instances created from lines~1,2,6,7,8 from~\cite{Ancelin1987} with real data from
+Renault production.
 A distinctive feature of the 7 and 8 lines is the presence
 parallel sections (see figures~\ref{fig:vis_as7},~\ref{fig:vis_as8}).
 Line parameters~1,2,6,7,8 are given in tables \ref{tabl:as1}-\ref{tabl:as8}.
@@ -262,7 +266,7 @@ $i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
 && 5 & 192 & 450 & 10\\
 \hline
 \end{tabular}\\
-\caption{Task parameters $\textit{AS1}$}\label{tabl:as1}
+\caption{Problem parameters $\textit{AS1}$}\label{tabl:as1}
 \end{table}
 
 \begin{table}[h!]
@@ -285,7 +289,7 @@ $i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
 		9 & 100 & 9  & 2208  & 920 & 24 \\
 		\hline
 	\end{tabular}
-	\caption{Task parameters $\textit{AS2}$} \label{tabl:as2}
+	\caption{Problem parameters $\textit{AS2}$} \label{tabl:as2}
 \end{table}  
 \begin{table}[h!]
 	\centering
@@ -312,7 +316,7 @@ $i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
 		& & 14 & 45600 & 31120 & 319 \\
 		\hline
 	\end{tabular}
-	\caption{Task parameters $\textit{AS6}$} \label{tabl:as6}
+	\caption{Problem parameters $\textit{AS6}$} \label{tabl:as6}
 \end{table}  
 
 \begin{table}[h!]
@@ -336,7 +340,7 @@ $i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
 			&  & 10 & 20000 & 4000 & 800\\
 		\hline \hline
 	\end{tabular}
-	\caption{Task parameters $\textit{AS7}$} \label{tabl:as7}
+	\caption{Problem parameters $\textit{AS7}$} \label{tabl:as7}
 \end{table}
 \begin{table}[h!]
 	\centering
@@ -359,12 +363,11 @@ $i$ & $d_i$ & $j$ & $T^{\rm O}_j$ & $T^{\rm B}_j$ & $U_i$\\
 		   &  & 10 & 270000 & 22000 & 33\\
 		\hline \hline
 	\end{tabular}
-	\caption{Task parameters $\textit{AS8}$} \label{tabl:as8}
+	\caption{Problem parameters $\textit{AS8}$} \label{tabl:as8}
 \end{table}
 
-bn5.1-bn5.10 series consists of 10 lines with 5 machines in
-each from~\cite{eng1}. There are two bottlenecks in the problems of this series. Under
-bottleneck is understood as a line section of two relatively slow machines and a buffer
+Instances bn5.1-bn5.10 consist of 10 lines from~\cite{eng1} with $m=5$. There are two bottlenecks in each line. By
+bottleneck we mean here a line section of two relatively slow machines and a buffer
 between them. 
 
 Problems vp6.9-vp6.10, vp7.9-vp7.10 are defined on serial five-machine lines of~\cite{vp}. 
@@ -372,8 +375,8 @@ Problems vp6.9-vp6.10, vp7.9-vp7.10 are defined on serial five-machine lines of~
 
 \subsection{Computational Experiment} \label{subsec:experiment}
 
-A series of experiments were carried out on existing tasks for
-determination of the structure of local optima. 
+A series of experiments were carried out on existing instances for
+determination of the landscape structure. 
 To find local optimum, we used local search algorithm LSA. At each step, of the LSA in neighborhood of radius 1 in metric $l_1$ of current solution finds 
 an improving solution by value of  objective function, after which the found solution becomes the current one.
 The process continues as long as there is improvement.
@@ -541,7 +544,7 @@ Figures~\ref{fig:multistart_klaster} and ~\ref{klaster_bn5_1} show diagrams of l
 as.6, bn5.1, where ordinate shows the value of objective function of local optimum $\varphi(H)$, and abscissa is
 distance in metric $l_1$ to chosen solution.
 
-Clustering effect is especially well manifested in tasks with parallel sections of line.
+Clustering effect is especially well manifested in instances with parallel sections of line.
 This effect can be justified by the  fact that there are several different paths in lines with a parallel structure.
 from start buffer to end buffer. Thus, if there are two parallel paths that are identical in their network structure,
 such that one path will have relatively large buffers, and other one will have relatively small buffers, then 
@@ -550,12 +553,12 @@ it is possible to obtain two solutions with close values of the objective functi
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{multistart_klaster}
-  \caption{Structure of local optima of task as.4 } \label{fig:multistart_klaster}
+  \caption{Structure of local optima on instance  as.4 } \label{fig:multistart_klaster}
   \end{figure}
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[scale=0.5]{klaster_bn5_1.png}\\
-		\caption{Structure of local optima of task bn5.1.} \label{klaster_bn5_1}
+		\caption{Structure of local optima on instance bn5.1.} \label{klaster_bn5_1}
 	\end{center}
 \end{figure} 
 
@@ -598,25 +601,25 @@ set of local optima may be divided into several clusters.
 %function, then it can become difficult for local search algorithm.
 A sequence of points generated by an algorithm, based on the local search principles, after falling into one of the clusters, usually
  remains in the cluster until the end of the calculations. For example, for a tabu-search algorithm, transition between clusters is unlikely, which also makes
-such tasks difficult for him. 
+such tasks difficult for it. 
 %Best performance for
 %considered problems, compared with the other two algorithms,
 %showed the 
 The GA with local optimization heuristic from~\cite{sHBBA2007} is one of the most efficient algorithms for this problem. 
 As experiments have shown, the population of the pure GA contains individuals that correspond to solutions from different clusters. 
 Usage of selection, crossover and mutation operators allows maintaining the diversity of population.
-There is a competitive struggle between different clusters for their representation in the population at each step of a GA.
+There is a competition between different clusters for their representation in the population at each step of a GA.
 
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{ga_klaster}
-  \caption{Final population of GA of task as.4} \label{fig:ga_klaster}
+  \caption{Final population of GA on instance as.4} \label{fig:ga_klaster}
   \end{figure}
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{gals_klaster}
-  \caption{Final population of the GA with local optimization heuristic of task as.4 \label{fig:gals_klaster} (note that the scale is different from 
-  Fig~\ref{fig:multistart_klaster} and \ref{fig:ga_klaster})}
+  \caption{Final population of the GA with local optimization heuristic on instance as.4 \label{fig:gals_klaster} (note that the scale is different from 
+  Figs~\ref{fig:multistart_klaster} and \ref{fig:ga_klaster})}
   \end{figure}
 
 Problem as4 can serve as an illustrative example. Figure~\ref{fig:multistart_klaster} shows the structure 
@@ -626,15 +629,15 @@ with local optimization heuristic, where the cluster structure of the final popu
 Figure~\ref{fig:gals_klaster} shows the impact of the local heuristic in the GA: with this heuristic only the best individuals are kept 
 in each cluster.
 
-\section{Conclusion}
-
-\begin{enumerate}
-
-\item Cluster structure of local optima is established of some tasks having parallel parts in structure.
-
-\item Reasons for the emergence of clusters of local optima are determined.
-
-\end{enumerate}
+%\section{Conclusion}
+%
+%\begin{enumerate}
+%
+%\item Cluster structure of local optima is established of some tasks having parallel parts in structure.
+%
+%\item Reasons for the emergence of clusters of local optima are determined.
+%
+%\end{enumerate}
 
 \bibliography{eremeev_et_al}   
                                                   

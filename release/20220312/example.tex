@@ -33,20 +33,20 @@
 In this paper, we consider a buffer allocation problem in a manufacturing flow line, which has a series-parallel 
 network structure where nodes correspond to buffers  of finite capacity, and arcs correspond to the machines. 
 The machines are supposed to be unreliable, their time to failure and repair time are
-assumed to be exponentially distributed. The production rate of
-each machine is deterministic, and different machines may have
-different production rates. The buffer allocation problem consists
-in determining the buffer capacities with respect to a given
-optimality criterion, which depends on the average production rate
+assumed to be exponentially distributed. Different machines may have
+different production rates and the production rates of all machines are assumed to be deterministic. 
+The buffer allocation problem is 
+in determine the capacities of all buffers with respect to a given
+optimality criterion, which is a function of the average production rate
 of the line, the buffer acquisition and installation cost and the
-inventory cost. Tentative solutions are evaluated by means of an
-approximate method based on the Markov models aggregation
-approach. In this paper, we show that in many
+inventory cost. In our optimization algorithm, the tentative solutions are evaluated by means of an
+approximate method based on the Markov models aggregation. We show that in many
 problem instances, several clusters of local optima can be found and the ``massif central'' or ``big valley'' structure
 of the fitness landscape is partially present. 
-The computational experiments show better quality of
-solutions obtained by a genetic algorithm with local search, compared to the multi-start 
-of a local search heuristic. 
+%The computational experiments show better quality of
+%solutions obtained by a genetic algorithm with local search, compared to the multi-start 
+%of a local search. 
+The perfomance of genetic algorithms with respect to clusteres of the local optima is discussed.
 \end{abstract}
 
 \begin{keyword}
@@ -61,13 +61,13 @@ Production line, Unreliable machines, Buffer allocation, Series-parallel network
 Buffer  capacity  allocation  problems  arise  in  a  wide  range  of  flow line manufacturing  systems, 
 such  as  transfer  lines,  flexible  manufacturing  or  robotic  assembly  systems. 
 The parts are accumulated in the intermediate buffers when the machines downstream are less productive than the upstream machines. 
-It is assumed that machines can break down. When a breakdown occurs, the corresponding 
-machine is not used in production for a random repair time, and the duration of this period is independent of the 
-number of failed machines. It is assumed that there is a sufficient number of raw parts at 
+In this paper, it is assumed that machines can break down and then go through repair. When a breakdown occurs, the corresponding 
+machine is not used in production for a random repair time, and the length of this period is independent of the 
+number of machines under repair. In this paper it is assumed  that there is a sufficient number of raw parts at 
 the input of the system and the completed parts depart 
-from the system immediately. The performance of the flow-line is measured by
-the average production rate, i.e., the average number of parts produced per 
-unit of time in steady state mode.
+from the system immediately. One of the key performance measures of a flow-line is 
+the average production rate, i.e., the expected number of parts produced per 
+unit of time in the steady state mode.
 
 Evaluation  of the manufacturing flow-line performance for given sizes of buffers is studied 
 by~\cite{Proth84}, \cite{DG92}, \cite{Gershwin1993}, \cite{HPB1993}, \cite{Meerkov2009}, and \cite{TanGer09}. A number of
@@ -377,25 +377,23 @@ Problems vp6.9-vp6.10, vp7.9-vp7.10 are defined on serial five-machine lines of~
 
 A series of experiments were carried out on existing instances for
 determination of the landscape structure. 
-To find local optimum, we used local search algorithm LSA. At each step, of the LSA in neighborhood of radius 1 in metric $l_1$ of current solution finds 
-an improving solution by value of  objective function, after which the found solution becomes the current one.
-The process continues as long as there is improvement.
-  As a result, the LSA
-any solution improves to a local optimum, where local optimum is a solution that does not have a solution at a distance that improves it
-1 in metric $l_1$.
+To find a local optimum, we used the local search algorithm LSA. At each iteration, the LSA searches through the neighborhood of radius 1 in metric $l_1$ around
+the current solution. If an improving feasible solution in terms of the  objective function is found in the neighborhood, then it becomes the new current solution.
+The process continues as long as an improvement can be found.  Starting from any feasible solution, the LSA
+moves iteratively to a local optimum, i.e. a solution that does not have an improving neighbour within the radius~1 in metric $l_1$.
 
-With a one-time
-running the local search algorithm LSA, starting from a random solution $H$ whose elements $h_i$ are chosen with
+In each run of the local search algorithm LSA, it starts at a randomly generated solution $H$ whose elements $h_i$ are chosen with
 uniform distribution between 1 and $d_i$.
 This procedure was repeated 300 times to create the necessary
-sample size (~\cite{Boese}). Based on this sample, we calculated the
+sample size (\cite{Boese}). Based on this sample, we calculated the total
 number of admissible solutions $|\Omega |$ in the minimal ball encompassing all the
-local optima found. In our case, radius of the sphere equal to distance in metric $l_1$ from best local optimum found to worst.
+local optima found. In our case, the ball was chosen in the metric $l_1$, with the center in the best found local optimum.
 
 In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $| \Omega |$ for balls containing
 local optima, the column $V2$ contains cardinality of the entire space of feasible
 solutions, and the column $V1/V2$ is the ratio of the two.
-As can be seen from the tables, second part of the massif central / big valley conjecture was not confimed and in most of the instances under consideration
+As can be seen from the tables, the second part of the massif central / big valley conjecture was not 
+confimed and in most of the instances under consideration
 the optima are scattered throughout the solution space.
 
 \begin{table}[ht]
@@ -432,7 +430,7 @@ the optima are scattered throughout the solution space.
 		\hline
 	\end{tabular}
 	%\vspace{1em}
-	\caption{Results of running a local search multiple times for a series vp6.9 - vp6.10}	\label{spher_vp6}
+	\caption{Results of running a local search multiple times for the series vp6.9 - vp6.10}	\label{spher_vp6}
 \end{table}
 \begin{table}[ht]
 	\centering
@@ -448,7 +446,7 @@ the optima are scattered throughout the solution space.
 		\hline
 	\end{tabular}
 	%\vspace{1em}
-	\caption{Results of running a local search multiple times for a series vp7.9 - vp7.10}	\label{spher_vp7}
+	\caption{Results of running a local search multiple times for the series vp7.9 - vp7.10}	\label{spher_vp7}
 \end{table}
 
 The first part of the massif central / big valley conjecture about the correlation $\rho(\varphi(\xi),r(\xi,\xi^*))$ of the value of 
@@ -479,7 +477,7 @@ correlation are significantly different from 0 with a confidence level of 95\% (
 		\hline
 	\end{tabular}
 	\vspace{1em}
-	\caption{Results of running a local search multiple times for a series bn5.1 - bn5.10}	\label{spher_bn}
+	\caption{Results of 300 runs the local search  for the series bn5.1 - bn5.10}	\label{spher_bn}
 \end{table}
 \begin{table}[h!]
 	\centering
@@ -502,7 +500,7 @@ correlation are significantly different from 0 with a confidence level of 95\% (
 		\hline	
 	\end{tabular}
 	\vspace{1em}
-	\caption{Results of running a local search multiple times for a series $as$ and $vp6$}	\label{res_korr_as_vp}
+	\caption{Results of 300 runs of the local search for series $as$ and $vp6$}	\label{res_korr_as_vp}
 \end{table}
 
 \begin{table}[h!]
@@ -530,7 +528,7 @@ correlation are significantly different from 0 with a confidence level of 95\% (
 		\hline		
 	\end{tabular}
 	\vspace{1em}
-	\caption{Correlation results for series $bn$ and $vp7$}	\label{res_korr_bn_vp}
+	\caption{Correlation $\rho(\varphi(\xi),r(\xi,\xi^*))$ in series $bn$ and $vp7$}	\label{res_korr_bn_vp}
 \end{table}
 
 An interesting fact is 
@@ -541,32 +539,32 @@ into clusters, and in each of the clusters, the negative correlation~$\rho$ is o
 %with increasing distance to global optimum.
 
 Figures~\ref{fig:multistart_klaster} and ~\ref{klaster_bn5_1} show diagrams of local optima for problems
-as.6, bn5.1, where ordinate shows the value of objective function of local optimum $\varphi(H)$, and abscissa is
-distance in metric $l_1$ to chosen solution.
+as.6, bn5.1, where the ordinate shows the value of objective function of local optimum $\varphi(H)$, and the abscissa is
+distance in metric $l_1$ to the best found solution.
 
 Clustering effect is especially well manifested in instances with parallel sections of line.
 This effect can be justified by the  fact that there are several different paths in lines with a parallel structure.
 from start buffer to end buffer. Thus, if there are two parallel paths that are identical in their network structure,
 such that one path will have relatively large buffers, and other one will have relatively small buffers, then 
-it is possible to obtain two solutions with close values of the objective function, but located at great distance from each other.
+it is possible to obtain two solutions with close values of the objective function, but located at a large distance from each other.
 
  \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{multistart_klaster}
-  \caption{Structure of local optima on instance  as.4 } \label{fig:multistart_klaster}
+  \caption{The set of local optima obtaained in as.4 } \label{fig:multistart_klaster}
   \end{figure}
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[scale=0.5]{klaster_bn5_1.png}\\
-		\caption{Structure of local optima on instance bn5.1.} \label{klaster_bn5_1}
+		\caption{The set of  local optima obtained in bn5.1.} \label{klaster_bn5_1}
 	\end{center}
 \end{figure} 
 
 Another reason for clustering effect is the property of
 line symmetry. This property is indicated by~\cite{LP} for a serial line,
 consisting of two machines and a buffer
-between them. If we swap the parameters of the first and the second machines so that
-that input buffer of the line will become its output, and output buffer will become the input, then
+between them. If we swap the parameters of the first and the second machines so 
+that the input buffer of the line will become its output, and the output buffer will become the input, then
 line performance will not change.
 
 Consider the example of serial line t.1 of
@@ -586,15 +584,14 @@ three machiness and two buffers between them with the following parameters: ${T^
 
 The set of global optima (see Fig.~\ref{t_1}) of this example splits into two clusters. The
 first cluster contains solutions $H^1=(1,2)$ and $H^2=(1,3)$, and
-the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering optima in
-considered example is a consequence of line symmetry effects
+the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering of the optima in
+this example is a consequence of the line symmetry effects
 %and singularities
-in the aggregation algorithm from~\cite{Dolgui93} used in calculating average
-line performance.
+in the aggregation algorithm from~\cite{Dolgui93, DF}, which is used to calculate the line performance.
 
 In the general case, for lines with $n\geq 3$ buffers, the effect of
 symmetry can be observed in several internal areas of a
-lines. This leads to fact that with this aggregation algorithm, a
+line. As a consequence, with this aggregation algorithm, a
 set of local optima may be divided into several clusters.
 
 %If a buffer allocation problem has local optima with different values of objective 
@@ -620,16 +617,17 @@ There is a competition between different clusters for their representation in th
 	\hspace{1.6em} \includegraphics[scale=0.5]{gals_klaster}
 %	\centering
 %	\hspace{1.6em} \includegraphics[width=5.3cm, height=3.5cm]{gals_klaster}
-  \caption{Final population of the GA with local optimization heuristic on instance as.4 \label{fig:gals_klaster} (note that the horizontal scale is different from 
+  \caption{Final population of the GA with local optimization heuristic on instance as.4 \label{fig:gals_klaster} 
+  (note that the scale of both axes is different from 
   Figs~\ref{fig:multistart_klaster} and \ref{fig:ga_klaster})}
   \end{figure}
 
-Problem as4 can serve as an illustrative example. Figure~\ref{fig:multistart_klaster} shows the structure 
-of local optima obtained by multistart  of the local search algorithm. 
+Problem as4 can serve as an illustrative example. Fig.~\ref{fig:multistart_klaster} shows the structure 
+of the set of local optima obtained by multistart  of the local search. 
 Figures~\ref{fig:ga_klaster} and~\ref{fig:gals_klaster} show the final populations of the pure GA and the GA 
-with local optimization heuristic, where the cluster structure of the final population is visible. 
-Figure~\ref{fig:gals_klaster} shows the impact of the local heuristic in the GA: with this heuristic only the best individuals are kept 
-in each cluster.
+with local optimization heuristic, where the multi-cluster structure of the final population is visible. 
+Figure~\ref{fig:gals_klaster} shows the impact of the local heuristic in the GA: with this heuristic only the best individuals 
+of the top four clusters from Fig.~\ref{fig:ga_klaster} are present.
 
 %\section{Conclusion}
 %

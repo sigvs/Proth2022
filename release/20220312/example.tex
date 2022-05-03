@@ -126,45 +126,41 @@ where
 \item $Q(H)= c_1q_1(H)+ …+c_n q_n(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $b_j$, for $j=1,…,n$.
 \end{itemize}
 
-The function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_n \leq d_n$.
-The functions $R(V)$ and $J(H)$ are assumed to be monotone and  non-decreasing. 
-The cost function $J(H)$ may be non-linear to model some standard buffer capacities or 
-penalize  solutions  where  the  total  capacity  of  the  buffers  exceeds  an  upper  bound. A 
-non-linear revenue function $R(V)$ can model the law of diminishing returns, for example, 
-it  can  reflect  the  effect  of  overproduction  by  switching  from  strictly  increasing  to 
-constant at a certain threshold. 
+The function $\phi(H)$ has to be maximized, subject to the constraints $h_1 \leq d_1$, $h_2 \leq d_2$,…, $h_n \leq d_n$, bounding the
+admissible buffer size. Functions $R(V)$ and $J(H)$ are assumed to be monotone and  non-decreasing. 
+$J(H)$ may be a linear function, or e.g. a step-function to model some standard buffer capacities, or  
+may be a penalty function, imposing a penaly on solutions  where  the  total  capacity  of  all  buffers  exceeds  some  upper  bound. 
+%A  non-linear revenue function $R(V)$ can model the law of diminishing returns, for example, 
+%it  can  reflect  the  effect  of  overproduction  by  switching  from  strictly  increasing  to 
+%constant at a certain threshold. 
 %A stepwise revenue function can be used to model zero 
 %revenue  in  case  of  an  unacceptably  low  average  production  rate. 
 
 %In general, the production rate with finite buffers is difficult to analyze precisely with 
 %the Markov models. 
-Exact performance computation of a production rate of a line with 
-more than two machines and one buffer is problematic due to exponential growth of the 
-number of states. Therefore, most of the techniques employed for the analysis of such 
-systems are based on analytical approximations or simulations. Analytical 
-approximations are generally based on the two-machines-one-buffer Markov models, 
-and either aggregation~\cite{DeKoster87} or decomposition approach~\cite{DalXie89};~\cite{Gers87};~\cite{Li2005}. 
-Simulation models are more expensive 
-computationally but applicable to a wider class of systems (\cite{DS95};~\cite{SorJan2004}). 
+Exact computation of the production rate and inventory levels in a line with 
+more than two serial machines is problematic due to the exponential growth of the 
+number of states in the corresponding Markov model. Therefore, most of the techniques developed for the analysis of such 
+systems are based on analytical approximations or simulations. Most of the analytical 
+approximations are based on the two-machine Markov models, 
+and either aggregation~\citep{DeKoster87} or decomposition~\citep{DalXie89,Gers87,Li2005}. 
+Simulation models require more computational resources but may be applied to a wider class of systems~\citep{DS95,SorJan2004}. 
  
-
-
-
-
-In this paper, we use two-machines-one-buffer Markov model independently developed 
+In this paper, we use the two-machine Markov model, independently developed 
 by~\cite{LP},~\cite{DF} and~\cite{Proth84}. For 
-each tentative buffer allocation decision, the production rate is evaluated via an 
-aggregation algorithm (\cite{Dolgui93};~\cite{DS95}), which is similar to the~\cite{TD87} techniques. 
-This aggregation approach appears to be 
-sufficiently rapid for evaluation of tentative buffer allocations within the optimization 
-algorithms.  
+any tentative buffer allocation, the production rate is evaluated using the
+aggregation algorithm~\citep{Dolgui93} which is similar to the techniques from~\citep{TD87,DS95}. 
+%This aggregation approach appears to be 
+%sufficiently rapid for evaluation of tentative buffer allocations within the optimization 
+%algorithms.  
  
-The aggregation algorithm for production rate evaluation consists in recurrent 
+The aggregation algorithm consists in recursive 
 replacement of two adjacent machines by a single machine. The parameters $\lambda^*$, $\mu^*$, $c^*$ of 
-the resulting single machine are calculated from differential equations corresponding to
-the two-machines-one-buffer Markov model. After $n$ steps of such aggregation 
-procedure the system reduces to one virtual machine with parameters $\lambda^*$, $\mu^*$, $c^*$ and the 
-estimate of the overall production rate $V(H)$ is given by $c^*\mu/(\lambda^*+\mu).$
+each emerging machine are calculated from differential equations corresponding to
+the two-machine Markov model. After $n$ iterations of such aggregation 
+procedure the system reduces to a single machine with parameters $\lambda^*$, $\mu^*$, $c^*$ and the 
+estimate of the overall production rate $V(H)$ is given by $c^*\mu/(\lambda^*+\mu).$ The steady state inventory levels are found
+in each application of the two-machine Markov model.
 
 The buffer allocation problem is known to be NP~hard as shown by~\cite{DEKS2013,DEKS2018}  and therefore it features some properties of the
 well-known combinarotial optimization problems, one of such properties is that often it is easy to find a locally optimal solution (computable in polynomial time 
@@ -172,7 +168,7 @@ w.r.t. the problem input size), although it is hard to find the global optimum (
 
 \subsection{``Big Valley'' or ``Massif Central''}\label{subsec:landscapes}
 
-In many combinatorial optimization problems, local optima of the objective function (or fitness)  tend to be groupped in a ``big valley`` (in  the case of minimization problems) or
+In many combinatorial optimization problems, local optima of the objective function (or fitness)  tend to be grouped in a ``big valley`` (in  the case of minimization problems) or
 ``massif central`` (in  the case of maximization problems). This fitness landscape structure has been observed  e.g. in 
 NK-landscapes~\citep{KL87}, in the traveling salesman problem~(TSP)~\citep{Boese,Hains}, in the graph bisection~\citep{Boese}, and 
 flowshop scheduling~\citep{Reeves99}. More precisely, the ``big valley`` or

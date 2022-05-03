@@ -30,23 +30,24 @@
 
 
 \begin{abstract}                % Abstract of not more than 250 words.
-In this paper, we consider a buffer allocation problem in a manufacturing flow line, which has a series-parallel 
+In this paper, we consider a buffer allocation problem in manufacturing flow lines with series-parallel 
 network structure where nodes correspond to buffers  of finite capacity, and arcs correspond to the machines. 
 The machines are supposed to be unreliable, their time to failure and repair time are
 assumed to be exponentially distributed. Different machines may have
 different production rates and the production rates of all machines are assumed to be deterministic. 
-The buffer allocation problem is 
-in determine the capacities of all buffers with respect to a given
+The buffer allocation problem is to determine the capacities of all buffers with respect to a given
 optimality criterion, which is a function of the average production rate
 of the line, the buffer acquisition and installation cost and the
-inventory cost. In our optimization algorithm, the tentative solutions are evaluated by means of an
-approximate method based on the Markov models aggregation. We show that in many
-problem instances, several clusters of local optima can be found and the ``massif central'' or ``big valley'' structure
-of the fitness landscape is partially present. 
-%The computational experiments show better quality of
-%solutions obtained by a genetic algorithm with local search, compared to the multi-start 
-%of a local search. 
-The perfomance of genetic algorithms with respect to clusteres of the local optima is discussed.
+inventory cost. In search for the optimum, the tentative solutions are evaluated by means of an
+approximate method based on the Markov models aggregation. 
+
+We carry out computational experiments with the local search and genetic algorithms.
+It turns out that the ``massif central'' or ``big valley'' structure
+of the fitness landscape is present but only partially: The fitness of the local optima is negatively correlated with 
+the distance to the best found solution, yet the set of local optima can not be encompassed by a ball of relatively small radius. 
+Moreover, we show that in many problem instances, several clusters of local optima can be identified. The symmetries of the fitness
+function are discussed and suggested as the possible cause of the local optima clustering. 
+Finally the perfomance of genetic algorithms is discussed with respect to clusteres of the local optima.
 \end{abstract}
 
 \begin{keyword}

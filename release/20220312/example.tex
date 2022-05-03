@@ -40,14 +40,15 @@ optimality criterion, which is a function of the average production rate
 of the line, the buffer acquisition and installation cost and the
 inventory cost. In search for the optimum, the tentative solutions are evaluated by means of an
 approximate method based on the Markov models aggregation. 
-
+%
 We carry out computational experiments with the local search and genetic algorithms.
 It turns out that the ``massif central'' or ``big valley'' structure
 of the fitness landscape is present but only partially: The fitness of the local optima is negatively correlated with 
 the distance to the best found solution, yet the set of local optima can not be encompassed by a ball of relatively small radius. 
 Moreover, we show that in many problem instances, several clusters of local optima can be identified. The symmetries of the fitness
 function are discussed and suggested as the possible cause of the local optima clustering. 
-Finally the perfomance of genetic algorithms is discussed with respect to clusteres of the local optima.
+Finally the performance of genetic algorithms is bfiefly discussed with respect to solutions clustering.
+
 \end{abstract}
 
 \begin{keyword}
@@ -62,13 +63,13 @@ Production line, Unreliable machines, Buffer allocation, Series-parallel network
 Buffer  capacity  allocation  problems  arise  in  a  wide  range  of  flow line manufacturing  systems, 
 such  as  transfer  lines,  flexible  manufacturing  or  robotic  assembly  systems. 
 The parts are accumulated in the intermediate buffers when the machines downstream are less productive than the upstream machines. 
-In this paper, it is assumed that machines can break down and then go through repair. When a breakdown occurs, the corresponding 
-machine is not used in production for a random repair time, and the length of this period is independent of the 
-number of machines under repair. In this paper it is assumed  that there is a sufficient number of raw parts at 
-the input of the system and the completed parts depart 
+It is assumed that machines can break down and then go through repair. When a breakdown occurs, the corresponding 
+machine is not used in production for a random repair time, which  is independent of the total 
+number of machines under repair. We assume  that there is a sufficient number of raw parts at 
+the input buffer and the finished parts depart 
 from the system immediately. One of the key performance measures of a flow-line is 
 the average production rate, i.e., the expected number of parts produced per 
-unit of time in the steady state mode.
+unit of time in the steady state mode. We also consider the inventory cost and the buffers cost.
 
 Evaluation  of the manufacturing flow-line performance for given sizes of buffers is studied 
 by~\cite{Proth84}, \cite{DG92}, \cite{Gershwin1993}, \cite{HPB1993}, \cite{Meerkov2009}, and \cite{TanGer09}. A number of
@@ -82,7 +83,7 @@ using such models by \cite{SmiDas88}, \cite{So97}, \cite{GS}, \cite{Khelil_21}, 
 \subsection{The Buffer Allocation Problem Formulation} \label{bap_formulation}
 
 In this paper, we consider the buffer allocation problem for lines with a series-parallel network. 
-An example of a line, structured as a series-parallel network shown in Fig. ~\ref{lineexample}, where $M_1,…,M_7$ are machines and $B_0,…,B_5$ are buffers.
+An example of a line with a series-parallel network is shown in Fig. ~\ref{lineexample}, where $M_1,…,M_7$ are machines and $B_0,…,B_5$ are buffers.
 
  \begin{figure}[h!]
 	\centering
@@ -102,8 +103,8 @@ It is supposed that machines may break down only when they are working. The time
 and  times  to  repair  for  each  machine  are  assumed  to  be  mutually  independent  and 
 exponentially distributed random values. Let $T_b^i$ denote the average time till failure, and let 
 $\lambda_i=1/T_b^i$ be the failure rate for a machine $i$, $i=1,...,m$, conditioned that this machine is working. Similarly, let $T_r^i$ and $\mu_i=1/T_r^i$  
-denote  respectively  the  time  to  repair  and  the repair rate for machine $i$, conditioned that this machine is under repair. Given the 
-above  mentioned  assumptions,  the  system  has  the  steady  state  mode  (see  e.g. \cite{Seva62}),  and  the performance  of  the  system  in  this  mode  is  important  for 
+denote  respectively  the  time  to  repair  and  the repair rate for machine $i$, conditioned that this machine is under repair. Under our 
+ assumptions,  the  system  has  the  steady  state  mode  (see  e.g. \cite{Seva62}),  and  the performance  of  the  system  in  this  mode  is  important  for 
 applications.
 
 %Let the buffers in the system be denoted by $B_1,…,B_n$ and l
@@ -171,11 +172,11 @@ w.r.t. the problem input size), although it is hard to find the global optimum (
 
 \subsection{``Big Valley'' or ``Massif Central''}\label{subsec:landscapes}
 
-In many combinatorial optimization problems, local optima of the objective function (or fitness)  tend to be clustered in a ``big valley`` (in  the case of minimization problems) or
+In many combinatorial optimization problems, local optima of the objective function (or fitness)  tend to be groupped in a ``big valley`` (in  the case of minimization problems) or
 ``massif central`` (in  the case of maximization problems). This fitness landscape structure has been observed  e.g. in 
-NK-landscapes by~\cite{KL87}, in the traveling salesman problem~(TSP) by~\cite{Boese,Hains}, in the graph bisection by~\cite{Boese}, and 
-flowshop scheduling by~\cite{Reeves99}. More precisely, the ``big valley`` or
-``massif central`` is described by the following two statements (see e.g.~\cite{Boese}):
+NK-landscapes~\citep{KL87}, in the traveling salesman problem~(TSP)~\citep{Boese,Hains}, in the graph bisection~\citep{Boese}, and 
+flowshop scheduling~\citep{Reeves99}. More precisely, the ``big valley`` or
+``massif central`` is described by the following two statements~\citep{Boese}:
 \begin{enumerate}
 \item Values of the objective function in the local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
 of objective function in the local optima with the distance to the global optimum).
@@ -198,8 +199,8 @@ are discussed. The ``massif central'' structure is identified but only in part:
 While the negative correlation between the objective function in local optima and their distance to the global solution is present, yet the 
 concentration of all 
 local optima in a tiny fraction of the search space is not confirmed. The observed structures of fitness landscape appear to be similar 
-to those observed by~\cite{Hains} for the TSP, and in both cases the GA combined with a local search heuristic is able to locate
-the cluster of high quality local optima.
+to those in~\citep{Hains}, and preliminary experiments suggest that  in both cases the GA combined with a local search 
+is able to locate the cluster of high quality local optima.
 
 \section{Investigation of Local Optima Properties} \label{investigation}
 
@@ -383,17 +384,19 @@ the current solution. If an improving feasible solution in terms of the  objecti
 The process continues as long as an improvement can be found.  Starting from any feasible solution, the LSA
 moves iteratively to a local optimum, i.e. a solution that does not have an improving neighbour within the radius~1 in metric $l_1$.
 
-In each run of the local search algorithm LSA, it starts at a randomly generated solution $H$ whose elements $h_i$ are chosen with
+In each run, the local search algorithm starts at a randomly generated solution $H$ whose elements $h_i$ are chosen with the
 uniform distribution between 1 and $d_i$.
 This procedure was repeated 300 times to create the necessary
-sample size (\cite{Boese}). Based on this sample, we calculated the total
+sample size. 
+%(\cite{Boese}). 
+Using on this sample, we calculated the total
 number of admissible solutions $|\Omega |$ in the minimal ball encompassing all the
-local optima found. In our case, the ball was chosen in the metric $l_1$, with the center in the best found local optimum.
+local optima found. In our case, the ball was chosen in the metric $l_1$, centered in the best found local optimum.
 
-In table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $| \Omega |$ for balls containing
+In Table~\ref{spher_as}-\ref{spher_bn} the column $V1$ contains the cardinality $| \Omega |$ for balls containing
 local optima, the column $V2$ contains cardinality of the entire space of feasible
 solutions, and the column $V1/V2$ is the ratio of the two.
-As can be seen from the tables, the second part of the massif central / big valley conjecture was not 
+As can be seen from the tables, the second part of the ``massif central'' / ``big valley'' conjecture was not 
 confimed and in most of the instances under consideration
 the optima are scattered throughout the solution space.
 
@@ -450,11 +453,11 @@ the optima are scattered throughout the solution space.
 	\caption{Results of running a local search multiple times for the series vp7.9 - vp7.10}	\label{spher_vp7}
 \end{table}
 
-The first part of the massif central / big valley conjecture about the correlation $\rho(\varphi(\xi),r(\xi,\xi^*))$ of the value of 
-objective function of local optima $\varphi(\xi)$
-with the distance $r(\xi,\xi^*)$ to a global optimum. 
+The first part of the ``massif central'' / ``big valley'' conjecture is about the correlation $\rho(\varphi(\xi),r(\xi,\xi^*))$ of the value of 
+objective function at local optima $\varphi(\xi)$
+to the distance $r(\xi,\xi^*)$ to a global optimum. 
 Our experiments suggest that there is a negative correlation $\rho$, and all values of the
-correlation are significantly different from 0 with a confidence level of 95\% (tables~\ref{res_korr_as_vp}--\ref{res_korr_bn_vp}).
+correlation are significantly different from 0 with a confidence level of 95\% (Tables~\ref{res_korr_as_vp}--\ref{res_korr_bn_vp}).
 \begin{table}[h!]
 	\vspace{1cm}
 	\centering
@@ -478,7 +481,7 @@ correlation are significantly different from 0 with a confidence level of 95\% (
 		\hline
 	\end{tabular}
 	\vspace{1em}
-	\caption{Results of 300 runs the local search  for the series bn5.1 - bn5.10}	\label{spher_bn}
+	\caption{Results of 300 runs of the local search  for the series bn5.1 - bn5.10}	\label{spher_bn}
 \end{table}
 \begin{table}[h!]
 	\centering
@@ -532,8 +535,7 @@ correlation are significantly different from 0 with a confidence level of 95\% (
 	\caption{Correlation $\rho(\varphi(\xi),r(\xi,\xi^*))$ in series $bn$ and $vp7$}	\label{res_korr_bn_vp}
 \end{table}
 
-An interesting fact is 
-that in problems as.4, bn5.1, the entire set of local optima splits
+It is interesting that in problems as.4, bn5.1, the entire set of local optima splits
 into clusters, and in each of the clusters, the negative correlation~$\rho$ is observed.
 %for each of which a part of the thesis about tendency to
 %deterioration of the value of the objective function of local optima
@@ -561,16 +563,17 @@ it is possible to obtain two solutions with close values of the objective functi
 	\end{center}
 \end{figure} 
 
-Another reason for clustering effect is the property of
+Another reason for clustering effect is the two-machine 
 line symmetry. This property is indicated by~\cite{LP} for a serial line,
 consisting of two machines and a buffer
 between them. If we swap the parameters of the first and the second machines so 
 that the input buffer of the line will become its output, and the output buffer will become the input, then
 line performance will not change.
 
-Consider the example of serial line t.1 of
+Consider an example of a three-machine serial line t.1 
 %{\frac{1}{T^{\rm O}_j} = 2U_j}, {\frac{1}{T^{\rm B}_j}= 4U_j}, {U_j = U_{j+1} }
-three machiness and two buffers between them with the following parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
+%with two intermediate buffers 
+with the parameters: ${T^{\rm O}_i=T^{\rm B}_i=1}$, $i = 1,\ldots,3$;
  ${U_1=1}$, ${U_2=0.5}$ , ${U_3=1}$;
  ${d_j=4}$, ${c_j=0}$, $j = 1,\ldots,2$;
  $T_{am}=7000$;
@@ -588,7 +591,7 @@ first cluster contains solutions $H^1=(1,2)$ and $H^2=(1,3)$, and
 the second is the solutions $H^3=(2,1)$ and $H^4=(3,1)$. Clustering of the optima in
 this example is a consequence of the line symmetry effects
 %and singularities
-in the aggregation algorithm from~\cite{Dolgui93, DF}, which is used to calculate the line performance.
+in the aggregation algorithm from~\cite{Dolgui93, DF}, which is used to evaluate the line.
 
 In the general case, for lines with $n\geq 3$ buffers, the effect of
 symmetry can be observed in several internal areas of a
@@ -597,38 +600,43 @@ set of local optima may be divided into several clusters.
 
 %If a buffer allocation problem has local optima with different values of objective 
 %function, then it can become difficult for local search algorithm.
-A sequence of points generated by an algorithm, based on the local search principles, after falling into one of the clusters, usually
- remains in the cluster until the end of the calculations. For example, for a tabu-search algorithm, transition between clusters is unlikely, which also makes
-such tasks difficult for it. 
+After falling into one of the clusters, a sequence of points generated by an algorithm, based on the local search principles,  usually
+ remains in the cluster until the end of the calculations. For example, for a tabu-search algorithm, transition between clusters is unlikely, 
+ which also makes such instances difficult for it. 
 %Best performance for
 %considered problems, compared with the other two algorithms,
 %showed the 
-The GA with local optimization heuristic from~\cite{sHBBA2007} is one of the most efficient algorithms for this problem. 
-As experiments have shown, the population of the pure GA contains individuals that correspond to solutions from different clusters. 
-Usage of selection, crossover and mutation operators allows maintaining the diversity of population.
-There is a competition between different clusters for their representation in the population at each step of a GA.
+The GA with local optimization heuristic from~\cite{sHBBA2007} turned out to be more efficient than the Tabu Search. 
+As experiments have shown, the population of the pure GA, and that of the GA with local search, contain individuals from different clusters,
+%Usage of selection, crossover and mutation operators allows maintaining the diversity of population.
+although there is a competition between different clusters for representation in the population.
 
  \begin{figure}[h!]
 %	\centering
 	\includegraphics[scale=0.5]{ga_klaster}
-  \caption{Final population of GA on instance as.4} \label{fig:ga_klaster}
+  \caption{Final population of the pure GA on instance as.4} \label{fig:ga_klaster}
   \end{figure}
  \begin{figure}[h!]
 \centering
-	\hspace{1.6em} \includegraphics[scale=0.5]{gals_klaster}
+ \includegraphics[scale=0.48]{gals_klaster}
 %	\centering
 %	\hspace{1.6em} \includegraphics[width=5.3cm, height=3.5cm]{gals_klaster}
   \caption{Final population of the GA with local optimization heuristic on instance as.4 \label{fig:gals_klaster} 
-  (note that the scale of both axes is different from 
-  Figs~\ref{fig:multistart_klaster} and \ref{fig:ga_klaster})}
+  (note that here the scale of both axes is different from 
+  that in Figures~\ref{fig:multistart_klaster} and \ref{fig:ga_klaster})}
   \end{figure}
 
 Problem as4 can serve as an illustrative example. Fig.~\ref{fig:multistart_klaster} shows the structure 
-of the set of local optima obtained by multistart  of the local search. 
+of the set of local optima obtained by the multistart  of the local search. 
 Figures~\ref{fig:ga_klaster} and~\ref{fig:gals_klaster} show the final populations of the pure GA and the GA 
-with local optimization heuristic, where the multi-cluster structure of the final population is visible. 
-Figure~\ref{fig:gals_klaster} shows the impact of the local heuristic in the GA: with this heuristic only the best individuals 
-of the top four clusters from Fig.~\ref{fig:ga_klaster} are present.
+with local optimization heuristic. Multiple clusters are clearly present in both cases. 
+%Figure~\ref{fig:gals_klaster} shows the impact of the local heuristic in the GA: with this heuristic only the best individuals 
+%of the top four clusters from Fig.~\ref{fig:ga_klaster} are present.
+%We conjecture that if knowledge about problem symmetries  is built into the GA operators, can improve the GA performance
+%the same way as the non-degenerate encodings of solutions~\citep{ReevesDai}. 
+Excluding the equivalent solutions in view of the problem symmetries may reduce the number of clusters in the GA population.
+This has the same effect as the usage of non-degenerate solution encodings~\citep{ReevesDai} and may 
+be the subject for further research. 
 
 %\section{Conclusion}
 %

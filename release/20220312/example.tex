@@ -91,20 +91,20 @@ An example of a line with a series-parallel network is shown in Fig. ~\ref{linee
   \caption{Example of a line with a series-parallel network\label{lineexample}}
   \end{figure}
 
-We assume that a machine can be in an operational state or under 
-repair. An operational machine may be blocked and temporarily stopped in case if there 
-is  no  room  in  the  downstream  buffer.  It  may  also  be  starved  if  there  are  no  parts  to 
-process  in  the  upstream  buffer. Otherwise operational machines are working. In what 
-follows, $m$ is the number of machines in a production line. A working machine $i$, 
-$i=1,…,m$, is assumed to have a constant cycle time $C_i$ and, its average production 
-rate $u_i=1/C_i$. 
+We assume that a machine can be either operational or under 
+repair. An operational machine may be {\em blocked} in case the  downstream  buffer is full.  
+It  may  also  be  {\em starved}  if  there  are  no  parts in  the  upstream  buffer. Otherwise operational machines are working. In what 
+follows, $m$ denotes the number of machines in the system. A working machine $i$, 
+$i=1,\dots,m$, is assumed to have a constant cycle time $C_i$, so its average production 
+rate is $u_i=1/C_i$. 
 
-It is supposed that machines may break down only when they are working. The times to fail 
-and  times  to  repair  for  each  machine  are  assumed  to  be  mutually  independent  and 
-exponentially distributed random values. Let $T_b^i$ denote the average time till failure, and let 
-$\lambda_i=1/T_b^i$ be the failure rate for a machine $i$, $i=1,...,m$, conditioned that this machine is working. Similarly, let $T_r^i$ and $\mu_i=1/T_r^i$  
-denote  respectively  the  time  to  repair  and  the repair rate for machine $i$, conditioned that this machine is under repair. Under our 
- assumptions,  the  system  has  the  steady  state  mode  (see  e.g. \cite{Seva62}),  and  the performance  of  the  system  in  this  mode  is  important  for 
+It is supposed that machines may break down only when they are working. The time to fail 
+and  time  to  repair  for  each  machine  are  assumed  to  be  
+random values with exponential distributions. Let $T_b^i$ denote the average time till failure, and let 
+$\lambda_i=1/T_b^i$ be the failure rate for a machine $i$, $i=1,...,m$, if this machine is working. Similarly, let $T_r^i$ and $\mu_i=1/T_r^i$  
+denote  respectively  the  time  to  repair  and  the repair rate for machine $i$, conditioned that this machine is under repair. Given our 
+ assumptions,  the  system  has  the  steady  state  mode  (see  e.g. \cite{Seva62}).  The performance  of  the  system  in  this  mode  is  
+ the most important  for 
 applications.
 
 %Let the buffers in the system be denoted by $B_1,…,B_n$ and l

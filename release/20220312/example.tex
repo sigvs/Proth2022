@@ -180,7 +180,7 @@ of objective function in the local optima with the distance to the global optimu
 the whole search space by several orders of magnitude).
 \end{enumerate}
 The presence of such structure partly explains good performance of genetic
-algorithms~(GAs). If different local optima are found in the population of a GA and
+algorithms~(GAs). If different local optima are found in the GA population and
 the new solution is built by means of a crossover operator, 
 then the intuition suggests that such algorithm should have good chances to find the
 global optimum. This is supported by the theoretical analysis in the case of the Jump benchmark of~\cite{bib:Dang2016a}, and
@@ -630,9 +630,12 @@ with local optimization heuristic. Multiple clusters are clearly present in both
 %of the top four clusters from Fig.~\ref{fig:ga_klaster} are present.
 %We conjecture that if knowledge about problem symmetries  is built into the GA operators, can improve the GA performance
 %the same way as the non-degenerate encodings of solutions~\citep{ReevesDai}. 
-Excluding the equivalent solutions in view of the problem symmetries may reduce the number of clusters in the GA population.
-This has the same effect as the usage of non-degenerate solution encodings~\citep{ReevesDai} and may 
-be the subject for further research. 
+
+We expect that the GA could be further improved if each pair of parent solutions were chosen from the same cluster (then the crossover
+could have a similar effect as e.g. in~\cite{bib:Dang2016a}). Excluding the equivalent solutions in view of the problem symmetries may 
+reduce the number of clusters in the GA population.
+This should have the same effect as the usage of non-degenerate solution encodings~\citep{ReevesDai} and may 
+be the subject for further research as well. 
 
 %\section{Conclusion}
 %

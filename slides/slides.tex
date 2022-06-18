@@ -48,11 +48,21 @@
 %------------------------------------------------
 
 \begin{frame}{Buffer Allocation Problem}
+\vspace{-0.5cm}	
+\begin{columns}
+ \column{.65\textwidth}
     \begin{figure}
-    \vspace{-0.5cm}
-    \includegraphics[width=0.5\linewidth]{LineSchems}
-    \vspace{-0.3cm}
+    \includegraphics[scale=0.9]{LineSchems}
     \end{figure}
+ \column{.45\textwidth}    
+	Parameters of machine $M_i$:
+     \begin{itemize}
+	\item $\lambda_i$ is the failure rate;
+	\item $\mu_i$ is  the repair rate;
+	\item $u_i$ is the average production rate.
+    \end{itemize}
+\end{columns}    
+\vspace{0.5cm}	
     \begin{itemize}
 	\item Machines may break down only when they are working.
 	\item The time to failure and time to repair for each machine are mutually independent and exponentially distributed.
@@ -75,6 +85,9 @@
 	(Dallery Y., David R., Xie X., 1988)\\
 	(Dolgui \& Svirin, 1992)\\
     \end{itemize}
+    \begin{figure}
+    \includegraphics[scale=0.8]{alg_line}
+    \end{figure}
 \end{frame}
 
 %------------------------------------------------
@@ -136,6 +149,7 @@ VP & 4 & 5 \\
 \begin{enumerate}
 \item Values of the objective function in the local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
 of objective function in the local optima with the distance to the global optimum).
+\vspace{0.5cm}	
 \item Local optima are located relatively close both to each other and to the global optimum (they are located in a ball, which is smaller than 
 the whole search space by several orders of magnitude).
 \end{enumerate}

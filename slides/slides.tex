@@ -94,7 +94,6 @@
 
 \begin{frame}{Optimization criterion}
 \begin{equation}
-\label{criteria}
 \max \varphi(H)=T_{am} R(V(H)) - Q(H) - J(H),
 \end{equation}
 where 
@@ -106,6 +105,9 @@ where
 \item $d_j$ maximal admissible capacity of buffer $B_j$;
 \item $Q(H)= c_1q_1(H)+ …+c_n q_n(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $b_j$, for $j=1,…,n$.
 \end{itemize}
+    \begin{block}{NP~hard}
+       The buffer allocation problem is known to be NP~hard as shown by Dolgui et al. (2013, 2018)
+    \end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -146,13 +148,12 @@ VP & 4 & 5 \\
 %------------------------------------------------
 
 \begin{frame}{Alghoritms}
-\begin{enumerate}
-\item Values of the objective function in the local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
-of objective function in the local optima with the distance to the global optimum).
-\vspace{0.5cm}	
-\item Local optima are located relatively close both to each other and to the global optimum (they are located in a ball, which is smaller than 
-the whole search space by several orders of magnitude).
-\end{enumerate}
+\begin{itemize}
+\item \textbf{Local search algorithm (LSA)}. At each iteration, the LSA searches through the neighborhood around the current solution.
+\item \textbf{Tabu-search algorithm (TS)} is a metaheuristic search method employing LSA and tabu list.
+\item \textbf{Genetic algorithm (GA)} is a metaheuristic that is based on natural selection, the process that drives biological evolution.
+\item \textbf{Genetic algorithm with LSA (GA+LSA)} is GA which improved by using LSA on some iterations.
+\end{itemize}
 \end{frame}
 
 %------------------------------------------------

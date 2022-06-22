@@ -99,15 +99,15 @@
 \end{equation}
 where 
 \begin{itemize}
-\item $T_{am}$  amortization time of the line (line life); 
-\item $V(H)$  average production rate (steady state throughput); 
-\item $R(V)$  revenue related to the production rate $V$; 
-\item $J(H)$ cost of buffer configuration H; 
-\item $d_j$ maximal admissible capacity of buffer $B_j$;
-\item $Q(H)= c_1q_1(H)+ …+c_n q_n(H)$ average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $b_j$, for $j=1,…,n$.
+\item $T_{am}$  is the amortization time of the line (line life); 
+\item $V(H)$ is the average production rate (steady state throughput); 
+\item $R(V)$  is the revenue related to the production rate $V$; 
+\item $J(H)$ is the cost of buffer configuration $H$; 
+\item $d_j$ is the maximal admissible capacity of buffer $B_j$;
+\item $Q(H)= c_1q_1(H)+ …+c_n q_n(H)$ is the average steady state inventory cost, where $q_j(H)$ is the average steady state number of parts in buffer $b_j$, for $j=1,…,n$.
 \end{itemize}
     \begin{block}{NP~hard}
-       The buffer allocation problem is known to be NP~hard as shown by Dolgui et al. (2013, 2018)
+       The buffer allocation problem is known to be NP~hard as shown by Dolgui et al. (2013)
     \end{block}
 \end{frame}
 
@@ -158,10 +158,11 @@ VP & 4 & 5 \\
 \end{frame}
 
 %------------------------------------------------
-\section{Hypothesis ''Big Valley'' or ''Massif Central''}
+\section{''Big Valley'' or ''Massif Central''}
 %------------------------------------------------
 
-\begin{frame}{Hypothesis ''Big Valley'' or ''Massif Central''}
+\begin{frame}{Hypothesis ''Big Valley'' or ''Massif Central''  (Boese et al.
+1993)}
 \begin{enumerate}
 \item Values of the objective function in the local optima tend to deteriorate with increasing distance to the global optimum (i.e. there is a correlation 
 of objective function in the local optima with the distance to the global optimum).
@@ -169,11 +170,19 @@ of objective function in the local optima with the distance to the global optimu
 \item Local optima are located relatively close both to each other and to the global optimum (they are located in a ball, which is smaller than 
 the whole search space by several orders of magnitude).
 \end{enumerate}
+
+{\bf Let }
+\begin{itemize}
+\item $V1$ be the cardinality of the intersection of feasible solutions with the ball (in the norm~$\ell_1$) containing
+all local optima, and 
+\item $V2$ denote the cardinality of the entire set of feasible
+solutions.
+\end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}{Results $V1/V2$ for all series}
+\begin{frame}{Ratio $V1/V2$ for all series}
     \begin{figure}
     \includegraphics[scale=0.6]{volume}
     \end{figure}
@@ -181,7 +190,7 @@ the whole search space by several orders of magnitude).
 
 %------------------------------------------------
 
-\begin{frame}{Results $-\rho(r(\xi, \xi*),\varphi(\xi))$ for all series}
+\begin{frame}{Negated correlation $-\rho(r(\xi, \xi*),\varphi(\xi))$ for all series}
     \begin{figure}
     \includegraphics[scale=0.8]{ro}
     \end{figure}
@@ -244,10 +253,10 @@ line performance will not change.
 \end{frame}
 
 %------------------------------------------------
-\section{Future researches}
+\section{Future research}
 %------------------------------------------------
 
-\begin{frame}{Future researches}
+\begin{frame}{Future research}
         \begin{block}{Improving GA}
 The GA could be further improved if each pair of parent solutions were chosen from the same cluster (then the crossover could have a similar effect as e.g. in Dang et al. (2016)).
     \end{block}

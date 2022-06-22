@@ -148,18 +148,33 @@ VP & 4 & 5 \\
 \section{Alghoritms}
 %------------------------------------------------
 
-\begin{frame}{Alghoritms}
+\begin{frame}{Local search algorithms}
 \begin{itemize}
-\item \textbf{Local search algorithm (LSA)}. At each iteration, the LSA searches through the neighborhood around the current solution.
-\item \textbf{Tabu-search algorithm (TS)} is a metaheuristic search method employing LSA and tabu list.
-\item \textbf{Genetic algorithm (GA)} is a metaheuristic that is based on natural selection, the process that drives biological evolution.
-\item \textbf{Genetic algorithm with LSA (GA+LSA)} is GA which improved by using LSA on some iterations.
+\item \textbf{Local search algorithm (LSA)}. At each iteration, the LSA searches through the neighborhood of radius 1 in metric $l_1$ around
+the current solution. If an improving feasible solution in terms of the  objective function is found in the neighborhood, then it becomes the new current solution.
+\vspace{1cm}
+\item \textbf{Tabu-search algorithm (TS)} is a metaheuristic search method  that uses local search procedure and rejects moves to points already visited in the search space by means of the so-called tabu list.
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
+<<<<<<< HEAD
 \section{''Big Valley'' or ''Massif Central''}
+=======
+
+\begin{frame}{Genetic algorithms}
+    \begin{figure}
+    \includegraphics[scale=0.4]{schGA}
+    \end{figure}
+\begin{itemize}
+\item \textbf{Genetic algorithm (pure GA)} is a metaheuristic that is based on natural selection, the process that drives biological evolution.
+\item \textbf{Genetic algorithm with LSA (GA)} is pure GA which improved by using LSA after mutation.
+\end{itemize}
+    
+\end{frame}
+
 %------------------------------------------------
+\section{Hypothesis ''Big Valley'' or ''Massif Central''}
 
 \begin{frame}{Hypothesis ''Big Valley'' or ''Massif Central''  (Boese et al.
 1993)}
